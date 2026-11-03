@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "audio": "node scripts/make-audio.mjs",
+    "audio": "bash scripts/mix-audio.sh",
     "studio": "remotion studio",
-    "preview": "node scripts/make-audio.mjs && remotion render src/index.ts Perasmian out/preview.mp4 --browser-executable=/opt/pw-browsers/chromium --crf=20"
+    "preview": "bash scripts/mix-audio.sh && remotion render src/index.ts Perasmian out/preview.mp4 --browser-executable=/opt/pw-browsers/chromium --crf=20"
   },
   "dependencies": {
     "@remotion/cli": "4.0.250",

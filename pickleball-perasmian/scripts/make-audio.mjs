@@ -2,6 +2,7 @@
 // Cue masa dibaca daripada src/timing.json — sama seperti visual.
 import fs from 'node:fs';
 const T = JSON.parse(fs.readFileSync(new URL('../src/timing.json', import.meta.url)));
+const SFX_ONLY = process.argv.includes('--sfx-only');
 const SR = 44100, N = Math.floor(T.total * SR);
 const L = new Float32Array(N), R = new Float32Array(N);
 const beat = 60 / T.bpm;
@@ -57,7 +58,7 @@ const END = byId('penutup').start, INFO = byId('tarikh').start, THANKS = byId('t
 const intensity = t => t < 3.5 ? 0.3 : t < 12 ? 0.65 : t < THANKS ? 0.9 : t < END ? 0.7 : 0.55;
 
 // Lapisan berterusan ikut bar
-for (let bar = 0; bar * 4 * beat < T.total; bar++) {
+for (let bar = 0; !SFX_ONLY && bar * 4 * beat < T.total; bar++) {
   const t0 = bar * 4 * beat, ch = bar % 4, I = intensity(t0);
   if (t0 >= 3.5 - 1e-6 || t0 < 3.5) pad(t0, chords[ch], 4 * beat, I * 0.9);
   for (let b = 0; b < 4; b++) {
@@ -75,7 +76,7 @@ for (let bar = 0; bar * 4 * beat < T.total; bar++) {
 // Cue sync dengan visual
 T.scenes.forEach((s, i) => {
   if (s.type === 'team' || s.type === 'sponsor') {
-    if (s.type === 'sponsor') pluck(s.start + 0.02, [76, 79, 81, 84][+s.id.slice(2)] + 12, 1.0); whoosh(s.start - 0.12, 0.16, 0.45); pop(s.start + 0.02, 0.9); click(s.start + s.cues[1], 0.8); click(s.start + s.cues[2], 0.6); return; }
+    if (s.type === 'sponsor' && !SFX_ONLY) pluck(s.start + 0.02, [76, 79, 81, 84][+s.id.slice(2)] + 12, 1.0); whoosh(s.start - 0.12, 0.16, 0.45); pop(s.start + 0.02, 0.9); click(s.start + s.cues[1], 0.8); click(s.start + s.cues[2], 0.6); return; }
   if (i > 0) { whoosh(s.start - 0.25, 0.3, 0.8); impact(s.start, 0.8); }
   else { impact(0.02, 0.9); }
   s.cues.forEach((c, j) => { if (j > 0 || i === 0) click(s.start + c, 0.9); if (j === 0 && i > 0) pop(s.start + c + 0.05, 0.7); });
@@ -86,8 +87,10 @@ riser(END - 1.0, 1.0, 0.5);
 // Grid pasukan: pop berturut
 for (let k = 0; k < 10; k++) pop(byId('grid').start + 0.4 + k * 0.07, 0.5);
 // Penutup: chord panjang + kilauan
-pad(END, [57, 60, 64, 69], 4, 1.1);
-[72, 76, 79, 84].forEach((m, i) => pluck(END + 0.15 * i, m, 1.1));
+if (!SFX_ONLY) {
+  pad(END, [57, 60, 64, 69], 4, 1.1);
+  [72, 76, 79, 84].forEach((m, i) => pluck(END + 0.15 * i, m, 1.1));
+}
 // Fade, normalisasi lembut dan limiter
 for (let i = 0; i < N; i++) { const x = i / SR; const f = Math.min(1, (T.total - x) / 1.2); L[i] *= f; R[i] *= f; }
 let pk = 0; for (let i = 0; i < N; i++) pk = Math.max(pk, Math.abs(L[i]), Math.abs(R[i]));
@@ -100,5 +103,6 @@ for (let i = 0; i < N; i++) {
   buf.writeInt16LE(Math.round(Math.tanh(L[i] * g) * 32000), 44 + i * 4);
   buf.writeInt16LE(Math.round(Math.tanh(R[i] * g) * 32000), 46 + i * 4);
 }
-fs.writeFileSync(new URL('../public/soundtrack.wav', import.meta.url), buf);
-console.log('soundtrack.wav ditulis, pre-limiter peak', pk.toFixed(2));
+const outName = SFX_ONLY ? 'sfx.wav' : 'soundtrack.wav';
+fs.writeFileSync(new URL(`../${SFX_ONLY ? 'source/audio' : 'public'}/${outName}`, import.meta.url), buf);
+console.log(outName + ' ditulis, pre-limiter peak', pk.toFixed(2));
