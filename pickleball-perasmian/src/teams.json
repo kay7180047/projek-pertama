@@ -1,0 +1,72 @@
+[
+ {
+  "key": "mbkflux",
+  "l1": "MBK",
+  "l2": "Pickle Flux",
+  "accent": "#d6ff3d",
+  "bg": "#010103"
+ },
+ {
+  "key": "supa",
+  "l1": "SUPA",
+  "l2": "Warriors",
+  "accent": "#d8c24a",
+  "bg": "#1a1a11"
+ },
+ {
+  "key": "elephant",
+  "l1": "Elephant",
+  "l2": "Warrior",
+  "accent": "#ffc61a",
+  "bg": "#000000"
+ },
+ {
+  "key": "thunder",
+  "l1": "IM",
+  "l2": "Thunderbolts",
+  "accent": "#ffd21f",
+  "bg": "#000000"
+ },
+ {
+  "key": "pknp",
+  "l1": "Pickle NP",
+  "l2": "PKNP",
+  "accent": "#2fc4e8",
+  "bg": "#000000"
+ },
+ {
+  "key": "pasfa",
+  "l1": "PASFA",
+  "l2": "Pickle",
+  "accent": "#4ee06a",
+  "bg": "#a41424"
+ },
+ {
+  "key": "pnpp",
+  "l1": "PNPP",
+  "l2": "Pickleball",
+  "accent": "#ffd21f",
+  "bg": "#f1f1f1"
+ },
+ {
+  "key": "pkpp",
+  "l1": "PKPP",
+  "l2": "Pickleball Club",
+  "accent": "#c58bff",
+  "bg": "#0f091b"
+ },
+ {
+  "key": "iium",
+  "l1": "IIUM",
+  "l2": "Kuantan",
+  "accent": "#27c9b8",
+  "bg": "#f6f6f6"
+ },
+ {
+  "key": "waterblast",
+  "l1": "PAIP",
+  "l2": "Waterblast",
+  "accent": "#3da8ff",
+  "bg": "#171932"
+ }
+]

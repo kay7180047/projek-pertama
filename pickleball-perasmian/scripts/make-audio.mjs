@@ -52,8 +52,9 @@ function impact(t, g = 1) { kick(t, 1.2 * g); const len = 1.2 * SR; let lp = 0;
 // Progresi Am - F - C - G (1 bar = 4 beat)
 const chords = [[57, 60, 64], [53, 57, 60], [48, 55, 64], [55, 59, 62]];
 const roots = [33, 29, 36, 31];
-const sceneStart = i => T.scenes[i].start;
-const intensity = t => t < 3.5 ? 0.3 : t < 12 ? 0.65 : t < 22 ? 0.9 : 0.55;
+const byId = id => T.scenes.find(x => x.id === id);
+const END = byId('penutup').start, INFO = byId('tarikh').start, TEAMS = byId('team0').start;
+const intensity = t => t < 3.5 ? 0.3 : t < 12 ? 0.65 : t < END ? 0.9 : 0.55;
 
 // Lapisan berterusan ikut bar
 for (let bar = 0; bar * 4 * beat < T.total; bar++) {
@@ -62,7 +63,7 @@ for (let bar = 0; bar * 4 * beat < T.total; bar++) {
   for (let b = 0; b < 4; b++) {
     const t = t0 + b * beat;
     if (t >= T.total - 0.01) break;
-    const ending = t >= 22.0;
+    const ending = t >= END;
     if (t >= 3.5 && !ending) kick(t, 0.9 * I);
     if (t < 3.5) { if (b % 2 === 0 && t >= 1) kick(t, 0.5); }
     if (t >= 6.5 && !ending) { hat(t + beat / 2, I); if (b % 2 === 1) clap(t, I * 0.8); }
@@ -73,15 +74,19 @@ for (let bar = 0; bar * 4 * beat < T.total; bar++) {
 }
 // Cue sync dengan visual
 T.scenes.forEach((s, i) => {
+  if (s.type === 'team') { whoosh(s.start - 0.12, 0.16, 0.45); pop(s.start + 0.02, 0.9); click(s.start + s.cues[1], 0.8); click(s.start + s.cues[2], 0.6); return; }
   if (i > 0) { whoosh(s.start - 0.25, 0.3, 0.8); impact(s.start, 0.8); }
   else { impact(0.02, 0.9); }
   s.cues.forEach((c, j) => { if (j > 0 || i === 0) click(s.start + c, 0.9); if (j === 0 && i > 0) pop(s.start + c + 0.05, 0.7); });
 });
-riser(sceneStart(5) - 2, 2, 0.6);  // naik ke info penting
-riser(21.0, 1.0, 0.5);
+riser(TEAMS - 1.5, 1.5, 0.6);   // naik ke roll-call pasukan
+riser(INFO - 2, 2, 0.6);  // naik ke info penting
+riser(END - 1.0, 1.0, 0.5);
+// Grid pasukan: pop berturut
+for (let k = 0; k < 10; k++) pop(byId('grid').start + 0.4 + k * 0.07, 0.5);
 // Penutup: chord panjang + kilauan
-pad(22.0, [57, 60, 64, 69], 4, 1.1);
-[72, 76, 79, 84].forEach((m, i) => pluck(22.0 + 0.15 * i, m, 1.1));
+pad(END, [57, 60, 64, 69], 4, 1.1);
+[72, 76, 79, 84].forEach((m, i) => pluck(END + 0.15 * i, m, 1.1));
 // Fade, normalisasi lembut dan limiter
 for (let i = 0; i < N; i++) { const x = i / SR; const f = Math.min(1, (T.total - x) / 1.2); L[i] *= f; R[i] *= f; }
 let pk = 0; for (let i = 0; i < N; i++) pk = Math.max(pk, Math.abs(L[i]), Math.abs(R[i]));
