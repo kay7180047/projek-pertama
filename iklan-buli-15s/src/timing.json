@@ -1,0 +1,20 @@
+{
+  "fps": 30,
+  "duration": 450,
+  "bpm": 120,
+  "boundaries": [90, 180, 285, 375],
+  "f": {
+    "anak": 3, "balik": 9, "sekolah": 15, "jadi": 28, "senyap": 36,
+    "penat": 96, "atau": 118, "dibuli": 134,
+    "tandaHead": 186, "card1": 202, "card2": 226, "card3": 250,
+    "cobaHead": 291, "bubbleP": 300, "typeStart": 304, "typeEnd": 330, "dots": 338, "bubbleC": 356,
+    "dengar": 381, "jangan": 402, "cta": 420
+  },
+  "sfx": [
+    ["pop", "anak"], ["pop", "balik"], ["pop", "sekolah"], ["pop", "jadi"], ["impact", "senyap"],
+    ["whoosh", 82], ["pop", "penat"], ["pop", "atau"], ["riser", 108], ["impact", "dibuli"],
+    ["whoosh", 172], ["pop", "tandaHead"], ["pop", "card1"], ["pop", "card2"], ["pop", "card3"],
+    ["whoosh", 277], ["pop", "cobaHead"], ["pop", "bubbleP"], ["pop", "dots"], ["pop", "bubbleC"],
+    ["whoosh", 367], ["impact", "dengar"], ["pop", "jangan"], ["chime", "cta"]
+  ]
+}
