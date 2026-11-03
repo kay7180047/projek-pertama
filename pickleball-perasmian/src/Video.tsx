@@ -10,33 +10,6 @@ const FONT = 'Inter, "Inter Display", sans-serif';
 const ease = Easing.bezier(0.2, 0.8, 0.2, 1);
 const prog = (f: number, cue: number, dur = 13) => interpolate(f, [cue * FPS, cue * FPS + dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease});
 
-// Grafik vektor raket + bola (pengganti sementara untuk foto model pemain)
-const Art: React.FC<{variant: 'red' | 'blue'}> = ({variant}) => {
-  const col = variant === 'red' ? C.red : C.blue;
-  const rot = variant === 'red' ? -32 : 32;
-  const holes = [[0,-26],[24,-12],[24,14],[0,28],[-24,14],[-24,-12],[0,0]];
-  return (
-    <svg viewBox="0 0 400 400" style={{width: '100%', height: '100%', display: 'block'}}>
-      <defs>
-        <radialGradient id={`g-${variant}`} cx="50%" cy="45%" r="70%"><stop offset="0%" stopColor={col} stopOpacity=".55" /><stop offset="100%" stopColor="#080c1f" /></radialGradient>
-        <radialGradient id="ballg" cx="35%" cy="30%" r="75%"><stop offset="0%" stopColor="#f4ff8a" /><stop offset="100%" stopColor="#b9e600" /></radialGradient>
-      </defs>
-      <rect width="400" height="400" fill={`url(#g-${variant})`} />
-      {[0, 1, 2, 3, 4].map((i) => <line key={i} x1={-50 + i * 110} y1="420" x2={100 + i * 60} y2="-20" stroke="#fff" strokeOpacity=".07" strokeWidth="3" />)}
-      <g transform={`translate(200 215) rotate(${rot})`}>
-        <rect x="-18" y="70" width="36" height="120" rx="12" fill="#1b1f33" stroke={col} strokeWidth="5" />
-        <rect x="-95" y="-150" width="190" height="240" rx="78" fill="#10142a" stroke={col} strokeWidth="9" />
-        <rect x="-80" y="-135" width="160" height="210" rx="66" fill="none" stroke="#fff" strokeOpacity=".25" strokeWidth="3" />
-      </g>
-      <g transform={`translate(${variant === 'red' ? 292 : 108} 112)`}>
-        <circle r="52" fill="url(#ballg)" stroke="#0b0f1f" strokeWidth="3" />
-        {holes.map(([x, y], i) => <circle key={i} cx={x} cy={y} r="6" fill="#0b0f1f" opacity=".75" />)}
-      </g>
-    </svg>
-  );
-};
-const isArt = (src: string) => src.startsWith('art-');
-
 // Satu baris teks dengan mask (naik dari bawah). Saiz dikira supaya muat dalam 920px.
 const Line: React.FC<{text: string; cue: number; size: number; color?: string; weight?: number; track?: number; align?: 'center' | 'left'; maxW?: number; dur?: number}> =
   ({text, cue, size, color = C.text, weight = 900, track = -0.02, align = 'center', maxW = 920, dur = 13}) => {
@@ -60,7 +33,8 @@ const Card: React.FC<{src: string; x: number; y: number; w: number; h: number; z
     return (
       <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: 36, overflow: 'hidden', background: bg,
         border: `3px solid ${C.accent}`, boxShadow: '0 0 60px rgba(61,168,255,.35)', transform: `translateY(${(1 - p) * 70}px) scale(${0.94 + 0.06 * p})`, opacity: p}}>
-        {isArt(src) ? <div style={{width: '100%', height: '100%', transform: `scale(${z})`}}><Art variant={src === 'art-red' ? 'red' : 'blue'} /></div> : <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: fit, objectPosition: pos, transform: `scale(${z})`, transformOrigin: pos}} />}
+        <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: fit, objectPosition: pos, transform: `scale(${z})`, transformOrigin: pos}} />
+      <div style={{position: 'absolute', right: 18, bottom: 14, fontFamily: FONT, fontWeight: 600, fontSize: 22, color: 'rgba(255,255,255,.85)', textShadow: '0 1px 6px rgba(0,0,0,.9)'}}>Foto: MZ Photography</div>
       </div>
     );
   };
@@ -70,7 +44,7 @@ const Backdrop: React.FC<{src: string; dur: number}> = ({src, dur}) => {
   const z = interpolate(f, [0, dur * FPS], [1.25, 1.4]);
   return (
     <AbsoluteFill style={{background: C.bg}}>
-      {isArt(src) ? <AbsoluteFill style={{background: `radial-gradient(circle at 50% 35%, ${src === 'art-red' ? C.red : C.blue}66 0%, #080c1f 70%)`}} /> : <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(36px) brightness(.38) saturate(1.3)', transform: `scale(${z})`}} />}
+      <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(36px) brightness(.38) saturate(1.3)', transform: `scale(${z})`}} />
       <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(8,12,31,.2) 0%, rgba(8,12,31,.55) 55%, rgba(8,12,31,.9) 100%)'}} />
     </AbsoluteFill>
   );
@@ -96,8 +70,8 @@ const Hook: React.FC<SceneProps> = ({dur, cues}) => {
   const z = interpolate(f, [0, dur * FPS], [1.0, 1.18]);
   return (
     <AbsoluteFill style={{background: C.bg}}>
-      <Backdrop src="art-blue" dur={dur} />
-      <Card src="art-blue" x={120} y={110} w={840} h={920} zoom={[1.0, 1.1]} pos="60% 35%" dur={dur} />
+      <Backdrop src="pl1" dur={dur} />
+      <Card src="pl1" x={120} y={110} w={840} h={920} zoom={[1.0, 1.1]} pos="58% 30%" dur={dur} />
       <Stack top={1090}>
         <Line text="Piala" cue={cues[0]} size={120} color={C.accent} />
         <Line text="Datuk Bandar" cue={cues[1]} size={190} />
@@ -135,8 +109,8 @@ const Rasmi: React.FC<SceneProps> = ({dur, cues}) => (
 
 const Vip: React.FC<SceneProps> = ({dur, cues}) => (
   <AbsoluteFill>
-    <Backdrop src="art-red" dur={dur} />
-    <Card src="art-red" x={190} y={190} w={700} h={780} zoom={[1.0, 1.12]} pos="40% 30%" dur={dur} />
+    <Backdrop src="pl3" dur={dur} />
+    <Card src="pl3" x={190} y={190} w={700} h={780} zoom={[1.0, 1.12]} pos="60% 40%" dur={dur} />
     <Stack top={1050} gap={10}>
       <Tag text="Turut dihadiri" cue={cues[0]} />
       <div style={{height: 10}} />
@@ -148,9 +122,8 @@ const Vip: React.FC<SceneProps> = ({dur, cues}) => (
 
 const Pasukan: React.FC<SceneProps> = ({dur, cues}) => (
   <AbsoluteFill>
-    <Backdrop src="art-red" dur={dur} />
-    <Card src="art-red" x={60} y={210} w={470} h={700} zoom={[1.0, 1.12]} pos="40% 30%" dur={dur} />
-    <Card src="art-blue" x={550} y={210} w={470} h={700} zoom={[1.12, 1.0]} pos="60% 30%" dur={dur} />
+    <Backdrop src="pl2" dur={dur} />
+    <Card src="pl2" x={60} y={210} w={960} h={700} zoom={[1.0, 1.1]} pos="50% 40%" dur={dur} />
     <Stack top={1010} gap={10}>
       <Tag text="Selamat bertanding" cue={cues[0]} />
       <div style={{height: 10}} />
@@ -378,8 +351,8 @@ export const Video: React.FC = () => {
       case 'vip': return <Vip {...props} />;
       case 'pasukan': return <Pasukan {...props} />;
       case 'grid': return <Grid {...props} />;
-      case 'tarikh': return <Info {...props} bg="art-red" pos="30% 30%" label="Tarikh" big="4 Nov" sub="2026" sub2="Rabu" />;
-      case 'masa': return <Info {...props} bg="art-blue" pos="60% 30%" label="Masa" big="8.30" sub="Malam" />;
+      case 'tarikh': return <Info {...props} bg="pl1" pos="50% 20%" label="Tarikh" big="4 Nov" sub="2026" sub2="Rabu" />;
+      case 'masa': return <Info {...props} bg="pl2" pos="45% 35%" label="Masa" big="8.30" sub="Malam" />;
       case 'lokasi': return <Info {...props} bg="ball" pos="55% 45%" label="Lokasi" big="TPX" sub="The Pickle Exchange" sub2="Kuantan" />;
       case 'thanks': return <Thanks {...props} />;
       case 'penutup': return <Penutup {...props} />;
