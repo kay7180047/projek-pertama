@@ -14,4 +14,4 @@ snapped=[]
 for w in want:
     k=kicks[np.argmin(abs(kicks-w))]; snapped.append(round(float(k) if abs(k-w)<0.25 else w,3))
 print(list(zip(want,snapped)))
-json.dump({'songStart':START,'bounds':snapped,'end':47.5},open('public/timing.json','w'))
+json.dump({'songStart':START,'bounds':snapped,'end':49.5},open('public/timing.json','w'))

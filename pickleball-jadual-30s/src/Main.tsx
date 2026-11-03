@@ -61,13 +61,13 @@ const Hook: React.FC = () => {
   const f = useCurrentFrame();
   const a = pop(f, 0, 9, 230), b = pop(f, 6, 9, 230);
   const shrink = interpolate(f, [28, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
-  const top = interpolate(shrink, [0, 1], [560, 300]);
+  const top = interpolate(shrink, [0, 1], [560, 370]);
   const sc = interpolate(shrink, [0, 1], [1, 0.52]);
   const stamps: [string, string, string, number, number][] = [['11', 'PASUKAN', C.lime, 30, -3], ['6', 'MINGGU', C.cyan, 45, 3], ['1', 'PIALA', C.pink, 60, -2]];
   const push = 1 + f * 0.0008;
   return (
     <AbsoluteFill style={{transform: `scale(${push})`}}>
-      <div style={{position: 'absolute', top: 160, width: '100%', opacity: pop(f, 32), transform: `translateY(${(1 - pop(f, 32)) * -30}px)`}}>
+      <div style={{position: 'absolute', top: 245, width: '100%', opacity: pop(f, 32), transform: `translateY(${(1 - pop(f, 32)) * -30}px)`}}>
         <div style={{fontFamily: TEXT, fontWeight: 800, fontSize: 40, color: C.gold, textAlign: 'center', letterSpacing: 4}}>KEJOHANAN PICKLEBALL BERPASUKAN</div>
         <div style={{fontFamily: TEXT, fontWeight: 800, fontSize: 56, color: C.white, textAlign: 'center', letterSpacing: 2}}>PIALA DATUK BANDAR KUANTAN 2026</div>
       </div>
@@ -104,7 +104,7 @@ const Info: React.FC = () => {
   const t = pop(f, 0, 10, 220);
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 230, width: '100%', transform: `scale(${t}) rotate(-3deg)`}}>
+      <div style={{position: 'absolute', top: 260, width: '100%', transform: `scale(${t}) rotate(-3deg)`}}>
         <Txt size={112} color={C.white} shadow={C.pink}>BILA & DI MANA?</Txt>
       </div>
       <Card y={470} h={300} at={5} border={C.cyan}>
@@ -171,7 +171,7 @@ const WeekScene: React.FC<{w: Week}> = ({w}) => {
   const dimRabu = interpolate(f, [78, 84], [1, 0.62], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) + interpolate(f, [128, 136], [0, 0.38], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 160, left: 50, right: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', transform: `scale(${0.6 + 0.4 * tp})`, transformOrigin: '0 50%', opacity: tp > 0 ? 1 : 0}}>
+      <div style={{position: 'absolute', top: 215, left: 50, right: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', transform: `scale(${0.6 + 0.4 * tp})`, transformOrigin: '0 50%', opacity: tp > 0 ? 1 : 0}}>
         <Txt size={98} color={w.color} shadow={C.ink} style={{transform: "rotate(-3deg)", whiteSpace: "nowrap"}}>MINGGU {w.n}</Txt>
         <div>
           <Txt size={42} color={C.white} shadow={C.ink} style={{textAlign: "right", whiteSpace: "nowrap"}}>{w.range}</Txt>
@@ -224,7 +224,7 @@ const Bracket: React.FC = () => {
   const arrow = (y: number, at: number) => <div style={{position: 'absolute', top: y, width: '100%', textAlign: 'center', fontFamily: DISPLAY, fontSize: 56, color: C.gold, opacity: pop(f, at), lineHeight: 1}}>▼</div>;
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 160, width: '100%', transform: `scale(${0.6 + 0.4 * t}) rotate(-3deg)`, opacity: t > 0 ? 1 : 0}}>
+      <div style={{position: 'absolute', top: 215, width: '100%', transform: `scale(${0.6 + 0.4 * t}) rotate(-3deg)`, opacity: t > 0 ? 1 : 0}}>
         <Txt size={128} color={C.gold} shadow={C.ink}>MINGGU 6</Txt>
         <Txt size={50} color={C.white} shadow={C.pink} style={{marginTop: 14}}>KALAH SINGKIR · RABU 9 DIS</Txt>
       </div>
@@ -245,21 +245,25 @@ const Cta: React.FC = () => {
   const sp = ['tpx', 'yap', 'kospek', 'alliance'];
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 250, width: '100%'}}>
+      <div style={{position: 'absolute', top: 235, width: '100%'}}>
         <Txt size={150} color={C.white} shadow={C.pink} style={{transform: `scale(${a}) rotate(-4deg)`, opacity: a > 0 ? 1 : 0}}>JOM</Txt>
         <Txt size={124} color={C.lime} shadow={C.ink} style={{marginTop: 10, transform: `scale(${a}) rotate(-4deg)`, opacity: a > 0 ? 1 : 0}}>SOKONG</Txt>
         <Txt size={96} color={C.white} shadow={C.cyan} style={{marginTop: 16, transform: `scale(${b}) rotate(-4deg)`, opacity: b > 0 ? 1 : 0}}>PASUKAN ANDA!</Txt>
       </div>
-      <div style={{position: 'absolute', top: 830, width: '100%', textAlign: 'center', opacity: pop(f, 14), transform: `scale(${0.7 + 0.3 * pop(f, 14)})`}}>
+      <div style={{position: 'absolute', top: 725, width: '100%', textAlign: 'center', opacity: pop(f, 10), transform: `scale(${0.7 + 0.3 * pop(f, 14)})`}}>
         <Pill bg={C.gold} size={44}>4 NOV – 9 DIS 2026</Pill>
         <div style={{fontFamily: TEXT, fontWeight: 800, fontSize: 48, color: C.white, marginTop: 30, letterSpacing: 3}}>THE PICKLE EXCHANGE (TPX)</div>
       </div>
-      <div style={{position: 'absolute', top: 1130, width: '100%', textAlign: 'center', fontFamily: TEXT, fontWeight: 800, fontSize: 38, color: C.gold, letterSpacing: 8, opacity: pop(f, 18)}}>PENAJA BERSAMA</div>
-      <div style={{position: 'absolute', top: 1190, left: 60, width: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 28}}>
-        {['mbk_hq', 'kesumba_hq', 'biro_hq'].map((k, i) => <Img key={k} src={logo(k)} style={{height: 170, borderRadius: 18, border: '4px solid #fff', boxShadow: `6px 8px 0 ${C.ink}`, opacity: pop(f, 20 + i * 3), transform: `scale(${0.6 + 0.4 * pop(f, 20 + i * 3)}) rotate(${(i - 1) * 2}deg)`}} />)}
+      <div style={{position: 'absolute', top: 965, width: '100%', textAlign: 'center', fontFamily: TEXT, fontWeight: 800, fontSize: 38, color: C.gold, letterSpacing: 8, opacity: pop(f, 12)}}>PENGANJUR</div>
+      <div style={{position: 'absolute', top: 1020, left: 40, width: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 34}}>
+        {([['biro_hq', 170, 16, -2], ['mbk_hq', 300, 14, 0], ['kesumba_hq', 170, 18, 2]] as [string, number, number, number][]).map(([k, h, at, rot]) => {
+          const p = pop(f, at);
+          return <Img key={k} src={logo(k)} style={{height: h, borderRadius: 20, border: '4px solid #fff', boxShadow: `7px 9px 0 ${C.ink}`, opacity: p > 0 ? 1 : 0, transform: `scale(${0.6 + 0.4 * p}) rotate(${rot}deg)`}} />;
+        })}
       </div>
-      <div style={{position: 'absolute', top: 1420, left: 80, width: 920, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 26, justifyItems: 'center', alignItems: 'center'}}>
-        {sp.map((k, i) => <Img key={k} src={logo(k)} style={{height: 78, borderRadius: 10, border: '3px solid #ffffff44', opacity: pop(f, 30 + i * 2), transform: `scale(${0.6 + 0.4 * pop(f, 30 + i * 2)})`}} />)}
+      <div style={{position: 'absolute', top: 1375, width: '100%', textAlign: 'center', fontFamily: TEXT, fontWeight: 800, fontSize: 38, color: C.gold, letterSpacing: 8, opacity: pop(f, 24)}}>PENAJA BERSAMA</div>
+      <div style={{position: 'absolute', top: 1435, left: 80, width: 920, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 26, justifyItems: 'center', alignItems: 'center'}}>
+        {sp.map((k, i) => <Img key={k} src={logo(k)} style={{height: 84, borderRadius: 10, border: '3px solid #ffffff44', opacity: pop(f, 27 + i * 2), transform: `scale(${0.6 + 0.4 * pop(f, 27 + i * 2)})`}} />)}
       </div>
     </AbsoluteFill>
   );
@@ -297,8 +301,8 @@ export const Main: React.FC = () => {
           {el}
         </Sequence>
       ))}
-      <Img src={logo('mbk_hq')} style={{position: 'absolute', left: 40, top: 36, height: 104, borderRadius: 16, border: '3px solid #ffffff'}} />
-      <Img src={logo('kesumba_hq')} style={{position: 'absolute', right: 40, top: 36, height: 104, borderRadius: 16, border: '3px solid #ffffff'}} />
+      <Img src={logo('mbk_hq')} style={{position: 'absolute', left: 36, top: 34, height: 158, borderRadius: 18, border: '4px solid #ffffff'}} />
+      <Img src={logo('kesumba_hq')} style={{position: 'absolute', right: 36, top: 34, height: 158, borderRadius: 18, border: '4px solid #ffffff'}} />
       {bounds.map((b, i) => (
         <Sequence key={i} from={s2f(b) - 7} durationInFrames={14}><Wipe col={wcols[i]} /></Sequence>
       ))}
