@@ -1,0 +1,16 @@
+{
+  "fps": 30,
+  "bpm": 120,
+  "total": 26,
+  "scenes": [
+    {"id": "hook",   "start": 0.0,  "end": 3.5,  "cues": [0.1, 0.45, 0.9]},
+    {"id": "kejoh",  "start": 3.5,  "end": 6.5,  "cues": [0.15, 0.5, 1.1]},
+    {"id": "rasmi",  "start": 6.5,  "end": 9.5,  "cues": [0.15, 0.55, 1.05]},
+    {"id": "vip",    "start": 9.5,  "end": 12.0, "cues": [0.15, 0.55, 1.0]},
+    {"id": "pasukan","start": 12.0, "end": 14.5, "cues": [0.15, 0.55, 1.05]},
+    {"id": "tarikh", "start": 14.5, "end": 17.0, "cues": [0.1, 0.4, 1.1]},
+    {"id": "masa",   "start": 17.0, "end": 19.5, "cues": [0.1, 0.4, 1.1]},
+    {"id": "lokasi", "start": 19.5, "end": 22.0, "cues": [0.1, 0.4, 1.0]},
+    {"id": "penutup","start": 22.0, "end": 26.0, "cues": [0.1, 0.6, 1.3]}
+  ]
+}
