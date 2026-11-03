@@ -245,18 +245,21 @@ const Cta: React.FC = () => {
   const sp = ['tpx', 'yap', 'kospek', 'alliance'];
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 330, width: '100%'}}>
+      <div style={{position: 'absolute', top: 250, width: '100%'}}>
         <Txt size={150} color={C.white} shadow={C.pink} style={{transform: `scale(${a}) rotate(-4deg)`, opacity: a > 0 ? 1 : 0}}>JOM</Txt>
         <Txt size={124} color={C.lime} shadow={C.ink} style={{marginTop: 10, transform: `scale(${a}) rotate(-4deg)`, opacity: a > 0 ? 1 : 0}}>SOKONG</Txt>
         <Txt size={96} color={C.white} shadow={C.cyan} style={{marginTop: 16, transform: `scale(${b}) rotate(-4deg)`, opacity: b > 0 ? 1 : 0}}>PASUKAN ANDA!</Txt>
       </div>
-      <div style={{position: 'absolute', top: 920, width: '100%', textAlign: 'center', opacity: pop(f, 14), transform: `scale(${0.7 + 0.3 * pop(f, 14)})`}}>
+      <div style={{position: 'absolute', top: 830, width: '100%', textAlign: 'center', opacity: pop(f, 14), transform: `scale(${0.7 + 0.3 * pop(f, 14)})`}}>
         <Pill bg={C.gold} size={44}>4 NOV – 9 DIS 2026</Pill>
         <div style={{fontFamily: TEXT, fontWeight: 800, fontSize: 48, color: C.white, marginTop: 30, letterSpacing: 3}}>THE PICKLE EXCHANGE (TPX)</div>
       </div>
-      <div style={{position: 'absolute', top: 1230, width: '100%', textAlign: 'center', fontFamily: TEXT, fontWeight: 800, fontSize: 38, color: C.gold, letterSpacing: 8, opacity: pop(f, 22)}}>PENAJA BERSAMA</div>
-      <div style={{position: 'absolute', top: 1300, left: 80, width: 920, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 26, justifyItems: 'center', alignItems: 'center'}}>
-        {sp.map((k, i) => <Img key={k} src={logo(k)} style={{height: 96, borderRadius: 12, border: '3px solid #ffffff44', opacity: pop(f, 24 + i * 3), transform: `scale(${0.6 + 0.4 * pop(f, 24 + i * 3)})`}} />)}
+      <div style={{position: 'absolute', top: 1130, width: '100%', textAlign: 'center', fontFamily: TEXT, fontWeight: 800, fontSize: 38, color: C.gold, letterSpacing: 8, opacity: pop(f, 18)}}>PENAJA BERSAMA</div>
+      <div style={{position: 'absolute', top: 1190, left: 60, width: 960, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 28}}>
+        {['mbk_hq', 'kesumba_hq', 'biro_hq'].map((k, i) => <Img key={k} src={logo(k)} style={{height: 170, borderRadius: 18, border: '4px solid #fff', boxShadow: `6px 8px 0 ${C.ink}`, opacity: pop(f, 20 + i * 3), transform: `scale(${0.6 + 0.4 * pop(f, 20 + i * 3)}) rotate(${(i - 1) * 2}deg)`}} />)}
+      </div>
+      <div style={{position: 'absolute', top: 1420, left: 80, width: 920, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 26, justifyItems: 'center', alignItems: 'center'}}>
+        {sp.map((k, i) => <Img key={k} src={logo(k)} style={{height: 78, borderRadius: 10, border: '3px solid #ffffff44', opacity: pop(f, 30 + i * 2), transform: `scale(${0.6 + 0.4 * pop(f, 30 + i * 2)})`}} />)}
       </div>
     </AbsoluteFill>
   );
@@ -294,8 +297,8 @@ export const Main: React.FC = () => {
           {el}
         </Sequence>
       ))}
-      <Img src={logo('kuantan')} style={{position: 'absolute', left: 40, top: 40, height: 96, borderRadius: 14}} />
-      <Img src={logo('kesumba')} style={{position: 'absolute', right: 40, top: 40, height: 96, borderRadius: 14}} />
+      <Img src={logo('mbk_hq')} style={{position: 'absolute', left: 40, top: 36, height: 104, borderRadius: 16, border: '3px solid #ffffff'}} />
+      <Img src={logo('kesumba_hq')} style={{position: 'absolute', right: 40, top: 36, height: 104, borderRadius: 16, border: '3px solid #ffffff'}} />
       {bounds.map((b, i) => (
         <Sequence key={i} from={s2f(b) - 7} durationInFrames={14}><Wipe col={wcols[i]} /></Sequence>
       ))}
