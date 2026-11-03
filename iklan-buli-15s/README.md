@@ -10,4 +10,4 @@ Remotion + ffmpeg, 1920x1080, 30fps, 15s. Tiada aset luar; soundtrack/SFX dijana
 0-3s Anak balik sekolah jadi senyap. | 3-6s Penat sekolah… atau dibuli? |
 6-9.5s Tanda yang sering terlepas pandang: Barang kerap hilang / Luka tanpa sebab / Enggan ke sekolah |
 9.5-12.5s Cuba tanya dengan tenang: "Hari ini, ada apa-apa yang buat kamu tak selesa?" → "Mak… sebenarnya…" |
-12.5-15s Dengar dulu. Jangan terus marah. [Mulakan bual malam ini.]
+12.5-15s Dengar dulu. Jangan terus marah. [Borak dengan anak malam ni.]

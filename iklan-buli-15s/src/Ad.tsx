@@ -175,7 +175,7 @@ const Tutup: React.FC<{f: number}> = ({f}) => (
       <Slam f={f} at={F.dengar} big={1.35} style={{fontSize: 230, fontWeight: 900, letterSpacing: -7}}>Dengar <span style={{color: C.teal}}>dulu.</span></Slam>
       <Pop f={f} at={F.jangan} style={{fontSize: 104, fontWeight: 800, letterSpacing: -2}}>Jangan terus <span style={{color: C.coral}}>marah.</span></Pop>
       <Pop f={f} at={F.cta} from={0.6} style={{marginTop: 30, background: C.coral, color: '#fff', fontSize: 70, fontWeight: 800, padding: '26px 70px', borderRadius: 100, boxShadow: '0 14px 0 rgba(27,42,73,0.18)'}}>
-        Mulakan bual malam ini.
+        Borak dengan anak malam ni.
       </Pop>
     </div>
     <Pop f={f} at={F.cta + 10} style={{position: 'absolute', bottom: 60, fontSize: 34, fontWeight: 600, letterSpacing: 4, textTransform: 'uppercase', color: C.ink, opacity: 0.6}}>
