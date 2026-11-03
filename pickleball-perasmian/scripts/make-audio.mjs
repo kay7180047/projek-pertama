@@ -53,8 +53,8 @@ function impact(t, g = 1) { kick(t, 1.2 * g); const len = 1.2 * SR; let lp = 0;
 const chords = [[57, 60, 64], [53, 57, 60], [48, 55, 64], [55, 59, 62]];
 const roots = [33, 29, 36, 31];
 const byId = id => T.scenes.find(x => x.id === id);
-const END = byId('penutup').start, INFO = byId('tarikh').start, TEAMS = byId('team0').start;
-const intensity = t => t < 3.5 ? 0.3 : t < 12 ? 0.65 : t < END ? 0.9 : 0.55;
+const END = byId('penutup').start, INFO = byId('tarikh').start, THANKS = byId('thanks').start, TEAMS = byId('team0').start;
+const intensity = t => t < 3.5 ? 0.3 : t < 12 ? 0.65 : t < THANKS ? 0.9 : t < END ? 0.7 : 0.55;
 
 // Lapisan berterusan ikut bar
 for (let bar = 0; bar * 4 * beat < T.total; bar++) {
@@ -74,7 +74,8 @@ for (let bar = 0; bar * 4 * beat < T.total; bar++) {
 }
 // Cue sync dengan visual
 T.scenes.forEach((s, i) => {
-  if (s.type === 'team') { whoosh(s.start - 0.12, 0.16, 0.45); pop(s.start + 0.02, 0.9); click(s.start + s.cues[1], 0.8); click(s.start + s.cues[2], 0.6); return; }
+  if (s.type === 'team' || s.type === 'sponsor') {
+    if (s.type === 'sponsor') pluck(s.start + 0.02, [76, 79, 81, 84][+s.id.slice(2)] + 12, 1.0); whoosh(s.start - 0.12, 0.16, 0.45); pop(s.start + 0.02, 0.9); click(s.start + s.cues[1], 0.8); click(s.start + s.cues[2], 0.6); return; }
   if (i > 0) { whoosh(s.start - 0.25, 0.3, 0.8); impact(s.start, 0.8); }
   else { impact(0.02, 0.9); }
   s.cues.forEach((c, j) => { if (j > 0 || i === 0) click(s.start + c, 0.9); if (j === 0 && i > 0) pop(s.start + c + 0.05, 0.7); });

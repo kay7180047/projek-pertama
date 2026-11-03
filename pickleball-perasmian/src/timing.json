@@ -1,7 +1,7 @@
 {
  "fps": 30,
  "bpm": 120,
- "total": 38.5,
+ "total": 46.5,
  "scenes": [
   {
    "id": "hook",
@@ -204,9 +204,63 @@
    ]
   },
   {
-   "id": "penutup",
+   "id": "thanks",
    "start": 34.5,
-   "end": 38.5,
+   "end": 36.5,
+   "cues": [
+    0.1,
+    0.4,
+    0.95
+   ]
+  },
+  {
+   "id": "sp0",
+   "type": "sponsor",
+   "start": 36.5,
+   "end": 38.0,
+   "cues": [
+    0.0,
+    0.12,
+    0.3
+   ]
+  },
+  {
+   "id": "sp1",
+   "type": "sponsor",
+   "start": 38.0,
+   "end": 39.5,
+   "cues": [
+    0.0,
+    0.12,
+    0.3
+   ]
+  },
+  {
+   "id": "sp2",
+   "type": "sponsor",
+   "start": 39.5,
+   "end": 41.0,
+   "cues": [
+    0.0,
+    0.12,
+    0.3
+   ]
+  },
+  {
+   "id": "sp3",
+   "type": "sponsor",
+   "start": 41.0,
+   "end": 42.5,
+   "cues": [
+    0.0,
+    0.12,
+    0.3
+   ]
+  },
+  {
+   "id": "penutup",
+   "start": 42.5,
+   "end": 46.5,
    "cues": [
     0.1,
     0.6,

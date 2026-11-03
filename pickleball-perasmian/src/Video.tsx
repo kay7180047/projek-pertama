@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import T from './timing.json';
 import TEAMS from './teams.json';
+import SPONSORS from './sponsors.json';
 
 const FPS = T.fps;
 const C = {bg: '#080c1f', text: '#ffffff', accent: '#d6ff3d', red: '#ff3b4e', blue: '#3da8ff'};
@@ -14,7 +15,7 @@ const Line: React.FC<{text: string; cue: number; size: number; color?: string; w
   ({text, cue, size, color = C.text, weight = 900, track = -0.02, align = 'center', maxW = 920, dur = 13}) => {
     const f = useCurrentFrame();
     const p = prog(f, cue, dur);
-    const fit = Math.min(size, maxW / (text.length * (weight >= 800 ? 0.69 : 0.58) + 0.001));
+    const fit = Math.min(size, maxW / (text.length * (weight >= 800 ? 0.69 : 0.66) + 0.001));
     return (
       <div style={{overflow: 'hidden', textAlign: align, lineHeight: 1.04, paddingBottom: fit * 0.06}}>
         <div style={{transform: `translateY(${(1 - p) * 112}%) scale(${1 + (1 - p) * 0.06})`, opacity: p > 0 ? 1 : 0, fontFamily: FONT, fontWeight: weight, fontSize: fit,
@@ -206,6 +207,56 @@ const Grid: React.FC<SceneProps> = ({dur, cues}) => {
   );
 };
 
+const Thanks: React.FC<SceneProps> = ({dur, cues}) => (
+  <AbsoluteFill>
+    <Backdrop src="ball" dur={dur} />
+    <AbsoluteFill style={{background: 'radial-gradient(circle at 50% 45%, rgba(214,255,61,.18) 0%, rgba(8,12,31,0) 65%)'}} />
+    <Stack top={560} gap={6}>
+      <Tag text="Penghargaan" cue={cues[0]} />
+      <div style={{height: 24}} />
+      <Line text="Setinggi-tinggi" cue={cues[1]} size={110} weight={700} track={0} />
+      <Line text="Terima" cue={cues[1] + 0.12} size={330} color={C.accent} track={-0.03} />
+      <Line text="Kasih" cue={cues[1] + 0.24} size={330} color={C.accent} track={-0.03} />
+      <div style={{height: 20}} />
+      <Line text="kepada penaja-penaja kejohanan" cue={cues[2]} size={64} weight={600} track={0} />
+    </Stack>
+  </AbsoluteFill>
+);
+
+const Sponsor: React.FC<SceneProps & {n: number}> = ({dur, cues, n}) => {
+  const f = useCurrentFrame();
+  const sp = SPONSORS[n];
+  const b = bounce(f / 14);
+  const flash = interpolate(f, [0, 10], [1, 0], {extrapolateRight: 'clamp'});
+  const z = interpolate(f, [0, dur * FPS], [1.0, 1.05]);
+  const light = sp.bg === '#ffffff';
+  const wide = sp.w / sp.h > 1.5;
+  const cw = 900, ch = wide ? 420 : 640;
+  const top = wide ? 540 : 440;
+  return (
+    <AbsoluteFill style={{background: C.bg}}>
+      <AbsoluteFill style={{background: `radial-gradient(circle at 50% 36%, ${sp.accent}44 0%, rgba(8,12,31,.96) 62%)`}} />
+      <div style={{position: 'absolute', left: 90, right: 90, top: 300, display: 'flex', justifyContent: 'center', opacity: prog(f, 0, 8)}}>
+        <div style={{fontFamily: FONT, fontWeight: 800, fontSize: 38, letterSpacing: '0.18em', color: C.bg, background: sp.accent, padding: '10px 28px', borderRadius: 14, textTransform: 'uppercase'}}>
+          Terima kasih · Penaja {n + 1}/{SPONSORS.length}
+        </div>
+      </div>
+      <div style={{position: 'absolute', left: (1080 - cw) / 2, top, width: cw, height: ch, borderRadius: 36, overflow: 'hidden', background: sp.bg, padding: light ? 30 : 0, boxSizing: 'border-box',
+        border: `4px solid ${sp.accent}`, boxShadow: `0 0 90px ${sp.accent}88`, transform: `scale(${0.6 + 0.4 * b}) rotate(${(1 - b) * 5}deg)`, opacity: Math.min(1, f / 3)}}>
+        <Img src={staticFile(`assets/sp_${sp.key}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain', transform: `scale(${z})`}} />
+        <AbsoluteFill style={{background: '#fff', opacity: flash * 0.5}} />
+      </div>
+      <Stack top={top + ch + 90} gap={4}>
+        <Line text={sp.l1} cue={cues[1]} size={190} dur={9} />
+        <Line text={sp.l2} cue={cues[2]} size={sp.l2.length > 16 ? 56 : 100} color={sp.accent} dur={9} weight={sp.l2.length > 16 ? 700 : 900} track={sp.l2.length > 16 ? 0 : -0.02} />
+      </Stack>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 1700, display: 'flex', justifyContent: 'center', gap: 16}}>
+        {SPONSORS.map((x, i) => (<div key={x.key} style={{width: 26, height: 26, borderRadius: '50%', background: i <= n ? x.accent : 'rgba(255,255,255,.2)', transform: i === n ? 'scale(1.35)' : 'none'}} />))}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const Info: React.FC<SceneProps & {bg: string; label: string; big: string; sub: string; sub2?: string; pos: string}> = ({dur, cues, bg, label, big, sub, sub2, pos}) => (
   <AbsoluteFill>
     <Backdrop src={bg} dur={dur} />
@@ -228,9 +279,9 @@ const Penutup: React.FC<SceneProps> = ({dur, cues}) => {
     <div style={{width: w, height: h, borderRadius: 20, overflow: 'hidden', background: '#fff', padding: 14, boxSizing: 'border-box'}}>
       <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
     </div>);
-  const logo = (src: string, w: number, h: number) => (
-    <div style={{width: w, height: h, borderRadius: 18, overflow: 'hidden', background: '#0a0f2a', border: '2px solid rgba(255,255,255,.25)'}}>
-      <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+  const logo = (src: string, w: number, h: number, bg: string) => (
+    <div style={{width: w, height: h, borderRadius: 18, overflow: 'hidden', background: bg, border: '2px solid rgba(255,255,255,.25)', padding: bg === '#fff' ? 8 : 0, boxSizing: 'border-box'}}>
+      <Img src={staticFile(`assets/sp_${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
     </div>);
   return (
     <AbsoluteFill>
@@ -261,7 +312,7 @@ const Penutup: React.FC<SceneProps> = ({dur, cues}) => {
       <div style={{position: 'absolute', left: 80, right: 80, top: 1440, ...rise(cues[2] + 0.3)}}>
         {lab('PENAJA BERSAMA')}
         <div style={{display: 'flex', gap: 16, flexWrap: 'wrap'}}>
-          {logo('tpx', 200, 110)}{logo('kospek', 340, 110)}{logo('yap', 300, 110)}{logo('alliance', 560, 110)}
+          {logo('tpx', 200, 110, '#000111')}{logo('kospek', 340, 110, '#fff')}{logo('yap', 260, 110, '#000511')}{logo('alliance', 150, 110, '#fff')}
         </div>
       </div>
     </AbsoluteFill>
@@ -282,7 +333,7 @@ const Chrome: React.FC = () => {
   const f = useCurrentFrame();
   const t = f / FPS;
   const hide = T.scenes.some((x) => (x.type === 'team' || x.id === 'grid') && t >= x.start && t < x.end);
-  const end = T.scenes.find((x) => x.id === 'penutup')!.start;
+  const end = T.scenes.find((x) => x.id === 'thanks')!.start;
   if (t < 3.6 || t >= end || hide) return null;
   return (
     <>
@@ -308,11 +359,12 @@ export const Video: React.FC = () => {
       case 'tarikh': return <Info {...props} bg="man" pos="30% 30%" label="Tarikh" big="4 Nov" sub="2026" sub2="Rabu" />;
       case 'masa': return <Info {...props} bg="woman" pos="60% 30%" label="Masa" big="8.30" sub="Malam" />;
       case 'lokasi': return <Info {...props} bg="ball" pos="55% 45%" label="Lokasi" big="TPX" sub="The Pickle Exchange" sub2="Kuantan" />;
+      case 'thanks': return <Thanks {...props} />;
       case 'penutup': return <Penutup {...props} />;
-      default: return <Team {...props} n={Number(sc.id.replace('team', ''))} />;
+      default: return sc.type === 'sponsor' ? <Sponsor {...props} n={Number(sc.id.replace('sp', ''))} /> : <Team {...props} n={Number(sc.id.replace('team', ''))} />;
     }
   };
-  const shifted = (id: string) => !['penutup', 'grid'].includes(id) && !id.startsWith('team');
+  const shifted = (id: string) => !['penutup', 'grid', 'thanks'].includes(id) && !id.startsWith('team') && !id.startsWith('sp');
   return (
     <AbsoluteFill style={{background: C.bg}}>
       {S.map((sc) => (
@@ -321,7 +373,7 @@ export const Video: React.FC = () => {
         </Sequence>
       ))}
       <Chrome />
-      {S.slice(1).filter((s) => s.type !== 'team').map((s) => (
+      {S.slice(1).filter((s) => s.type !== 'team' && s.type !== 'sponsor').map((s) => (
         <Sequence key={`w-${s.id}`} from={Math.round(s.start * FPS) - 6} durationInFrames={14} layout="none">
           <Wipe at={6 / FPS} />
         </Sequence>

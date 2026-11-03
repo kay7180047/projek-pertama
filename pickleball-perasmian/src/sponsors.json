@@ -1,0 +1,38 @@
+[
+ {
+  "key": "tpx",
+  "l1": "TPX",
+  "l2": "The Pickle Exchange",
+  "accent": "#d6ff3d",
+  "bg": "#000111",
+  "w": 728,
+  "h": 316
+ },
+ {
+  "key": "yap",
+  "l1": "Yap Cash",
+  "l2": "& Carry",
+  "accent": "#ffc61a",
+  "bg": "#000511",
+  "w": 934,
+  "h": 316
+ },
+ {
+  "key": "kospek",
+  "l1": "KOSPEK",
+  "l2": "Dari Anggota Untuk Anggota",
+  "accent": "#2fb8ee",
+  "bg": "#ffffff",
+  "w": 1341,
+  "h": 398
+ },
+ {
+  "key": "alliance",
+  "l1": "Alliance Steel",
+  "l2": "(M) Sdn. Bhd.",
+  "accent": "#ff4d57",
+  "bg": "#ffffff",
+  "w": 1227,
+  "h": 1081
+ }
+]
