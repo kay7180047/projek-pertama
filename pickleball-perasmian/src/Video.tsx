@@ -23,13 +23,13 @@ const Line: React.FC<{text: string; cue: number; size: number; color?: string; w
   };
 
 // Kad gambar (crop poster) dengan push perlahan + backdrop kabur
-const Card: React.FC<{src: string; x: number; y: number; w: number; h: number; zoom?: [number, number]; pos?: string; fit?: 'cover' | 'contain'; dur: number}> =
-  ({src, x, y, w, h, zoom = [1.02, 1.12], pos = '50% 50%', fit = 'cover', dur}) => {
+const Card: React.FC<{src: string; x: number; y: number; w: number; h: number; zoom?: [number, number]; pos?: string; fit?: 'cover' | 'contain'; bg?: string; dur: number}> =
+  ({src, x, y, w, h, zoom = [1.02, 1.12], pos = '50% 50%', fit = 'cover', bg = '#0a0f2a', dur}) => {
     const f = useCurrentFrame();
     const p = prog(f, 0, 16);
     const z = interpolate(f, [0, dur * FPS], zoom);
     return (
-      <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: 36, overflow: 'hidden', background: '#0a0f2a',
+      <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: 36, overflow: 'hidden', background: bg,
         border: `3px solid ${C.accent}`, boxShadow: '0 0 60px rgba(61,168,255,.35)', transform: `translateY(${(1 - p) * 70}px) scale(${0.94 + 0.06 * p})`, opacity: p}}>
         <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: fit, objectPosition: pos, transform: `scale(${z})`, transformOrigin: pos}} />
       </div>
@@ -93,8 +93,8 @@ const Kejoh: React.FC<SceneProps> = ({dur, cues}) => (
 
 const Rasmi: React.FC<SceneProps> = ({dur, cues}) => (
   <AbsoluteFill>
-    <Backdrop src="logo" dur={dur} />
-    <Card src="logo" x={290} y={190} w={500} h={640} fit="contain" zoom={[1.0, 1.08]} dur={dur} />
+    <Backdrop src="ball" dur={dur} />
+    <Card src="mbk" x={270} y={170} w={540} h={680} fit="contain" bg="#ffffff" zoom={[1.0, 1.06]} dur={dur} />
     <Stack top={920} gap={10}>
       <Tag text="Dirasmikan oleh" cue={cues[0]} />
       <div style={{height: 10}} />
@@ -147,7 +147,12 @@ const Info: React.FC<SceneProps & {bg: string; label: string; big: string; sub: 
 
 const Penutup: React.FC<SceneProps> = ({dur, cues}) => {
   const f = useCurrentFrame();
-  const p2 = prog(f, cues[1], 14), p3 = prog(f, cues[2], 14);
+  const rise = (c: number) => { const p = prog(f, c, 14); return {opacity: p, transform: `translateY(${(1 - p) * 40}px)`}; };
+  const lab = (t: string) => <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 32, letterSpacing: '0.2em', color: C.accent, marginBottom: 14}}>{t}</div>;
+  const wcard = (src: string, w: number, h: number) => (
+    <div style={{width: w, height: h, borderRadius: 20, overflow: 'hidden', background: '#fff', padding: 14, boxSizing: 'border-box'}}>
+      <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+    </div>);
   const logo = (src: string, w: number, h: number) => (
     <div style={{width: w, height: h, borderRadius: 18, overflow: 'hidden', background: '#0a0f2a', border: '2px solid rgba(255,255,255,.25)'}}>
       <Img src={staticFile(`assets/${src}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
@@ -155,31 +160,33 @@ const Penutup: React.FC<SceneProps> = ({dur, cues}) => {
   return (
     <AbsoluteFill>
       <Backdrop src="ball" dur={dur} />
-      <Stack top={210} gap={6}>
+      <Stack top={170} gap={6}>
         <Line text="Sampai jumpa" cue={cues[0]} size={140} />
         <Line text="di TPX Kuantan" cue={cues[0] + 0.3} size={150} color={C.accent} />
         <Line text="4 Nov 2026 · 8.30 malam" cue={cues[0] + 0.8} size={72} weight={700} track={0} />
       </Stack>
-      <div style={{position: 'absolute', left: 80, right: 80, top: 800, opacity: p2, transform: `translateY(${(1 - p2) * 40}px)`}}>
-        <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 32, letterSpacing: '0.2em', color: C.accent, marginBottom: 16}}>ANJURAN</div>
+      <div style={{position: 'absolute', left: 80, right: 80, top: 600, ...rise(cues[1])}}>
+        {lab('ANJURAN')}
+        <div style={{display: 'flex', gap: 24}}>{wcard('mbk', 340, 340)}{wcard('kesumba', 340, 340)}</div>
+      </div>
+      <div style={{position: 'absolute', left: 80, right: 80, top: 1020, ...rise(cues[1] + 0.5)}}>
+        {lab('URUSETIA')}
         <div style={{display: 'flex', alignItems: 'center', gap: 24}}>
-          <div style={{width: 560, height: 300, borderRadius: 18, overflow: 'hidden', border: '2px solid rgba(255,255,255,.25)', background: '#0a0f2a'}}>
-            <Img src={staticFile('assets/organizer.png')} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+          {wcard('biro', 300, 300)}
+          <div style={{flex: 1, fontFamily: FONT, color: C.text}}>
+            <div style={{fontSize: 38, fontWeight: 800, lineHeight: 1.15, textTransform: 'uppercase'}}>Biro Sukan & Rekreasi KESUMBA</div>
+            <div style={{fontSize: 40, fontWeight: 600, marginTop: 14}}><span style={{fontWeight: 900, color: C.accent}}>Anas Rahimi</span></div>
+            <div style={{fontSize: 40, fontWeight: 600}}>013-906 9116</div>
           </div>
-          <div style={{flex: 1, display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center'}}>
-            <div style={{width: 280, height: 280, borderRadius: 18, overflow: 'hidden', background: '#fff', padding: 10, boxSizing: 'border-box'}}>
-              <Img src={staticFile('assets/qr.png')} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-            </div>
+          <div style={{width: 230, height: 230, borderRadius: 18, overflow: 'hidden', background: '#fff', padding: 10, boxSizing: 'border-box'}}>
+            <Img src={staticFile('assets/qr.png')} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
           </div>
         </div>
       </div>
-      <div style={{position: 'absolute', left: 80, right: 80, top: 1190, opacity: p3, transform: `translateY(${(1 - p3) * 40}px)`}}>
-        <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 32, letterSpacing: '0.2em', color: C.accent, marginBottom: 16}}>PENAJA BERSAMA</div>
-        <div style={{display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'flex-start'}}>
-          {logo('tpx', 200, 120)}{logo('kospek', 360, 120)}{logo('yap', 320, 120)}{logo('alliance', 600, 120)}
-        </div>
-        <div style={{marginTop: 56, fontFamily: FONT, color: C.text, fontSize: 48, fontWeight: 600}}>
-          Urusetia: <span style={{fontWeight: 900, color: C.accent}}>Anas Rahimi</span> · 013-906 9116
+      <div style={{position: 'absolute', left: 80, right: 80, top: 1440, ...rise(cues[2] + 0.3)}}>
+        {lab('PENAJA BERSAMA')}
+        <div style={{display: 'flex', gap: 16, flexWrap: 'wrap'}}>
+          {logo('tpx', 200, 110)}{logo('kospek', 340, 110)}{logo('yap', 300, 110)}{logo('alliance', 560, 110)}
         </div>
       </div>
     </AbsoluteFill>
