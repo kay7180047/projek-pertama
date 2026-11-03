@@ -1,5 +1,7 @@
 # Soundtrack + SFX prosedur (tanpa sampel luar, tanpa muzik komersial). 120 BPM, 30s.
-import numpy as np
+import numpy as np, json, subprocess
+TM=json.load(open('public/timing.json'))
+scenes=[0.0]+TM['bounds']
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
 SR=44100; DUR=30.0; N=int(SR*DUR); BPM=120; B=60/BPM  # 0.5s/beat
@@ -63,7 +65,7 @@ def riser(dur,f0,f1):
     n=int(dur*SR);x=t(n);nz=bp(rng.standard_normal(n),f0,f1,2);e=(x/dur)**2
     sw_=np.sin(2*np.pi*np.cumsum(np.linspace(f0,f1,n))/SR)*.4
     return (nz*.6+sw_)*e
-put(sfx,riser(3.5,300,6000),23.2,.35)   # menuju bracket
+put(sfx,riser(3.5,300,6000),scenes[7]+0.2,.35)   # menuju bracket
 put(sfx,riser(1.0,500,7000),0.0,.0)
 def whoosh(dur=.4,up=True):
     n=int(dur*SR);x=t(n);nz=rng.standard_normal(n)
@@ -87,7 +89,7 @@ def sparkle():
     for i,f in enumerate((1568,1976,2349,3136)): y=y+np.sin(2*np.pi*f*(x-i*.05).clip(0))*np.exp(-np.maximum(x-i*.05,0)*9)*(x>=i*.05)
     return y*.5
 # Jadual cue (saat) — sama dengan visual (lihat src/timing.ts)
-scenes=[0.0,3.0,5.5,9.0,12.5,16.0,19.5,23.0,28.0]
+
 for s in scenes[1:]: put(sfx,whoosh(.45),s-.30,.5)
 put(sfx,impact(),0.0,.0)
 for c in (0.55,1.1,1.6,2.1):   pass
@@ -101,23 +103,27 @@ for w in range(5):
     put(sfx,pop(780,.08),w0+1.65,.45)
     for i in range(6): put(sfx,tick(900+i*70),w0+1.95+i*0.09,.28)
 # Info (3.0-5.5): pop kata kunci
-for c in (3.15,3.8,4.5): put(sfx,pop(700,.09),c,.5)
+for c in (scenes[1]+.15,scenes[1]+.8,scenes[1]+1.5): put(sfx,pop(700,.09),c,.5)
 # Bracket (23-28)
-for c in (23.2,24.1,25.0,26.0): put(sfx,pop(600+ (c-23)*40,.1),c,.5)
-put(sfx,impact(),26.7,.7); put(sfx,sparkle(),26.8,.6)
+for c in (scenes[7]+.2,scenes[7]+1.1,scenes[7]+2.0,scenes[7]+3.0): put(sfx,pop(600+(c-scenes[7])*40,.1),c,.5)
+IMP=scenes[7]+3.7
+put(sfx,impact(),IMP,.7); put(sfx,sparkle(),IMP+.1,.6)
 # CTA
-put(sfx,pop(660,.09),28.05,.5); put(sfx,sparkle(),28.4,.5)
+put(sfx,pop(660,.09),scenes[8]+.05,.5); put(sfx,sparkle(),scenes[8]+.4,.5)
 # Mixing: sidechain ringan pada muzik dari kick + fade in/out
-mus=music/ (np.max(np.abs(music))+1e-9)
-x=t(N); fade=np.minimum(x/0.05,1)*np.minimum((DUR-x)/1.2,1)
+subprocess.run(['ffmpeg','-v','error','-y','-ss',str(TM['songStart']),'-t',str(DUR),'-i','public/audio/sweat.m4a','-ar',str(SR),'-ac','2','/tmp/claude-0/song30.wav'],check=True)
+_,sg=wavfile.read('/tmp/claude-0/song30.wav'); sg=sg.astype(float)/32768
+sg=sg[:N]; sg=np.pad(sg,((0,N-len(sg)),(0,0))) if len(sg)<N else sg
+sgm=sg.mean(1)
+mus=sgm
+x=t(N); fade=np.minimum(x/0.01,1)*np.minimum((DUR-x)/1.5,1)
 # duck muzik sedikit pada SFX besar (impact/stamp) — sidechain mudah
 duck=np.ones(N)
-for c in (0.0,1.0,1.5,2.0,26.7): 
+for c in (0.0,1.0,1.5,2.0,IMP): 
     i=int(c*SR);L=int(.25*SR);duck[i:i+L]*=np.linspace(.35,1,len(duck[i:i+L]))
-mus=mus*duck*0.62
+mus_st=sg*duck[:,None]*0.42
 sf=sfx/(np.max(np.abs(sfx))+1e-9)*0.55
-mix=(mus+sf)*fade
-pk=np.max(np.abs(mix)); mix=mix/pk*0.89
-st=np.stack([mix,np.roll(mix,int(.0004*SR))*0.98],1)
+st=(mus_st+sf[:,None])*fade[:,None]
+pk=np.max(np.abs(st)); st=st/pk*0.89 if pk>0.89 else st
 wavfile.write('public/audio/soundtrack.wav',SR,(st*32767).astype(np.int16))
 print('ok',pk)
