@@ -15,6 +15,8 @@ const bounce = (t: number) => {
   const x = Math.min(1, Math.max(0, t));
   return 1 + 2.2 * Math.pow(x - 1, 3) + 1.2 * Math.pow(x - 1, 2);
 };
+const TTCtx = React.createContext(false);
+const useTT = () => React.useContext(TTCtx);
 const cuts = CUTS as Record<string, {w: number; h: number}>;
 
 /* ---------- Latar bergerak (dijana kod) ---------- */
@@ -168,7 +170,9 @@ const Rings: React.FC<{x: number; y: number; color?: string}> = ({x, y, color = 
 type SceneProps = {dur: number; cues: number[]};
 
 /* ---------- Babak ---------- */
-const Hook: React.FC<SceneProps> = ({dur, cues}) => (
+const Hook: React.FC<SceneProps> = ({dur, cues}) => {
+  const tt = useTT();
+  return (
   <AbsoluteFill>
     <Bg v="burst" c={C.accent} />
     <Stack top={140} gap={0} left={70} right={40}>
@@ -177,10 +181,11 @@ const Hook: React.FC<SceneProps> = ({dur, cues}) => (
       <Line text="Bandar" cue={cues[2]} size={240} align="left" from="left" maxW={900} />
     </Stack>
     <Cut k="cut1" dw={800} left={300} bottom={-250} enter="up" delay={0.05} dur={dur} />
-    <Band text="Kuantan 2026" top={1460} cue={cues[2] + 0.35} rot={-5} size={150} />
+    <Band text="Kuantan 2026" top={tt ? 1330 : 1460} cue={cues[2] + 0.35} rot={-5} size={150} />
     <Flash />
   </AbsoluteFill>
-);
+  );
+};
 
 const Kejoh: React.FC<SceneProps> = ({dur, cues}) => (
   <AbsoluteFill>
@@ -256,6 +261,7 @@ const ENTERS = ['left', 'right', 'up', 'spin', 'down', 'left', 'right', 'spin', 
 
 const Team: React.FC<SceneProps & {n: number}> = ({dur, cues, n}) => {
   const f = useCurrentFrame();
+  const tt = useTT();
   const tm = TEAMS[n];
   const q = bounce(f / 14);
   const dir = ENTERS[n];
@@ -280,7 +286,7 @@ const Team: React.FC<SceneProps & {n: number}> = ({dur, cues, n}) => {
         <Img src={staticFile(`assets/teams/${tm.key}.jpg`)} style={{width: '100%', height: '100%', objectFit: 'contain', transform: `scale(${1 + 0.06 * (f / (dur * FPS))})`}} />
         <AbsoluteFill style={{background: '#fff', opacity: flash * 0.55}} />
       </div>
-      <Stack top={1180} gap={4} rot={tilt * 0.6}>
+      <Stack top={tt ? 1090 : 1180} gap={4} rot={tilt * 0.6}>
         <Line text={tm.l1} cue={cues[1]} size={220} dur={9} align={align} from={n % 2 ? 'right' : 'left'} />
         <Line text={tm.l2} cue={cues[2]} size={140} color={tm.accent} dur={9} align={align} from={n % 2 ? 'left' : 'right'} />
       </Stack>
@@ -335,7 +341,9 @@ const Tarikh: React.FC<SceneProps> = ({dur, cues}) => (
   </AbsoluteFill>
 );
 
-const Masa: React.FC<SceneProps> = ({dur, cues}) => (
+const Masa: React.FC<SceneProps> = ({dur, cues}) => {
+  const tt = useTT();
+  return (
   <AbsoluteFill>
     <Bg v="burst" c={C.blue} />
     <Stack top={170} gap={0}>
@@ -343,12 +351,15 @@ const Masa: React.FC<SceneProps> = ({dur, cues}) => (
       <Line text="8.30" cue={cues[1]} size={400} color={C.accent} track={-0.04} from="up" />
     </Stack>
     <Cut k="cut3" dw={700} left={190} bottom={-30} enter="up" delay={0.1} dur={dur} />
-    <Band text="Malam" top={1470} cue={cues[2]} rot={4} size={200} from={-1} />
+    <Band text="Malam" top={tt ? 1320 : 1470} cue={cues[2]} rot={4} size={200} from={-1} />
     <Flash />
   </AbsoluteFill>
-);
+  );
+};
 
-const Lokasi: React.FC<SceneProps> = ({dur, cues}) => (
+const Lokasi: React.FC<SceneProps> = ({dur, cues}) => {
+  const tt = useTT();
+  return (
   <AbsoluteFill>
     <Bg v="court" c={C.red} />
     <Stack top={170} gap={0}>
@@ -356,11 +367,12 @@ const Lokasi: React.FC<SceneProps> = ({dur, cues}) => (
       <Line text="TPX" cue={cues[1]} size={440} color={C.accent} track={-0.03} from="left" />
     </Stack>
     <Cut k="cut5" dw={860} left={110} bottom={-30} enter="drop" delay={0.1} dur={dur} />
-    <Band text="The Pickle Exchange" top={1380} cue={cues[2]} rot={-4} size={100} />
-    <Band text="Kuantan" top={1560} cue={cues[2] + 0.2} rot={3} size={130} color={C.text} from={-1} />
+    <Band text="The Pickle Exchange" top={tt ? 1210 : 1380} cue={cues[2]} rot={-4} size={100} />
+    <Band text="Kuantan" top={tt ? 1370 : 1560} cue={cues[2] + 0.2} rot={3} size={130} color={C.text} from={-1} />
     <Flash />
   </AbsoluteFill>
-);
+  );
+};
 
 const Thanks: React.FC<SceneProps> = ({dur, cues}) => (
   <AbsoluteFill>
@@ -382,6 +394,7 @@ const SP_ENTER = ['left', 'up', 'right', 'spin'] as const;
 const SP_BG: BgV[] = ['burst', 'bands', 'halftone', 'court'];
 const Sponsor: React.FC<SceneProps & {n: number}> = ({dur, cues, n}) => {
   const f = useCurrentFrame();
+  const tt = useTT();
   const sp = SPONSORS[n];
   const q = bounce(f / 14);
   const flash = interpolate(f, [0, 10], [1, 0], clamp);
@@ -408,7 +421,7 @@ const Sponsor: React.FC<SceneProps & {n: number}> = ({dur, cues, n}) => {
         <Img src={staticFile(`assets/sp_${sp.key}.png`)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
         <AbsoluteFill style={{background: '#fff', opacity: flash * 0.5}} />
       </div>
-      <Stack top={top + ch + 100} gap={4} rot={n % 2 ? 2 : -2}>
+      <Stack top={top + ch + (tt ? 50 : 100)} gap={4} rot={n % 2 ? 2 : -2}>
         <Line text={sp.l1} cue={cues[1]} size={190} dur={9} from={n % 2 ? 'right' : 'left'} />
         <Line text={sp.l2} cue={cues[2]} size={sp.l2.length > 16 ? 56 : 100} color={sp.accent} dur={9} weight={sp.l2.length > 16 ? 700 : 900} track={sp.l2.length > 16 ? 0 : -0.02} from={n % 2 ? 'left' : 'right'} />
       </Stack>
@@ -418,6 +431,8 @@ const Sponsor: React.FC<SceneProps & {n: number}> = ({dur, cues, n}) => {
 
 const Penutup: React.FC<SceneProps> = ({dur, cues}) => {
   const f = useCurrentFrame();
+  const tt = useTT();
+  const R = tt ? 150 : 80;
   const rise = (c: number) => { const p = prog(f, c, 14); return {opacity: p, transform: `translateY(${(1 - p) * 40}px)`}; };
   const lab = (t: string) => <div style={{fontFamily: FONT, fontWeight: 700, fontSize: 32, letterSpacing: '0.2em', color: C.accent, marginBottom: 14}}>{t}</div>;
   const wcard = (src: string, w: number, h: number) => (
@@ -431,36 +446,36 @@ const Penutup: React.FC<SceneProps> = ({dur, cues}) => {
   return (
     <AbsoluteFill>
       <Bg v="court" c={C.accent} />
-      <Stack top={170} gap={6}>
+      <Stack top={tt ? 160 : 170} gap={6} right={R}>
         <Line text="Sampai jumpa" cue={cues[0]} size={140} from="left" />
         <Line text="di TPX Kuantan" cue={cues[0] + 0.3} size={150} color={C.accent} from="right" />
         <Line text="4 Nov 2026 · 8.30 malam" cue={cues[0] + 0.8} size={72} weight={700} track={0} />
       </Stack>
-      <div style={{position: 'absolute', left: 80, right: 80, top: 600, ...rise(cues[1])}}>
+      <div style={{position: 'absolute', left: 80, right: R, top: tt ? 470 : 600, ...rise(cues[1])}}>
         {lab('ANJURAN')}
-        <div style={{display: 'flex', gap: 24}}>{wcard('mbk', 340, 340)}{wcard('kesumba', 340, 340)}</div>
+        <div style={{display: 'flex', gap: 24}}>{wcard('mbk', tt ? 320 : 340, tt ? 320 : 340)}{wcard('kesumba', tt ? 320 : 340, tt ? 320 : 340)}</div>
       </div>
-      <div style={{position: 'absolute', left: 80, right: 80, top: 1020, ...rise(cues[1] + 0.5)}}>
+      <div style={{position: 'absolute', left: 80, right: R, top: tt ? 840 : 1020, ...rise(cues[1] + 0.5)}}>
         {lab('URUSETIA')}
         <div style={{display: 'flex', alignItems: 'center', gap: 24}}>
-          {wcard('biro', 300, 300)}
+          {wcard('biro', tt ? 240 : 300, tt ? 240 : 300)}
           <div style={{flex: 1, fontFamily: FONT, color: C.text}}>
-            <div style={{fontSize: 38, fontWeight: 800, lineHeight: 1.15, textTransform: 'uppercase'}}>Biro Sukan & Rekreasi KESUMBA</div>
-            <div style={{fontSize: 40, fontWeight: 600, marginTop: 14}}><span style={{fontWeight: 900, color: C.accent}}>Anas Rahimi</span></div>
-            <div style={{fontSize: 40, fontWeight: 600}}>013-906 9116</div>
+            <div style={{fontSize: tt ? 32 : 38, fontWeight: 800, lineHeight: 1.15, textTransform: 'uppercase'}}>Biro Sukan & Rekreasi KESUMBA</div>
+            <div style={{fontSize: tt ? 34 : 40, fontWeight: 600, marginTop: 14}}><span style={{fontWeight: 900, color: C.accent}}>Anas Rahimi</span></div>
+            <div style={{fontSize: tt ? 34 : 40, fontWeight: 600}}>013-906 9116</div>
           </div>
-          <div style={{width: 230, height: 230, borderRadius: 18, overflow: 'hidden', background: '#fff', padding: 10, boxSizing: 'border-box'}}>
+          <div style={{width: tt ? 190 : 230, height: tt ? 190 : 230, borderRadius: 18, overflow: 'hidden', background: '#fff', padding: 10, boxSizing: 'border-box'}}>
             <Img src={staticFile('assets/qr.png')} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
           </div>
         </div>
       </div>
-      <div style={{position: 'absolute', left: 80, right: 80, top: 1440, ...rise(cues[2] + 0.3)}}>
+      <div style={{position: 'absolute', left: 80, right: R, top: tt ? 1190 : 1440, ...rise(cues[2] + 0.3)}}>
         {lab('PENAJA BERSAMA')}
         <div style={{display: 'flex', gap: 16, flexWrap: 'wrap'}}>
           {logo('tpx', 200, 110, '#000111')}{logo('kospek', 340, 110, '#fff')}{logo('yap', 260, 110, '#000511')}{logo('alliance', 150, 110, '#fff')}
         </div>
       </div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 1810, textAlign: 'center', fontFamily: FONT, fontWeight: 600, fontSize: 28, color: 'rgba(255,255,255,.7)', letterSpacing: '0.06em', opacity: prog(f, cues[2] + 0.6, 14)}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: tt ? 1420 : 1810, textAlign: 'center', fontFamily: FONT, fontWeight: 600, fontSize: 28, color: 'rgba(255,255,255,.7)', letterSpacing: '0.06em', opacity: prog(f, cues[2] + 0.6, 14)}}>
         Foto pemain: MZ Photography
       </div>
     </AbsoluteFill>
@@ -486,14 +501,15 @@ const Wipe: React.FC<{v: (typeof WIPES)[number]; color: string}> = ({v, color}) 
 
 const Chrome: React.FC = () => {
   const f = useCurrentFrame();
+  const tt = useTT();
   const t = f / FPS;
   const end = T.scenes.find((x) => x.id === 'thanks')!.start;
   const hide = T.scenes.some((x) => (x.type === 'team' || x.id === 'grid' || ['hook'].includes(x.id)) && t >= x.start && t < x.end);
-  if (t >= end || hide) return null;
-  return <div style={{position: 'absolute', top: 64, left: 0, right: 0, textAlign: 'center', fontFamily: FONT, fontWeight: 700, fontSize: 28, letterSpacing: '0.22em', color: 'rgba(255,255,255,.8)'}}>PIALA DATUK BANDAR KUANTAN 2026</div>;
+  if (t >= end || hide || tt) return null;
+  return <div style={{position: 'absolute', top: tt ? 150 : 64, left: 0, right: 0, textAlign: 'center', fontFamily: FONT, fontWeight: 700, fontSize: 28, letterSpacing: '0.22em', color: 'rgba(255,255,255,.8)'}}>PIALA DATUK BANDAR KUANTAN 2026</div>;
 };
 
-export const Video: React.FC = () => {
+export const Video: React.FC<{tiktok?: boolean}> = ({tiktok = false}) => {
   const S = T.scenes;
   const render = (sc: (typeof S)[number]) => {
     const props = {dur: sc.end - sc.start, cues: sc.cues};
@@ -514,6 +530,7 @@ export const Video: React.FC = () => {
   };
   const wipes = S.slice(1).filter((s) => s.type !== 'team' && s.type !== 'sponsor');
   return (
+    <TTCtx.Provider value={tiktok}>
     <AbsoluteFill style={{background: C.bg}}>
       {S.map((sc) => (
         <Sequence key={sc.id} from={Math.round(sc.start * FPS)} durationInFrames={Math.round((sc.end - sc.start) * FPS)}>
@@ -528,5 +545,6 @@ export const Video: React.FC = () => {
       ))}
       <Audio src={staticFile('soundtrack.wav')} />
     </AbsoluteFill>
+    </TTCtx.Provider>
   );
 };
