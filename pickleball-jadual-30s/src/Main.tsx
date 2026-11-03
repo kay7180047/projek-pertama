@@ -168,7 +168,7 @@ const DayBlock: React.FC<{day: Day; col: string; top: number; head: number; rows
 const WeekScene: React.FC<{w: Week}> = ({w}) => {
   const f = useCurrentFrame();
   const tp = pop(f, 0, 9, 230);
-  const dimRabu = interpolate(f, [56, 62], [1, 0.62], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) + interpolate(f, [88, 94], [0, 0.38], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const dimRabu = interpolate(f, [78, 84], [1, 0.62], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) + interpolate(f, [128, 136], [0, 0.38], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill>
       <div style={{position: 'absolute', top: 160, left: 50, right: 50, display: 'flex', alignItems: 'center', justifyContent: 'space-between', transform: `scale(${0.6 + 0.4 * tp})`, transformOrigin: '0 50%', opacity: tp > 0 ? 1 : 0}}>
@@ -181,7 +181,7 @@ const WeekScene: React.FC<{w: Week}> = ({w}) => {
         </div>
       </div>
       <DayBlock day={w.rabu} col={C.cyan} top={350} head={10} rows={16} dim={dimRabu} />
-      <DayBlock day={w.khamis} col={C.pink} top={350 + 88 + 5 * 100 + 10 + 22} head={50} rows={58} dim={1} />
+      <DayBlock day={w.khamis} col={C.pink} top={350 + 88 + 5 * 100 + 10 + 22} head={78} rows={86} dim={1} />
     </AbsoluteFill>
   );
 };

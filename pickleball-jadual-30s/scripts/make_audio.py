@@ -4,7 +4,7 @@ TM=json.load(open('public/timing.json'))
 scenes=[0.0]+TM['bounds']
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR=44100; DUR=30.0; N=int(SR*DUR); BPM=120; B=60/BPM  # 0.5s/beat
+SR=44100; DUR=TM['end']; N=int(SR*DUR); BPM=120; B=60/BPM  # 0.5s/beat
 rng=np.random.default_rng(7)
 def t(n): return np.arange(n)/SR
 def lp(x,f,o=2): return sosfilt(butter(o,f,'low',fs=SR,output='sos'),x)
@@ -100,8 +100,8 @@ for w in range(5):
     w0=scenes[2+w]
     put(sfx,pop(520,.1),w0+0.05,.5)
     for i in range(5): put(sfx,tick(900+i*70),w0+0.55+i*0.09,.28)
-    put(sfx,pop(780,.08),w0+1.65,.45)
-    for i in range(6): put(sfx,tick(900+i*70),w0+1.95+i*0.09,.28)
+    put(sfx,pop(780,.08),w0+2.6,.45)
+    for i in range(6): put(sfx,tick(900+i*70),w0+2.87+i*0.09,.28)
 # Info (3.0-5.5): pop kata kunci
 for c in (scenes[1]+.15,scenes[1]+.8,scenes[1]+1.5): put(sfx,pop(700,.09),c,.5)
 # Bracket (23-28)
