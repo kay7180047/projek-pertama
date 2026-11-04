@@ -9,9 +9,11 @@ const run = (args) => { const r = spawnSync('ffmpeg', ['-v', 'error', '-y', ...a
 const probe = (f) => JSON.parse(spawnSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'json', f]).stdout).streams[0];
 let t = 0; const timing = [];
 for (const s of E.shots) {
-  const f = path.join(SRC, s.clip), {width: W, height: H} = probe(f);
+  const f = path.join(root, s.dir ?? 'footage-asal', s.clip), {width: W, height: H} = probe(f);
   const dur = s.beats * 60 / E.bpm, frames = Math.round(dur * E.fps);
   if (s.src > 5.0001) throw new Error(s.id + ' melebihi 5s');
+  const outV = path.join(OUT, s.id + '.mp4'), outA = path.join(AUD, s.id + '.wav');
+  if (!process.env.FORCE && fs.existsSync(outV) && fs.existsSync(outA)) { timing.push({id: s.id, section: s.section, start: +t.toFixed(3), dur, frames, from: Math.round(t * E.fps)}); t += dur; console.log(s.id, 'sedia ada'); continue; }
   const slow = s.speed !== 1 ? `setpts=PTS/${s.speed},minterpolate=fps=${E.fps}:mi_mode=mci:mc_mode=aobmc:vsbmc=1,` : `setpts=PTS/${s.speed},`;
   const grade = 'eq=contrast=1.06:saturation=1.12,unsharp=5:5:0.5';
   let fc;
@@ -24,6 +26,10 @@ for (const s of E.shots) {
       `[b]crop=${cw}:${H}:'(iw-${cw})*(${p0}+(${p1}-${p0})*min(1,t/${dur}))':0,scale=1080:810:flags=lanczos,${grade}[fg];` +
       `[bg][fg]overlay=0:555,format=yuv420p[v]`;
   }
+  if (s.freeze !== undefined) {
+    const png = path.join(AUD, s.id + '.png'); run(['-ss', String(s.freeze), '-i', f, '-frames:v', '1', png]);
+    run(['-loop', '1', '-framerate', String(E.fps), '-i', png, '-filter_complex', `[0:v]scale=1080:-2:flags=lanczos,crop=1080:1920:0:'(ih-1920)*${s.cy}',${grade},format=yuv420p[v]`, '-map', '[v]', '-frames:v', String(frames), '-an', '-c:v', 'libx264', '-crf', '16', '-r', String(E.fps), outV]);
+  } else
   run(['-ss', String(s.ss), '-t', String(s.src), '-i', f, '-filter_complex', fc, '-map', '[v]', '-frames:v', String(frames), '-an',
     '-c:v', 'libx264', '-crf', '16', '-preset', 'medium', '-r', String(E.fps), path.join(OUT, s.id + '.mp4')]);
   // audio: asal (dikekalkan, tidak dipercepat); slow-mo/penutup disenyapkan supaya tak "pitch drop"

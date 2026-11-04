@@ -2,6 +2,8 @@ import React from 'react';
 import {AbsoluteFill, Audio, Easing, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig, delayRender, continueRender} from 'remotion';
 import EDL from './edl.json';
 import TIMING from './timing.json';
+import TLN from './timeline.json';
+const TOTAL = TLN.total, E_END = 77.5; // E_END = mula kad penutup
 
 // ---------- tema sementara (tiada branding diberi): hitam-biru malam + hijau-kuning neon (warna bola) ----------
 const C = {bg: '#07173A', neon: '#C6FF3D', white: '#FFFFFF', dim: 'rgba(255,255,255,0.78)'};
@@ -53,8 +55,8 @@ const Scrim: React.FC<{from: number; to: number; strength?: number; top?: boolea
 
 // ---------- HUD ----------
 const Hud: React.FC = () => {
-  const f = useCurrentFrame(); const tot = 70 * FPS;
-  const show = f < S(64) ? 1 : interpolate(f, [S(64), S(64.3)], [1, 0], clamp);
+  const f = useCurrentFrame(); const tot = TOTAL * FPS;
+  const show = f < S(E_END) ? 1 : interpolate(f, [S(E_END), S(E_END + 0.3)], [1, 0], clamp);
   return (
     <div style={{opacity: show}}>
       <div style={{position: 'absolute', left: 54, top: 142, display: 'flex', alignItems: 'center', gap: 14, background: 'rgba(11,18,32,.72)', border: `2px solid ${C.neon}`, padding: '10px 22px 8px 18px', borderRadius: 6}}>
@@ -138,7 +140,7 @@ const Wipe: React.FC<{t: number}> = ({t}) => {
   const p = interpolate(f, [a, b], [0, 1], {easing: Easing.inOut(Easing.cubic), ...clamp});
   return <div style={{position: 'absolute', top: -300, bottom: -300, width: 360, left: interpolate(p, [0, 1], [-700, 1500]), transform: 'skewX(-14deg)', background: `linear-gradient(90deg, rgba(198,255,61,0), ${C.neon} 40%, ${C.neon} 60%, rgba(198,255,61,0))`, mixBlendMode: 'normal', opacity: 0.95}} />;
 };
-const Flash: React.FC<{t: number}> = ({t}) => { const f = useCurrentFrame(); const o = interpolate(f, [S(t), S(t) + 4], [0.55, 0], clamp); return f >= S(t) && f < S(t) + 4 ? <AbsoluteFill style={{background: '#fff', opacity: o}} /> : null; };
+const Flash: React.FC<{t: number; a?: number}> = ({t, a = 0.55}) => { const f = useCurrentFrame(); const o = interpolate(f, [S(t), S(t) + 4], [a, 0], clamp); return f >= S(t) && f < S(t) + 4 ? <AbsoluteFill style={{background: '#fff', opacity: o}} /> : null; };
 
 // ---------- shot ----------
 const ShotView: React.FC<{id: string; from: number; frames: number; idx: number; layout: string}> = ({id, from, frames, idx, layout}) => (
@@ -189,11 +191,42 @@ const PosterOpen: React.FC = () => {
   );
 };
 
+// ---------- JUARA: PHOENIX A ----------
+const DEPTS = ['JABATAN PENYELENGGARAAN', 'JABATAN PENILAIAN & PENGURUSAN HARTA'];
+const DeptPill: React.FC<{t0: number; t1: number; top: number; text: string; size?: number}> = ({t0, t1, top, text, size = 40}) => {
+  const f = useCurrentFrame(); const p = useIn(t0, {damping: 15, stiffness: 210, mass: 0.6});
+  if (f < S(t0) || f >= S(t1)) return null;
+  return (
+    <div style={{position: 'absolute', left: 54, top, opacity: Math.min(1, p * 2.5) * outAt(f, t1, 0.1), transform: `translateX(${interpolate(p, [0, 1], [-120, 0])}px)`}}>
+      <div style={{display: 'inline-block', background: C.white, color: C.bg, fontFamily: F.cond, fontWeight: 800, fontSize: size, letterSpacing: 2.5, padding: '8px 22px 3px', borderRadius: 8, borderBottom: `6px solid ${C.neon}`, boxShadow: '0 6px 18px rgba(0,0,0,.4)'}}>{text}</div>
+    </div>
+  );
+};
+const Chip: React.FC<{t0: number; t1: number; top: number; text: string}> = ({t0, t1, top, text}) => (
+  <Line t0={t0} t1={t1} style={{left: 54, top}}><div style={{display: 'inline-block', background: C.neon, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 46, letterSpacing: 5, padding: '6px 20px 2px'}}>{text}</div></Line>
+);
+const Confetti: React.FC<{b: number; n?: number; seed?: number; dur?: number}> = ({b, n = 70, seed = 3, dur = 4.2}) => {
+  const f = useCurrentFrame(); const t = f / FPS - b;
+  if (t < 0 || t > dur + 1.5) return null;
+  let sd = seed * 977; const r = () => ((sd = (sd * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const cols = [C.neon, C.white, '#3DDCFF', '#FFE600'];
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none', overflow: 'hidden'}}>
+      {Array.from({length: n}).map((_, i) => {
+        const x0 = r() * 1080, d = r() * 0.9, vy = 520 + r() * 520, sway = 30 + r() * 70, ph = r() * 6.28, w = 14 + r() * 10, h = 22 + r() * 14, rs = 220 + r() * 520, col = cols[(r() * cols.length) | 0];
+        const lt = t - d; if (lt < 0) return null;
+        const y = -60 + vy * lt; if (y > 2000) return null;
+        return <div key={i} style={{position: 'absolute', left: x0 + Math.sin(lt * 3 + ph) * sway, top: y, width: w, height: h, background: col, opacity: 0.95, transform: `rotate(${lt * rs}deg) rotateX(${lt * 400}deg)`}} />;
+      })}
+    </AbsoluteFill>
+  );
+};
+
 // ---------- kad penutup ----------
 const EndCard: React.FC = () => {
-  const f = useCurrentFrame(); const pa = useIn(64.4, {damping: 14, stiffness: 200, mass: 0.7}), pb = useIn(65.4, {damping: 11, stiffness: 240, mass: 0.6}), pc = useIn(66.6);
-  const dim = interpolate(f, [S(64), S(64.4)], [0, 0.62], clamp);
-  if (f < S(64)) return null;
+  const f = useCurrentFrame(); const pa = useIn(E_END + 0.4, {damping: 14, stiffness: 200, mass: 0.7}), pb = useIn(E_END + 1.4, {damping: 11, stiffness: 240, mass: 0.6}), pc = useIn(E_END + 2.6);
+  const dim = interpolate(f, [S(E_END), S(E_END + 0.4)], [0, 0.62], clamp);
+  if (f < S(E_END)) return null;
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{background: `rgba(11,18,32,${dim})`}} />
@@ -208,7 +241,7 @@ const EndCard: React.FC = () => {
         <div style={{fontFamily: F.body, fontWeight: 700, fontSize: 42, color: C.white, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>Follow untuk liputan seterusnya.</div>
         <div style={{fontFamily: F.cond, fontWeight: 700, fontSize: 36, letterSpacing: 5, color: C.dim, marginTop: 18}}>2 NOVEMBER 2026</div>
       </div>
-      <LogoPlate t0={67.2} t1={70.1} top={1215} />
+      <LogoPlate t0={E_END + 3.2} t1={TOTAL + 0.1} top={1215} />
     </AbsoluteFill>
   );
 };
@@ -225,7 +258,7 @@ export const Video: React.FC = () => {
       <Scrim from={0} to={2} strength={0.7} top />
       <Slam t0={0.5} t1={2.0} text="SEMALAM." size={260} y={310} rot={-3} align="left" x={54} />
       <Slam t0={2.0} t1={4.0} text={'JABATAN\nVS JABATAN'} size={178} y={260} color={C.white} />
-      <Slam t0={4.0} t1={6.0} text="PICKLEBALL!" size={196} y={330} color={C.neon} rot={-2} />
+      <Slam t0={4.0} t1={6.0} text="SIAPA JUARA?" size={168} y={330} color={C.neon} rot={-2} />
 
       {/* PERSOALAN 6-11s */}
       <Scrim from={6} to={11} top />
@@ -242,12 +275,27 @@ export const Video: React.FC = () => {
       <Scrim from={43} to={47} top /><Scrim from={51} to={56} top />
       {TAGS.map((x, i) => <Tag key={x.label} {...x} t1={x.t0 + (i === 5 ? 5 : 4)} />)}
 
-      {/* TAKEAWAY 56-64s */}
-      <Scrim from={56} to={64} top />
-      <Slam t0={56.2} t1={60} text={'TAHNIAH'} size={176} y={300} align="left" x={54} />
-      <Slam t0={56.6} t1={60} text={'SEMUA PESERTA!'} size={150} y={462} color={C.neon} align="left" x={54} />
-      <Slam t0={60.2} t1={64} text={'TERIMA KASIH'} size={132} y={300} align="left" x={54} />
-      <Slam t0={60.6} t1={64} text={'PENYOKONG!'} size={132} y={430} color={C.neon} align="left" x={54} />
+      {/* JUARA 56-69.5s: build-up -> reveal -> sorakan -> kad juara */}
+      <Scrim from={56} to={69.5} top />
+      <Line t0={56.2} t1={60} style={{left: 54, top: 300}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.92, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>DAN JUARANYA</div></Line>
+      {[57.2, 57.8, 58.4].map((t, k) => <Line key={k} t0={t} t1={60} style={{left: 54 + k * 62, top: 430}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.6, color: C.neon}}>.</div></Line>)}
+      <Chip t0={60.3} t1={62.5} top={300} text="JUARA 2026" />
+      <Slam t0={60.0} t1={62.5} text="PHOENIX A" size={230} y={375} color={C.white} align="left" x={54} />
+      <Line t0={62.7} t1={65.5} style={{left: 54, top: 290}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 130, lineHeight: 0.9, color: C.neon, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PHOENIX A</div></Line>
+      <DeptPill t0={62.7} t1={65.5} top={430} text={DEPTS[0]} />
+      <DeptPill t0={63.3} t1={65.5} top={505} text={DEPTS[1]} />
+      <Chip t0={65.8} t1={69.5} top={290} text="JUARA KEJOHANAN 2026" />
+      <Slam t0={65.5} t1={69.5} text="PHOENIX A" size={190} y={350} color={C.neon} align="left" x={54} />
+      <DeptPill t0={66.2} t1={69.5} top={545} text={DEPTS[0]} />
+      <DeptPill t0={66.6} t1={69.5} top={615} text={DEPTS[1]} />
+      <Confetti b={60.0} /><Confetti b={65.5} n={50} seed={9} />
+
+      {/* TAKEAWAY 69.5-77.5s */}
+      <Scrim from={69.5} to={E_END} top />
+      <Slam t0={69.7} t1={73.5} text={'TAHNIAH'} size={176} y={300} align="left" x={54} />
+      <Slam t0={70.1} t1={73.5} text={'SEMUA PESERTA!'} size={150} y={462} color={C.neon} align="left" x={54} />
+      <Slam t0={73.7} t1={E_END} text={'TERIMA KASIH'} size={132} y={300} align="left" x={54} />
+      <Slam t0={74.1} t1={E_END} text={'PENYOKONG!'} size={132} y={430} color={C.neon} align="left" x={54} />
 
       {/* bingkai sudut untuk klip landscape */}
       {sh.map((s, i) => EDL.shots[i].layout === 'card' ? <Sequence key={'b' + s.id} from={s.from} durationInFrames={s.frames}><Brackets /></Sequence> : null)}
@@ -255,8 +303,9 @@ export const Video: React.FC = () => {
       <EndCard />
       <Hud />
       <PosterOpen />
-      {[6, 11, 31, 56, 64].map((t) => <Wipe key={t} t={t} />)}
-      {[2, 4, 35, 39, 43, 47, 51, 60].map((t) => <Flash key={'f' + t} t={t} />)}
+      {[6, 11, 31, 56, 65.5, E_END].map((t) => <Wipe key={t} t={t} />)}
+      {[2, 4, 35, 39, 43, 47, 51].map((t) => <Flash key={'f' + t} t={t} />)}
+      <Flash t={60} a={0.85} />
       <Audio src={staticFile('audio/mix.wav')} />
     </AbsoluteFill>
   );

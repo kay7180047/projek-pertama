@@ -1,24 +1,295 @@
 {
-  "fps": 30,
-  "bpm": 120,
-  "notes": "Edit Decision List. ss = mula dalam klip asal (saat), src = panjang diambil dari asal, speed < 1 = slow-mo (visual sahaja), beats = panjang output (1 beat = 0.5s). Semua klip <= 5s. layout: cover = isi skrin 9:16, card = bingkai landscape (crop 4:3) + latar kabur. pan = kedudukan crop mendatar [mula, akhir] 0..1. cy = kedudukan crop menegak untuk cover.",
-  "shots": [
-    {"id":"h1","section":"hook","clip":"20261102_212526.mp4","ss":0.5,"src":2,"speed":1,"beats":4,"layout":"cover","cy":0.55,"audio":"keep"},
-    {"id":"h2","section":"hook","clip":"20261102_214322.mp4","ss":0.0,"src":2,"speed":1,"beats":4,"layout":"card","pan":[0.05,0.35],"audio":"keep"},
-    {"id":"h3","section":"hook","clip":"20261102_223958.mp4","ss":3.5,"src":2,"speed":1,"beats":4,"layout":"card","pan":[0.2,0.5],"audio":"keep"},
-    {"id":"q1","section":"question","clip":"VID-20261102-WA0130.mp4","ss":0.0,"src":5,"speed":1,"beats":10,"layout":"cover","cy":0.5,"audio":"keep"},
-    {"id":"f1","section":"explain","clip":"20261102_230326.mp4","ss":18.5,"src":5,"speed":1,"beats":10,"layout":"card","pan":[0.05,0.3],"audio":"keep"},
-    {"id":"f2","section":"explain","clip":"20261102_230637.mp4","ss":126.0,"src":5,"speed":1,"beats":10,"layout":"card","pan":[0.0,0.3],"audio":"keep"},
-    {"id":"f3","section":"explain","clip":"20261102_214504.mp4","ss":3.0,"src":5,"speed":1,"beats":10,"layout":"card","pan":[0.1,0.4],"audio":"keep"},
-    {"id":"f4","section":"explain","clip":"20261102_230637.mp4","ss":19.5,"src":5,"speed":1,"beats":10,"layout":"card","pan":[0.0,0.3],"audio":"keep"},
-    {"id":"c1","section":"example","clip":"20261102_214322.mp4","ss":5.0,"src":4,"speed":1,"beats":8,"layout":"card","pan":[0.0,0.4],"audio":"keep"},
-    {"id":"c2","section":"example","clip":"20261102_230326.mp4","ss":14.0,"src":4,"speed":1,"beats":8,"layout":"card","pan":[0.0,0.4],"audio":"keep"},
-    {"id":"c3","section":"example","clip":"20261102_214437.mp4","ss":4.0,"src":4,"speed":1,"beats":8,"layout":"card","pan":[0.3,0.7],"audio":"keep"},
-    {"id":"c4","section":"example","clip":"20261102_232345.mp4","ss":0.5,"src":4,"speed":1,"beats":8,"layout":"cover","cy":0.55,"audio":"keep"},
-    {"id":"c5","section":"example","clip":"20261102_230637.mp4","ss":107.5,"src":2,"speed":0.5,"beats":8,"layout":"card","pan":[0.2,0.5],"audio":"mute"},
-    {"id":"c6","section":"example","clip":"20261102_212700.mp4","ss":8.0,"src":5,"speed":1,"beats":10,"layout":"cover","cy":0.5,"audio":"keep"},
-    {"id":"t1","section":"takeaway","clip":"20261102_232637.mp4","ss":0.0,"src":4,"speed":1,"beats":8,"layout":"cover","cy":0.55,"audio":"keep"},
-    {"id":"t2","section":"takeaway","clip":"20261102_223903.mp4","ss":0.0,"src":4,"speed":1,"beats":8,"layout":"cover","cy":0.5,"audio":"keep"},
-    {"id":"t3","section":"end","clip":"20261102_203253.mp4","ss":0.0,"src":3.5,"speed":0.583,"beats":12,"layout":"cover","cy":0.6,"audio":"mute"}
-  ]
+ "fps": 30,
+ "bpm": 120,
+ "notes": "Edit Decision List. ss = mula dalam klip asal (saat), src = panjang diambil dari asal, speed < 1 = slow-mo (visual sahaja), beats = panjang output (1 beat = 0.5s). Semua klip <= 5s. layout: cover = isi skrin 9:16, card = bingkai landscape (crop 4:3) + latar kabur. pan = kedudukan crop mendatar [mula, akhir] 0..1. cy = kedudukan crop menegak untuk cover. dir = folder sumber (lalai footage-asal). freeze = bingkai beku pada saat itu.",
+ "shots": [
+  {
+   "id": "h1",
+   "section": "hook",
+   "clip": "20261102_212526.mp4",
+   "ss": 0.5,
+   "src": 2,
+   "speed": 1,
+   "beats": 4,
+   "layout": "cover",
+   "cy": 0.55,
+   "audio": "keep"
+  },
+  {
+   "id": "h2",
+   "section": "hook",
+   "clip": "20261102_214322.mp4",
+   "ss": 0.0,
+   "src": 2,
+   "speed": 1,
+   "beats": 4,
+   "layout": "card",
+   "pan": [
+    0.05,
+    0.35
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "h3",
+   "section": "hook",
+   "clip": "20261102_223958.mp4",
+   "ss": 3.5,
+   "src": 2,
+   "speed": 1,
+   "beats": 4,
+   "layout": "card",
+   "pan": [
+    0.2,
+    0.5
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "q1",
+   "section": "question",
+   "clip": "VID-20261102-WA0130.mp4",
+   "ss": 0.0,
+   "src": 5,
+   "speed": 1,
+   "beats": 10,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "keep"
+  },
+  {
+   "id": "f1",
+   "section": "explain",
+   "clip": "20261102_230326.mp4",
+   "ss": 18.5,
+   "src": 5,
+   "speed": 1,
+   "beats": 10,
+   "layout": "card",
+   "pan": [
+    0.05,
+    0.3
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "f2",
+   "section": "explain",
+   "clip": "20261102_230637.mp4",
+   "ss": 126.0,
+   "src": 5,
+   "speed": 1,
+   "beats": 10,
+   "layout": "card",
+   "pan": [
+    0.0,
+    0.3
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "f3",
+   "section": "explain",
+   "clip": "20261102_214504.mp4",
+   "ss": 3.0,
+   "src": 5,
+   "speed": 1,
+   "beats": 10,
+   "layout": "card",
+   "pan": [
+    0.1,
+    0.4
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "f4",
+   "section": "explain",
+   "clip": "20261102_230637.mp4",
+   "ss": 19.5,
+   "src": 5,
+   "speed": 1,
+   "beats": 10,
+   "layout": "card",
+   "pan": [
+    0.0,
+    0.3
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "c1",
+   "section": "example",
+   "clip": "20261102_214322.mp4",
+   "ss": 5.0,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "card",
+   "pan": [
+    0.0,
+    0.4
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "c2",
+   "section": "example",
+   "clip": "20261102_230326.mp4",
+   "ss": 14.0,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "card",
+   "pan": [
+    0.0,
+    0.4
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "c3",
+   "section": "example",
+   "clip": "20261102_214437.mp4",
+   "ss": 4.0,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "card",
+   "pan": [
+    0.3,
+    0.7
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "c4",
+   "section": "example",
+   "clip": "20261102_232345.mp4",
+   "ss": 0.5,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "cover",
+   "cy": 0.55,
+   "audio": "keep"
+  },
+  {
+   "id": "c5",
+   "section": "example",
+   "clip": "20261102_230637.mp4",
+   "ss": 107.5,
+   "src": 2,
+   "speed": 0.5,
+   "beats": 8,
+   "layout": "card",
+   "pan": [
+    0.2,
+    0.5
+   ],
+   "audio": "mute"
+  },
+  {
+   "id": "c6",
+   "section": "example",
+   "clip": "20261102_212700.mp4",
+   "ss": 8.0,
+   "src": 5,
+   "speed": 1,
+   "beats": 10,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "keep"
+  },
+  {
+   "id": "j0",
+   "section": "champion",
+   "clip": "20261102_214156.mp4",
+   "ss": 1.0,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "card",
+   "pan": [
+    0.1,
+    0.6
+   ],
+   "audio": "keep"
+  },
+  {
+   "id": "j1",
+   "section": "champion",
+   "dir": "footage-juara",
+   "clip": "champion",
+   "ss": 0.0,
+   "src": 2.5,
+   "speed": 1,
+   "beats": 5,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "keep"
+  },
+  {
+   "id": "j2",
+   "section": "champion",
+   "dir": "footage-juara",
+   "clip": "champion",
+   "ss": 3.5,
+   "src": 3.0,
+   "speed": 1,
+   "beats": 6,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "keep"
+  },
+  {
+   "id": "j3",
+   "section": "champion",
+   "dir": "footage-juara",
+   "clip": "champion",
+   "freeze": 3.2,
+   "src": 0,
+   "speed": 1,
+   "beats": 8,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "mute"
+  },
+  {
+   "id": "t1",
+   "section": "takeaway",
+   "clip": "20261102_232637.mp4",
+   "ss": 0.0,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "cover",
+   "cy": 0.55,
+   "audio": "keep"
+  },
+  {
+   "id": "t2",
+   "section": "takeaway",
+   "clip": "20261102_223903.mp4",
+   "ss": 0.0,
+   "src": 4,
+   "speed": 1,
+   "beats": 8,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "keep"
+  },
+  {
+   "id": "t3",
+   "section": "end",
+   "clip": "20261102_203253.mp4",
+   "ss": 0.0,
+   "src": 3.5,
+   "speed": 0.583,
+   "beats": 12,
+   "layout": "cover",
+   "cy": 0.6,
+   "audio": "mute"
+  }
+ ]
 }

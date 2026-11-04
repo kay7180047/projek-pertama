@@ -28,7 +28,8 @@ const lead = (t0, d, m, g = 1) => music(t0, d + 0.1, (t) => { const f = hz(m) * 
 // ---------- struktur ----------
 const chords = [[57, 60, 64], [53, 57, 60], [48, 55, 64], [55, 59, 62]], roots = [45, 41, 36, 43];
 const penta = [69, 72, 74, 76, 79, 76, 74, 72]; // A minor pentatonic
-const phase = (t) => t < 6 ? 'hook' : t < 11 ? 'breath' : t < 31 ? 'groove' : t < 56 ? 'full' : t < 64 ? 'calm' : 'end';
+const E_END = 77.5;
+const phase = (t) => t < 6 ? 'hook' : t < 11 ? 'breath' : t < 31 ? 'groove' : t < 56 ? 'full' : t < 60 ? 'build' : t < 69.5 ? 'full' : t < E_END ? 'calm' : 'end';
 const bars = Math.ceil(DUR / (4 * beat));
 for (let b = 0; b < bars; b++) {
   const tb = b * 4 * beat, ch = chords[b % 4], root = roots[b % 4];
@@ -56,6 +57,11 @@ for (let b = 0; b < bars; b++) {
       if (off8 || onBeat) bass(t, beat * 0.45, root + (step % 8 === 6 ? 12 : 0), 1);
       if (step % (full ? 2 : 4) === 0) pluck(t, ch[(step / (full ? 2 : 4) | 0) % 3] + 24 + (step % 8 === 6 ? 12 : 0), full ? 1 : 0.75, step % 4 ? 0.35 : -0.35);
       if (full && (step === 0 || step === 6 || step === 12)) lead(t, beat * (step === 12 ? 1.5 : 0.8), penta[((b * 3 + step / 2) | 0) % penta.length] , 1);
+    } else if (ph === 'build') {
+      if (step % 2 === 0) hat(t, 0.5 + (t - 56) / 8);
+      if (onBeat) pluck(t, ch[beatNo % 3] + 24, 0.8, beatNo % 2 ? 0.3 : -0.3);
+      if (step === 0) bass(t, beat * 3.8, root, 0.8);
+      if (t >= 58.5 && step % 2 === 0) clap(t, 0.5);
     } else if (ph === 'calm') {
       if (onBeat && (beatNo === 0 || beatNo === 2)) kick(t, 0.6);
       if (step % 4 === 2) hat(t, 0.5);
@@ -66,7 +72,7 @@ for (let b = 0; b < bars; b++) {
   const t0 = tb; if (t0 < DUR) { const ph = phase(t0 + 0.1); pad(t0, 4 * beat, ch, ph === 'hook' ? 0.8 : ph === 'breath' || ph === 'end' ? 1.6 : ph === 'calm' ? 1.3 : 1); }
 }
 // chord penutup memanjang
-pad(64, 6, chords[0], 1.4);
+pad(E_END, 6, chords[0], 1.4);
 
 // ---------- SFX (cue sama dengan visual) ----------
 const impact = (t0) => { let ph = 0; sfx(t0, 1.2, (t) => { const f = 32 + 70 * Math.exp(-t * 9); ph += TAU * f / SR; return Math.sin(ph) * Math.exp(-t * 3.2) * (1 - Math.exp(-t * 600)); }, 0.95);
@@ -82,7 +88,8 @@ T.pops.forEach(pop); T.clicks.forEach(click);
 const peak = (a, b) => { let p = 1e-9; for (let i = 0; i < N; i++) p = Math.max(p, Math.abs(a[i]), Math.abs(b[i])); return p; };
 const scale = (a, b, target) => { const k = target / peak(a, b); for (let i = 0; i < N; i++) { a[i] *= k; b[i] *= k; } return k; };
 // fade keluar muzik 68.5-70s
-for (let i = Math.floor(68.3 * SR); i < N; i++) { const f = 1 - (i - 68.3 * SR) / (1.7 * SR); mL[i] *= f; mR[i] *= f; }
+const FO = DUR - 1.7;
+for (let i = Math.floor(FO * SR); i < N; i++) { const f = 1 - (i - FO * SR) / (1.7 * SR); mL[i] *= f; mR[i] *= f; }
 scale(mL, mR, 0.6); scale(sL, sR, 0.8);
 const wav = (L, R, file) => { const buf = Buffer.alloc(44 + N * 4); buf.write('RIFF', 0); buf.writeUInt32LE(36 + N * 4, 4); buf.write('WAVEfmt ', 8); buf.writeUInt32LE(16, 16); buf.writeUInt16LE(1, 20); buf.writeUInt16LE(2, 22); buf.writeUInt32LE(SR, 24); buf.writeUInt32LE(SR * 4, 28); buf.writeUInt16LE(4, 32); buf.writeUInt16LE(16, 34); buf.write('data', 36); buf.writeUInt32LE(N * 4, 40);
   for (let i = 0; i < N; i++) { buf.writeInt16LE(Math.round(Math.max(-1, Math.min(1, Math.tanh(L[i] * 1.1) )) * 32767), 44 + i * 4); buf.writeInt16LE(Math.round(Math.max(-1, Math.min(1, Math.tanh(R[i] * 1.1))) * 32767), 46 + i * 4); }
