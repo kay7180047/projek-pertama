@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig, delayRender, continueRender} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig, delayRender, continueRender} from 'remotion';
 import EDL from './edl.json';
 import TIMING from './timing.json';
 
@@ -151,6 +151,25 @@ const ShotInner: React.FC<{id: string; frames: number; idx: number; layout: stri
   );
 };
 
+// ---------- plat logo penganjur (Majlis, KESUMBA, BIRO) ----------
+const LOGOS = [{f: 'mbk', h: 230, w: 111, alt: 'Majlis Bandaraya Kuantan'}, {f: 'kesumba', h: 200, w: 195, alt: 'KESUMBA'}, {f: 'biro', h: 210, w: 200, alt: 'Biro Sukan dan Rekreasi KESUMBA'}];
+const LogoPlate: React.FC<{t0: number; t1: number; top: number}> = ({t0, t1, top}) => {
+  const f = useCurrentFrame(); const p = useIn(t0, {damping: 15, stiffness: 190, mass: 0.7});
+  if (f < S(t0) || f >= S(t1)) return null;
+  return (
+    <div style={{position: 'absolute', left: 0, right: 0, top, display: 'flex', justifyContent: 'center', opacity: Math.min(1, p * 2.5) * outAt(f, t1, 0.12), transform: `translateY(${interpolate(p, [0, 1], [70, 0])}px) scale(${interpolate(p, [0, 1], [0.92, 1])})`}}>
+      <div style={{display: 'flex', alignItems: 'center', gap: 46, background: '#fff', padding: '22px 44px', borderRadius: 26, borderBottom: `8px solid ${C.neon}`, boxShadow: '0 14px 40px rgba(0,0,0,.45)'}}>
+        {LOGOS.map((l, i) => (
+          <React.Fragment key={l.f}>
+            {i > 0 && <div style={{width: 2, height: 150, background: 'rgba(11,18,32,.14)'}} />}
+            <Img src={staticFile(`logos/${l.f}.png`)} alt={l.alt} style={{height: l.h, width: l.w, objectFit: 'contain'}} />
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // ---------- kad penutup ----------
 const EndCard: React.FC = () => {
   const f = useCurrentFrame(); const pa = useIn(64.4, {damping: 14, stiffness: 200, mass: 0.7}), pb = useIn(65.4, {damping: 11, stiffness: 240, mass: 0.6}), pc = useIn(66.6);
@@ -159,17 +178,18 @@ const EndCard: React.FC = () => {
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{background: `rgba(11,18,32,${dim})`}} />
-      <div style={{position: 'absolute', left: 0, right: 0, top: 520, textAlign: 'center', opacity: Math.min(1, pa * 2.5), transform: `translateY(${interpolate(pa, [0, 1], [50, 0])}px)`}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 420, textAlign: 'center', opacity: Math.min(1, pa * 2.5), transform: `translateY(${interpolate(pa, [0, 1], [50, 0])}px)`}}>
         <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 48, letterSpacing: 8, color: C.neon}}>LIPUTAN KEJOHANAN</div>
         <div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.92, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PICKLEBALL<br />ANTARA JABATAN</div>
       </div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 1010, textAlign: 'center', transform: `scale(${interpolate(pb, [0, 1], [1.4, 1])})`, opacity: Math.min(1, pb * 3)}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 900, textAlign: 'center', transform: `scale(${interpolate(pb, [0, 1], [1.4, 1])})`, opacity: Math.min(1, pb * 3)}}>
         <div style={{display: 'inline-block', background: C.neon, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 78, padding: '10px 34px 4px', lineHeight: 1, letterSpacing: 2, whiteSpace: 'nowrap'}}>TAG RAKAN SEPASUKAN!</div>
       </div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 1170, textAlign: 'center', opacity: Math.min(1, pc * 2.5), transform: `translateY(${interpolate(pc, [0, 1], [24, 0])}px)`}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 1050, textAlign: 'center', opacity: Math.min(1, pc * 2.5), transform: `translateY(${interpolate(pc, [0, 1], [24, 0])}px)`}}>
         <div style={{fontFamily: F.body, fontWeight: 700, fontSize: 42, color: C.white, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>Follow untuk liputan seterusnya.</div>
         <div style={{fontFamily: F.cond, fontWeight: 700, fontSize: 36, letterSpacing: 5, color: C.dim, marginTop: 18}}>2 NOVEMBER 2026</div>
       </div>
+      <LogoPlate t0={67.2} t1={70.1} top={1215} />
     </AbsoluteFill>
   );
 };
@@ -193,6 +213,8 @@ export const Video: React.FC = () => {
       <Line t0={6.2} t1={11} style={{left: 54, top: 300}}><div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 84, letterSpacing: 4, color: C.neon}}>LAPORAN KEJOHANAN</div></Line>
       <Line t0={6.8} t1={11} style={{left: 54, top: 392}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 176, lineHeight: 0.9, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PICKLEBALL</div></Line>
       <Line t0={7.4} t1={11} style={{left: 54, top: 548}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.9, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}><span style={{color: C.neon}}>ANTARA JABATAN</span></div></Line>
+
+      <LogoPlate t0={8.2} t1={11} top={1190} />
 
       {/* PENERANGAN 11-31s */}
       {FACTS.map((x) => <Fact key={x.n} {...x} />)}
