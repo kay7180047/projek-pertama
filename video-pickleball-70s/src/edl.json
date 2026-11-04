@@ -280,6 +280,34 @@
    "audio": "keep"
   },
   {
+   "id": "u1",
+   "section": "thanks",
+   "dir": "footage-urusetia",
+   "clip": "IMG-20261103-WA0246.jpg",
+   "freeze": 0,
+   "coverH": true,
+   "cx": 0.5,
+   "src": 0,
+   "speed": 1,
+   "beats": 8,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "mute"
+  },
+  {
+   "id": "u2",
+   "section": "thanks",
+   "dir": "footage-urusetia",
+   "clip": "VID-20261103-WA0244(1).mp4",
+   "ss": 1.0,
+   "src": 4.5,
+   "speed": 1,
+   "beats": 9,
+   "layout": "cover",
+   "cy": 0.5,
+   "audio": "keep"
+  },
+  {
    "id": "t3",
    "section": "end",
    "clip": "20261102_203253.mp4",

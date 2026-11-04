@@ -28,7 +28,7 @@ const lead = (t0, d, m, g = 1) => music(t0, d + 0.1, (t) => { const f = hz(m) * 
 // ---------- struktur ----------
 const chords = [[57, 60, 64], [53, 57, 60], [48, 55, 64], [55, 59, 62]], roots = [45, 41, 36, 43];
 const penta = [69, 72, 74, 76, 79, 76, 74, 72]; // A minor pentatonic
-const E_END = 77.5;
+const E_END = 86.0;
 const phase = (t) => t < 6 ? 'hook' : t < 11 ? 'breath' : t < 31 ? 'groove' : t < 56 ? 'full' : t < 60 ? 'build' : t < 69.5 ? 'full' : t < E_END ? 'calm' : 'end';
 const bars = Math.ceil(DUR / (4 * beat));
 for (let b = 0; b < bars; b++) {

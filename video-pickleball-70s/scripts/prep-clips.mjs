@@ -27,8 +27,8 @@ for (const s of E.shots) {
       `[bg][fg]overlay=0:555,format=yuv420p[v]`;
   }
   if (s.freeze !== undefined) {
-    const png = path.join(AUD, s.id + '.png'); run(['-ss', String(s.freeze), '-i', f, '-frames:v', '1', png]);
-    run(['-loop', '1', '-framerate', String(E.fps), '-i', png, '-filter_complex', `[0:v]scale=1080:-2:flags=lanczos,crop=1080:1920:0:'(ih-1920)*${s.cy}',${grade},format=yuv420p[v]`, '-map', '[v]', '-frames:v', String(frames), '-an', '-c:v', 'libx264', '-crf', '16', '-r', String(E.fps), outV]);
+    const isImg = /\.(jpe?g|png)$/i.test(s.clip); const png = isImg ? f : path.join(AUD, s.id + '.png'); if (!isImg) run(['-ss', String(s.freeze), '-i', f, '-frames:v', '1', png]);
+    run(['-loop', '1', '-framerate', String(E.fps), '-i', png, '-filter_complex', (s.coverH ? `[0:v]scale=-2:1920:flags=lanczos,crop=1080:1920:'(iw-1080)*${s.cx}':0,${grade},format=yuv420p[v]` : `[0:v]scale=1080:-2:flags=lanczos,crop=1080:1920:0:'(ih-1920)*${s.cy}',${grade},format=yuv420p[v]`), '-map', '[v]', '-frames:v', String(frames), '-an', '-c:v', 'libx264', '-crf', '16', '-r', String(E.fps), outV]);
   } else
   run(['-ss', String(s.ss), '-t', String(s.src), '-i', f, '-filter_complex', fc, '-map', '[v]', '-frames:v', String(frames), '-an',
     '-c:v', 'libx264', '-crf', '16', '-preset', 'medium', '-r', String(E.fps), path.join(OUT, s.id + '.mp4')]);

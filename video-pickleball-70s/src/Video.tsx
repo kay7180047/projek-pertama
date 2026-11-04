@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Easing, Img, interpolate, OffthreadVideo, Sequence,
 import EDL from './edl.json';
 import TIMING from './timing.json';
 import TLN from './timeline.json';
-const TOTAL = TLN.total, E_END = 77.5; // E_END = mula kad penutup
+const TOTAL = TLN.total, E_END = 86.0; // E_END = mula kad penutup
 
 // ---------- tema sementara (tiada branding diberi): hitam-biru malam + hijau-kuning neon (warna bola) ----------
 const C = {bg: '#07173A', neon: '#C6FF3D', white: '#FFFFFF', dim: 'rgba(255,255,255,0.78)'};
@@ -291,11 +291,19 @@ export const Video: React.FC = () => {
       <Confetti b={60.0} /><Confetti b={65.5} n={50} seed={9} />
 
       {/* TAKEAWAY 69.5-77.5s */}
-      <Scrim from={69.5} to={E_END} top />
+      <Scrim from={69.5} to={77.5} top />
       <Slam t0={69.7} t1={73.5} text={'TAHNIAH'} size={176} y={300} align="left" x={54} />
       <Slam t0={70.1} t1={73.5} text={'SEMUA PESERTA!'} size={150} y={462} color={C.neon} align="left" x={54} />
-      <Slam t0={73.7} t1={E_END} text={'TERIMA KASIH'} size={132} y={300} align="left" x={54} />
-      <Slam t0={74.1} t1={E_END} text={'PENYOKONG!'} size={132} y={430} color={C.neon} align="left" x={54} />
+      <Slam t0={73.7} t1={77.5} text={'TERIMA KASIH'} size={132} y={300} align="left" x={54} />
+      <Slam t0={74.1} t1={77.5} text={'PENYOKONG!'} size={132} y={430} color={C.neon} align="left" x={54} />
+
+      {/* UCAPAN TERIMA KASIH URUSETIA 77.5-86s */}
+      <Scrim from={77.5} to={E_END} top />
+      <Chip t0={77.7} t1={81.5} top={290} text="URUSETIA KEJOHANAN" />
+      <Slam t0={78.0} t1={81.5} text="TERIMA KASIH" size={150} y={375} align="left" x={54} />
+      <Slam t0={78.6} t1={81.5} text="URUSETIA!" size={190} y={525} color={C.neon} align="left" x={54} />
+      <Slam t0={81.8} t1={E_END} text="SEPANJANG" size={150} y={300} align="left" x={54} />
+      <Slam t0={82.4} t1={E_END} text="KEJOHANAN!" size={150} y={440} color={C.neon} align="left" x={54} />
 
       {/* bingkai sudut untuk klip landscape */}
       {sh.map((s, i) => EDL.shots[i].layout === 'card' ? <Sequence key={'b' + s.id} from={s.from} durationInFrames={s.frames}><Brackets /></Sequence> : null)}
@@ -303,7 +311,7 @@ export const Video: React.FC = () => {
       <EndCard />
       <Hud />
       <PosterOpen />
-      {[6, 11, 31, 56, 65.5, E_END].map((t) => <Wipe key={t} t={t} />)}
+      {[6, 11, 31, 56, 65.5, 77.5, E_END].map((t) => <Wipe key={t} t={t} />)}
       {[2, 4, 35, 39, 43, 47, 51].map((t) => <Flash key={'f' + t} t={t} />)}
       <Flash t={60} a={0.85} />
       <Audio src={staticFile('audio/mix.wav')} />
