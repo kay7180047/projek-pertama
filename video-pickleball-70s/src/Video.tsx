@@ -61,12 +61,12 @@ const Hud: React.FC = () => {
     <div style={{opacity: show}}>
       <div style={{position: 'absolute', left: 54, top: 142, display: 'flex', alignItems: 'center', gap: 14, background: 'rgba(11,18,32,.72)', border: `2px solid ${C.neon}`, padding: '10px 22px 8px 18px', borderRadius: 6}}>
         <div style={{width: 14, height: 14, borderRadius: 7, background: C.neon, boxShadow: `0 0 14px ${C.neon}`}} />
-        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 32, letterSpacing: 2.5, color: C.white}}>KEJOHANAN PICKLEBALL ANTARA JABATAN</div>
+        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 32, letterSpacing: 2.5, color: C.white}}>PICKLEBALL ANTARA JABATAN</div>
       </div>
       <div style={{position: 'absolute', left: 54, right: 54, top: 214, height: 6, background: 'rgba(255,255,255,.18)'}}>
         <div style={{width: `${(f / tot) * 100}%`, height: '100%', background: C.neon}} />
       </div>
-      <div style={{position: 'absolute', right: 54, top: 232, fontFamily: F.cond, fontWeight: 700, fontSize: 28, letterSpacing: 3, color: C.dim}}>LIPUTAN · 02 NOV 2026</div>
+      <div style={{position: 'absolute', right: 54, top: 232, fontFamily: F.cond, fontWeight: 700, fontSize: 28, letterSpacing: 3, color: C.dim}}>02 NOV 2026</div>
     </div>
   );
 };
@@ -97,8 +97,7 @@ const Fact: React.FC<(typeof FACTS)[number]> = ({t0, n, chip, title, teams, sub}
   return (
     <AbsoluteFill style={{opacity: o}}>
       <div style={{position: 'absolute', left: 54, top: 262, display: 'flex', alignItems: 'center', gap: 14, opacity: Math.min(1, pn * 2)}}>
-        <div style={{background: C.neon, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 40, padding: '2px 14px 0', letterSpacing: 2, transform: `scale(${interpolate(pn, [0, 1], [1.6, 1])})`}}>{n}</div>
-        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 32, letterSpacing: 4, color: C.neon}}>PASUKAN BERTANDING · {n}/04</div>
+        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 32, letterSpacing: 4, color: C.neon}}>PASUKAN BERTANDING</div>
       </div>
       <div style={{position: 'absolute', left: 54, top: 322, fontFamily: F.cond, fontWeight: 900, fontSize: 118, lineHeight: 0.92, color: C.white, whiteSpace: 'pre', textShadow: '0 6px 0 rgba(0,0,0,.35)',
         opacity: Math.min(1, pt * 2.5), transform: `translateX(${interpolate(pt, [0, 1], [-90, 0])}px)`}}>{title}</div>
@@ -231,15 +230,14 @@ const EndCard: React.FC = () => {
     <AbsoluteFill>
       <AbsoluteFill style={{background: `rgba(11,18,32,${dim})`}} />
       <div style={{position: 'absolute', left: 0, right: 0, top: 420, textAlign: 'center', opacity: Math.min(1, pa * 2.5), transform: `translateY(${interpolate(pa, [0, 1], [50, 0])}px)`}}>
-        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 48, letterSpacing: 8, color: C.neon}}>LIPUTAN KEJOHANAN 2026</div>
+        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 48, letterSpacing: 8, color: C.neon}}>2 NOVEMBER 2026</div>
         <div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.92, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PICKLEBALL<br />ANTARA JABATAN</div>
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 900, textAlign: 'center', transform: `scale(${interpolate(pb, [0, 1], [1.4, 1])})`, opacity: Math.min(1, pb * 3)}}>
-        <div style={{display: 'inline-block', background: C.neon, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 78, padding: '10px 34px 4px', lineHeight: 1, letterSpacing: 2, whiteSpace: 'nowrap'}}>TAG RAKAN SEPASUKAN!</div>
+        <div style={{display: 'inline-block', background: C.neon, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 78, padding: '10px 34px 4px', lineHeight: 1, letterSpacing: 2, whiteSpace: 'nowrap'}}>TERIMA KASIH SEMUA!</div>
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 1050, textAlign: 'center', opacity: Math.min(1, pc * 2.5), transform: `translateY(${interpolate(pc, [0, 1], [24, 0])}px)`}}>
-        <div style={{fontFamily: F.body, fontWeight: 700, fontSize: 42, color: C.white, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>Follow untuk liputan seterusnya.</div>
-        <div style={{fontFamily: F.cond, fontWeight: 700, fontSize: 36, letterSpacing: 5, color: C.dim, marginTop: 18}}>2 NOVEMBER 2026</div>
+        <div style={{fontFamily: F.body, fontWeight: 700, fontSize: 42, color: C.white, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>Follow untuk update seterusnya.</div>
       </div>
       <LogoPlate t0={E_END + 3.2} t1={TOTAL + 0.1} top={1215} />
     </AbsoluteFill>
@@ -262,9 +260,9 @@ export const Video: React.FC = () => {
 
       {/* PERSOALAN 6-11s */}
       <Scrim from={6} to={11} top />
-      <Line t0={6.2} t1={11} style={{left: 54, top: 300}}><div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 84, letterSpacing: 4, color: C.neon}}>LAPORAN KEJOHANAN</div></Line>
-      <Line t0={6.8} t1={11} style={{left: 54, top: 392}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 176, lineHeight: 0.9, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PICKLEBALL</div></Line>
-      <Line t0={7.4} t1={11} style={{left: 54, top: 548}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.9, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}><span style={{color: C.neon}}>ANTARA JABATAN</span></div></Line>
+      <Line t0={6.2} t1={11} style={{left: 54, top: 300}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 176, lineHeight: 0.9, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PICKLEBALL</div></Line>
+      <Line t0={6.8} t1={11} style={{left: 54, top: 462}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.9, color: C.neon, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>ANTARA JABATAN</div></Line>
+      <Line t0={7.4} t1={11} style={{left: 54, top: 598}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.9, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>2026</div></Line>
 
       <LogoPlate t0={8.2} t1={11} top={1190} />
 
@@ -284,7 +282,7 @@ export const Video: React.FC = () => {
       <Line t0={62.7} t1={65.5} style={{left: 54, top: 290}}><div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 130, lineHeight: 0.9, color: C.neon, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PHOENIX A</div></Line>
       <DeptPill t0={62.7} t1={65.5} top={430} text={DEPTS[0]} />
       <DeptPill t0={63.3} t1={65.5} top={505} text={DEPTS[1]} />
-      <Chip t0={65.8} t1={69.5} top={290} text="JUARA KEJOHANAN 2026" />
+      <Chip t0={65.8} t1={69.5} top={290} text="JUARA 2026" />
       <Slam t0={65.5} t1={69.5} text="PHOENIX A" size={190} y={350} color={C.neon} align="left" x={54} />
       <DeptPill t0={66.2} t1={69.5} top={545} text={DEPTS[0]} />
       <DeptPill t0={66.6} t1={69.5} top={615} text={DEPTS[1]} />
@@ -299,11 +297,10 @@ export const Video: React.FC = () => {
 
       {/* UCAPAN TERIMA KASIH URUSETIA 77.5-86s */}
       <Scrim from={77.5} to={E_END} top />
-      <Chip t0={77.7} t1={81.5} top={290} text="URUSETIA KEJOHANAN" />
-      <Slam t0={78.0} t1={81.5} text="TERIMA KASIH" size={150} y={375} align="left" x={54} />
-      <Slam t0={78.6} t1={81.5} text="URUSETIA!" size={190} y={525} color={C.neon} align="left" x={54} />
+      <Slam t0={78.0} t1={81.5} text="TERIMA KASIH" size={150} y={300} align="left" x={54} />
+      <Slam t0={78.6} t1={81.5} text="URUSETIA!" size={190} y={450} color={C.neon} align="left" x={54} />
       <Slam t0={81.8} t1={E_END} text="SEPANJANG" size={150} y={300} align="left" x={54} />
-      <Slam t0={82.4} t1={E_END} text="KEJOHANAN!" size={150} y={440} color={C.neon} align="left" x={54} />
+      <Slam t0={82.4} t1={E_END} text="PERTANDINGAN!" size={150} y={440} color={C.neon} align="left" x={54} />
 
       {/* bingkai sudut untuk klip landscape */}
       {sh.map((s, i) => EDL.shots[i].layout === 'card' ? <Sequence key={'b' + s.id} from={s.from} durationInFrames={s.frames}><Brackets /></Sequence> : null)}
