@@ -4,7 +4,7 @@ import EDL from './edl.json';
 import TIMING from './timing.json';
 
 // ---------- tema sementara (tiada branding diberi): hitam-biru malam + hijau-kuning neon (warna bola) ----------
-const C = {bg: '#0B1220', neon: '#C6FF3D', white: '#FFFFFF', dim: 'rgba(255,255,255,0.78)'};
+const C = {bg: '#07173A', neon: '#C6FF3D', white: '#FFFFFF', dim: 'rgba(255,255,255,0.78)'};
 const F = {cond: '"Barlow Condensed", sans-serif', body: 'Inter, sans-serif'};
 const FPS = 30;
 const S = (sec: number) => Math.round(sec * FPS);
@@ -80,25 +80,31 @@ const Brackets: React.FC = () => {
 };
 
 // ---------- seksyen penerangan ----------
-const FACTS = [
-  {t0: 11, n: '01', title: 'PERLAWANAN\nBERMULA', sub: 'Pemain dari pelbagai jabatan mula bertanding.'},
-  {t0: 16, n: '02', title: 'RALLY\nYANG RANCAK', sub: 'Pertukaran bola yang rancak di gelanggang.'},
-  {t0: 21, n: '03', title: 'PASUKAN\nBERTARUNG', sub: 'Setiap jabatan membawa semangat sendiri.'},
-  {t0: 26, n: '04', title: 'AKSI SEPANJANG\nMALAM', sub: 'Gelanggang tak pernah sunyi.'}
+// Sumber: poster rasmi "Kejohanan Pickleball Antara Jabatan 2026" (Jadual Kumpulan & Perlawanan)
+const FACTS: {t0: number; n: string; chip: string; title: string; teams?: string[]; sub?: string}[] = [
+  {t0: 11, n: '01', chip: 'KUMPULAN A', title: 'KUMPULAN A', teams: ['HORIZON', 'ZENITH A', 'VANGUARD A', 'VALIANT A']},
+  {t0: 16, n: '02', chip: 'KUMPULAN B', title: 'KUMPULAN B', teams: ['GUARDIAN A', 'PHOENIX B', 'ZENITH B', 'VALIANT B']},
+  {t0: 21, n: '03', chip: 'KUMPULAN C', title: 'KUMPULAN C', teams: ['VANGUARD B', 'PHOENIX A', 'GUARDIAN B']},
+  {t0: 26, n: '04', chip: 'JADUAL', title: '11 PASUKAN\n15 PERLAWANAN', sub: 'Peringkat kumpulan di Court 1 hingga 8.'}
 ];
-const Fact: React.FC<(typeof FACTS)[number]> = ({t0, n, title, sub}) => {
-  const f = useCurrentFrame(); const pn = useIn(t0, {damping: 12, stiffness: 240, mass: 0.6}), pt = useIn(t0 + 0.15), ps = useIn(t0 + 0.55);
+const Fact: React.FC<(typeof FACTS)[number]> = ({t0, n, chip, title, teams, sub}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig();
+  const pn = useIn(t0, {damping: 12, stiffness: 240, mass: 0.6}), pt = useIn(t0 + 0.15), ps = useIn(t0 + 0.55);
   const o = outAt(f, t0 + 5, 0.12);
   if (f < S(t0) || f >= S(t0 + 5)) return null;
   return (
     <AbsoluteFill style={{opacity: o}}>
       <div style={{position: 'absolute', left: 54, top: 262, display: 'flex', alignItems: 'center', gap: 14, opacity: Math.min(1, pn * 2)}}>
         <div style={{background: C.neon, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 40, padding: '2px 14px 0', letterSpacing: 2, transform: `scale(${interpolate(pn, [0, 1], [1.6, 1])})`}}>{n}</div>
-        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 32, letterSpacing: 4, color: C.neon}}>SOROTAN PERLAWANAN · {n}/04</div>
+        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 32, letterSpacing: 4, color: C.neon}}>PASUKAN BERTANDING · {n}/04</div>
       </div>
       <div style={{position: 'absolute', left: 54, top: 322, fontFamily: F.cond, fontWeight: 900, fontSize: 118, lineHeight: 0.92, color: C.white, whiteSpace: 'pre', textShadow: '0 6px 0 rgba(0,0,0,.35)',
         opacity: Math.min(1, pt * 2.5), transform: `translateX(${interpolate(pt, [0, 1], [-90, 0])}px)`}}>{title}</div>
-      <div style={{position: 'absolute', left: 54, top: 1405, width: 960, fontFamily: F.body, fontWeight: 700, fontSize: 44, lineHeight: 1.25, color: C.white, opacity: Math.min(1, ps * 2.5), transform: `translateY(${interpolate(ps, [0, 1], [26, 0])}px)`, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>{sub}</div>
+      {sub && <div style={{position: 'absolute', left: 54, top: 1405, width: 960, fontFamily: F.body, fontWeight: 700, fontSize: 44, lineHeight: 1.25, color: C.white, opacity: Math.min(1, ps * 2.5), transform: `translateY(${interpolate(ps, [0, 1], [26, 0])}px)`, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>{sub}</div>}
+      {teams && <div style={{position: 'absolute', left: 54, right: 54, top: 1398, display: 'flex', flexWrap: 'wrap', gap: 12}}>
+        {teams.map((t, i) => { const pp = spring({frame: f - S(t0 + 0.5 + i * 0.12), fps, config: {damping: 14, stiffness: 220, mass: 0.6}});
+          return <div key={t} style={{background: C.white, color: C.bg, fontFamily: F.cond, fontWeight: 900, fontSize: 46, letterSpacing: 2, padding: '8px 22px 4px', borderRadius: 8, borderBottom: `6px solid ${C.neon}`, opacity: Math.min(1, pp * 2.5), transform: `translateY(${interpolate(pp, [0, 1], [30, 0])}px)`, boxShadow: '0 6px 18px rgba(0,0,0,.4)'}}>{t}</div>; })}
+      </div>}
     </AbsoluteFill>
   );
 };
@@ -170,6 +176,19 @@ const LogoPlate: React.FC<{t0: number; t1: number; top: number}> = ({t0, t1, top
   );
 };
 
+// ---------- muka hadapan: poster rasmi pada 0.5s pertama (= cover lalai TikTok), kemudian terus ke hook ----------
+const PosterOpen: React.FC = () => {
+  const f = useCurrentFrame(); const END = S(0.5);
+  if (f >= END) return null;
+  const z = interpolate(f, [0, END], [1.0, 1.045], {easing: Easing.out(Easing.cubic), ...clamp});
+  return (
+    <AbsoluteFill style={{background: C.bg}}>
+      <Img src={staticFile('poster.jpg')} style={{position: 'absolute', inset: 0, width: 1080, height: 1920, objectFit: 'cover', filter: 'blur(38px) brightness(.55)', transform: 'scale(1.25)'}} />
+      <Img src={staticFile('poster.jpg')} style={{position: 'absolute', left: 0, top: 196, width: 1080, height: 1527, transform: `scale(${z})`}} />
+    </AbsoluteFill>
+  );
+};
+
 // ---------- kad penutup ----------
 const EndCard: React.FC = () => {
   const f = useCurrentFrame(); const pa = useIn(64.4, {damping: 14, stiffness: 200, mass: 0.7}), pb = useIn(65.4, {damping: 11, stiffness: 240, mass: 0.6}), pc = useIn(66.6);
@@ -179,7 +198,7 @@ const EndCard: React.FC = () => {
     <AbsoluteFill>
       <AbsoluteFill style={{background: `rgba(11,18,32,${dim})`}} />
       <div style={{position: 'absolute', left: 0, right: 0, top: 420, textAlign: 'center', opacity: Math.min(1, pa * 2.5), transform: `translateY(${interpolate(pa, [0, 1], [50, 0])}px)`}}>
-        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 48, letterSpacing: 8, color: C.neon}}>LIPUTAN KEJOHANAN</div>
+        <div style={{fontFamily: F.cond, fontWeight: 800, fontSize: 48, letterSpacing: 8, color: C.neon}}>LIPUTAN KEJOHANAN 2026</div>
         <div style={{fontFamily: F.cond, fontWeight: 900, fontSize: 150, lineHeight: 0.92, color: C.white, textShadow: '0 6px 0 rgba(0,0,0,.35)'}}>PICKLEBALL<br />ANTARA JABATAN</div>
       </div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 900, textAlign: 'center', transform: `scale(${interpolate(pb, [0, 1], [1.4, 1])})`, opacity: Math.min(1, pb * 3)}}>
@@ -204,7 +223,7 @@ export const Video: React.FC = () => {
 
       {/* HOOK 0-6s: tiga potongan, tiga kata */}
       <Scrim from={0} to={2} strength={0.7} top />
-      <Slam t0={0.0} t1={2.0} text="SEMALAM." size={260} y={310} rot={-3} align="left" x={54} />
+      <Slam t0={0.5} t1={2.0} text="SEMALAM." size={260} y={310} rot={-3} align="left" x={54} />
       <Slam t0={2.0} t1={4.0} text={'JABATAN\nVS JABATAN'} size={178} y={260} color={C.white} />
       <Slam t0={4.0} t1={6.0} text="PICKLEBALL!" size={196} y={330} color={C.neon} rot={-2} />
 
@@ -235,6 +254,7 @@ export const Video: React.FC = () => {
 
       <EndCard />
       <Hud />
+      <PosterOpen />
       {[6, 11, 31, 56, 64].map((t) => <Wipe key={t} t={t} />)}
       {[2, 4, 35, 39, 43, 47, 51, 60].map((t) => <Flash key={'f' + t} t={t} />)}
       <Audio src={staticFile('audio/mix.wav')} />
