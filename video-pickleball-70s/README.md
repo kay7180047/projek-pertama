@@ -18,3 +18,9 @@ Untuk tukar teks sahaja: edit `src/Video.tsx` lalu `npm run render:preview`.
 
 ## Tema sementara (tiada branding diberi)
 Latar #0B1220, aksen neon #C6FF3D (warna bola), putih. Fon Barlow Condensed + Inter (@fontsource, setempat).
+
+## Audio
+Audio akhir ialah **lagu yang disediakan pengguna sahaja** (`audio-lagu/lagu.m4a`, tidak dimasukkan ke git).
+`npm run mix` (scripts/mix-lagu.mjs) menyelaraskan lagu ke grid 120 BPM video dan menyusunnya: drop pertama pada 0s,
+build-up + drop kedua pada reveal juara (60s). Bunyi rakaman, SFX dan muzik prosedural tidak digunakan
+(skrip lama `make-audio.mjs` / `mix-audio.mjs` kekal untuk rujukan).

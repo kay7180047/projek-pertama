@@ -7,3 +7,5 @@ out/*.mp4
 aset-logo/
 footage-juara/
 footage-urusetia/
+audio-lagu/
+public/audio/lagu*.wav

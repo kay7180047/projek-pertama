@@ -5,10 +5,11 @@
   "scripts": {
     "clips": "node scripts/prep-clips.mjs",
     "music": "node scripts/make-audio.mjs",
-    "mix": "node scripts/mix-audio.mjs",
+    "mix": "node scripts/mix-lagu.mjs",
     "studio": "remotion studio",
     "render:preview": "remotion render src/index.ts Pickleball out/preview.mp4 --browser-executable=/opt/pw-browsers/chromium --crf=20 --concurrency=4",
-    "preview": "npm run clips && npm run music && npm run mix && npm run render:preview"
+    "preview": "npm run clips && npm run mix && npm run render:preview",
+    "mix:prosedural": "node scripts/mix-audio.mjs"
   },
   "dependencies": {
     "@fontsource/barlow-condensed": "5.1.0",
