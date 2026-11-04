@@ -96,11 +96,11 @@ pop(K.siapa, 0.4, 600); whoosh(K.siapa + 0.1, 0.4, 0.3); pop(K.siapa + 0.18, 0.3
 pop(K.mp + 0.1, 0.3, 500); pop(K.kej, 0.3, 800);
 for (const k of [K.date, K.time, K.venue]) { whoosh(k + 0.15, 0.3, 0.2); pop(k + 0.2, 0.3, 700); tick(k + 0.2, 0.15); }
 pop(K.rasmi, 0.35, 650); pop(K.vip, 0.3, 850);
-// Apa itu pickleball
-pop(K.apa, 0.35, 600); pop(K.apa + 0.15, 0.4, 480);
-whoosh(K.diag + 0.1, 0.4, 0.25);
-for (const n of [0, 1, 2]) { tock(K.diag + n, 0.34); }
-pop(K.diag + 0.3, 0.3, 800);
+// Pemakluman tarikh + wakil pasukan
+pop(K.apa, 0.3, 700); boom(K.apa + 0.1, 0.35, 0.6); pop(K.apa + 0.3, 0.3, 560);
+riser(K.diag, 0.8, 0.22); pop(K.diag + 0.82, 0.38, 800); sparkle(K.diag + 0.85, 0.14);
+pop(K.wk, 0.35, 620); whoosh(K.wk + 0.1, 0.35, 0.22);
+for (let i = 0; i < 10; i++) pop(K.chip + i * K.chipStep + 0.04, 0.2, 560 + i * 60, (i % 2 ? 0.3 : -0.3));
 // Pasukan: logo mendarat, nama, subjudul
 for (let i = 0; i < T.teams.length; i++) {
   const t0 = S.teams + i * S.teamLen;

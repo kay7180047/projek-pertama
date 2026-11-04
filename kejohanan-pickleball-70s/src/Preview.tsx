@@ -273,48 +273,58 @@ const Info: React.FC = () => (
   </AbsoluteFill>
 );
 
-// ---------- 16-20s: apa itu pickleball ----------
+const FIT = ['cover', 'cover', 'cover', 'cover', 'cover', 'contain', 'cover', 'contain', 'cover', 'cover'] as const;
+const LBG = ['#000', '#000', '#f7f7f7', '#000', '#000', '#fff', '#1d2046', '#f7f7f7', '#000', '#fff'];
+
+// ---------- 16-20s: pemakluman tarikh + wakil pasukan ----------
 const Apa: React.FC = () => {
   const f = useCurrentFrame();
-  const t = f / FPS;
-  const td = t - K.diag;
-  const ph = (td % 1 + 1) % 1, by = 4 * ph * (1 - ph);
-  const hit = td > 0 && (ph < 0.12);
+  const bar = interpolate(f, [K.diag * FPS, (K.diag + 0.8) * FPS], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 260, width: '100%', textAlign: 'center'}}>
-        <In t0={K.apa}><div style={{...H, fontSize: 130, color: C.white}}>APA ITU</div></In>
-        <In t0={K.apa + 0.15} from={0.6}><div style={{...H, fontSize: 200, color: C.lime, textShadow: '0 0 60px rgba(198,255,26,.4)'}}>PICKLEBALL?</div></In>
+      <div style={{position: 'absolute', top: 250, width: '100%', textAlign: 'center'}}>
+        <In t0={K.apa} dy={-30}><div style={{...H, fontSize: 50, color: C.gold, letterSpacing: '0.35em'}}>PEMAKLUMAN</div></In>
+        <In t0={K.apa + 0.1} from={0.6}><div style={{...H, fontSize: 330, color: C.lime, marginTop: 10, textShadow: '0 0 60px rgba(198,255,26,.4)'}}>4 NOV</div></In>
+        <In t0={K.apa + 0.3} from={0.7}><div style={{...H, fontSize: 170, color: C.white, marginTop: -10}}>– 9 DIS 2026</div></In>
       </div>
-      <Gate a={K.diag} b={20}>
-        <div style={{position: 'absolute', left: 0, top: 760, width: 1080, height: 700}}>
-          <In t0={K.diag} dy={80}>
-            <svg width="1080" height="700" viewBox="0 0 1080 700">
-              <g transform="translate(540 500) rotate(-24)">
-                <rect x="-26" y="120" width="52" height="150" rx="14" fill="#1b1b1b" stroke="#fff" strokeWidth="5" />
-                <rect x="-150" y="-130" width="300" height="270" rx="90" fill="#101010" stroke="#fff" strokeWidth="9" />
-                <rect x="-130" y="-110" width="260" height="230" rx="75" fill="none" stroke={C.blue} strokeWidth="4" />
-              </g>
-              {hit && <circle cx="540" cy="360" r={40 + ph * 600} fill="none" stroke={C.lime} strokeWidth="6" opacity={1 - ph / 0.12} />}
-            </svg>
-          </In>
-          <div style={{position: 'absolute', left: 540 - 80, top: 330 - by * 300 - 80}}><Ball size={160} rot={td * 300} /></div>
+      <Gate a={K.diag - 0.1} b={20}>
+        <div style={{position: 'absolute', left: 110, top: 960, width: 860}}>
+          <div style={{position: 'relative', height: 16, borderRadius: 9, background: 'rgba(255,255,255,.18)'}}>
+            <div style={{position: 'absolute', left: 0, top: 0, bottom: 0, width: `${bar * 100}%`, borderRadius: 9, background: `linear-gradient(90deg, ${C.lime}, ${C.gold})`, boxShadow: `0 0 24px ${C.lime}aa`}} />
+            <div style={{position: 'absolute', left: -14, top: -12, width: 40, height: 40, borderRadius: 99, background: C.lime, boxShadow: `0 0 26px ${C.lime}`}} />
+            <div style={{position: 'absolute', right: -14, top: -12, width: 40, height: 40, borderRadius: 99, background: C.gold, transform: `scale(${bar > 0.98 ? 1 : 0})`, boxShadow: `0 0 26px ${C.gold}`}} />
+          </div>
+          <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 24}}>
+            <div style={{...H, fontSize: 52, color: C.lime}}>PERASMIAN</div>
+            <div style={{...H, fontSize: 52, color: C.gold, opacity: bar > 0.98 ? 1 : 0}}>TAMAT</div>
+          </div>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{...B, fontWeight: 700, fontSize: 36, color: C.white}}>4 Nov</div>
+            <div style={{...B, fontWeight: 700, fontSize: 36, color: C.white, opacity: bar > 0.98 ? 1 : 0}}>9 Dis</div>
+          </div>
         </div>
       </Gate>
-      <div style={{position: 'absolute', top: 1470, width: '100%', textAlign: 'center'}}>
-        <In t0={K.diag + 0.3}>
-          <div style={{...H, fontSize: 108, color: C.gold}}>SUKAN RAKET</div>
-          <div style={{...B, fontWeight: 700, fontSize: 42, color: C.white, marginTop: 10, maxWidth: 900, marginLeft: 'auto', marginRight: 'auto'}}>Dimainkan dengan dayung dan bola plastik berlubang</div>
+      <div style={{position: 'absolute', top: 1235, width: '100%', textAlign: 'center'}}>
+        <In t0={K.wk} dy={50}>
+          <div style={{...H, fontSize: 150, color: C.white}}>10 PASUKAN</div>
+          <div style={{...B, fontWeight: 700, fontSize: 44, color: C.gold, marginTop: 8}}>Wakil Jabatan · Agensi · GLC</div>
         </In>
+      </div>
+      <div style={{position: 'absolute', top: 1520, left: 46, display: 'flex', gap: 12}}>
+        {T.teams.map((tm, i) => {
+          const p = spring({frame: f - (K.chip + i * K.chipStep) * FPS, fps: FPS, config: {damping: 11, stiffness: 180, mass: 0.6}});
+          return (
+            <div key={i} style={{width: 88, height: 88, borderRadius: 20, overflow: 'hidden', background: LBG[i], border: `3px solid ${tm.accent}`, boxSizing: 'border-box', opacity: Math.min(1, p * 2), transform: `scale(${0.3 + 0.7 * p})`}}>
+              <Img src={staticFile(tm.file)} style={{width: '100%', height: '100%', objectFit: FIT[i]}} />
+            </div>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );
 };
 
 // ---------- pasukan ----------
-const FIT = ['cover', 'cover', 'cover', 'cover', 'cover', 'contain', 'cover', 'contain', 'cover', 'cover'] as const;
-const LBG = ['#000', '#000', '#f7f7f7', '#000', '#000', '#fff', '#1d2046', '#f7f7f7', '#000', '#fff'];
-
 const TeamScene: React.FC<{i: number}> = ({i}) => {
   const f = useCurrentFrame();
   const tm = T.teams[i];

@@ -40,7 +40,10 @@
   "ctaDate": 64.8,
   "ctaVenue": 65.5,
   "ctaSupport": 66.6,
-  "spons": 67.6
+  "spons": 67.6,
+  "wk": 18.1,
+  "chip": 18.6,
+  "chipStep": 0.1
  },
  "teams": [
   {
