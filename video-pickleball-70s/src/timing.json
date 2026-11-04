@@ -1,0 +1,142 @@
+{
+ "fps": 30,
+ "total": 70,
+ "shots": [
+  {
+   "id": "h1",
+   "section": "hook",
+   "start": 0,
+   "dur": 2,
+   "frames": 60,
+   "from": 0
+  },
+  {
+   "id": "h2",
+   "section": "hook",
+   "start": 2,
+   "dur": 2,
+   "frames": 60,
+   "from": 60
+  },
+  {
+   "id": "h3",
+   "section": "hook",
+   "start": 4,
+   "dur": 2,
+   "frames": 60,
+   "from": 120
+  },
+  {
+   "id": "q1",
+   "section": "question",
+   "start": 6,
+   "dur": 5,
+   "frames": 150,
+   "from": 180
+  },
+  {
+   "id": "f1",
+   "section": "explain",
+   "start": 11,
+   "dur": 5,
+   "frames": 150,
+   "from": 330
+  },
+  {
+   "id": "f2",
+   "section": "explain",
+   "start": 16,
+   "dur": 5,
+   "frames": 150,
+   "from": 480
+  },
+  {
+   "id": "f3",
+   "section": "explain",
+   "start": 21,
+   "dur": 5,
+   "frames": 150,
+   "from": 630
+  },
+  {
+   "id": "f4",
+   "section": "explain",
+   "start": 26,
+   "dur": 5,
+   "frames": 150,
+   "from": 780
+  },
+  {
+   "id": "c1",
+   "section": "example",
+   "start": 31,
+   "dur": 4,
+   "frames": 120,
+   "from": 930
+  },
+  {
+   "id": "c2",
+   "section": "example",
+   "start": 35,
+   "dur": 4,
+   "frames": 120,
+   "from": 1050
+  },
+  {
+   "id": "c3",
+   "section": "example",
+   "start": 39,
+   "dur": 4,
+   "frames": 120,
+   "from": 1170
+  },
+  {
+   "id": "c4",
+   "section": "example",
+   "start": 43,
+   "dur": 4,
+   "frames": 120,
+   "from": 1290
+  },
+  {
+   "id": "c5",
+   "section": "example",
+   "start": 47,
+   "dur": 4,
+   "frames": 120,
+   "from": 1410
+  },
+  {
+   "id": "c6",
+   "section": "example",
+   "start": 51,
+   "dur": 5,
+   "frames": 150,
+   "from": 1530
+  },
+  {
+   "id": "t1",
+   "section": "takeaway",
+   "start": 56,
+   "dur": 4,
+   "frames": 120,
+   "from": 1680
+  },
+  {
+   "id": "t2",
+   "section": "takeaway",
+   "start": 60,
+   "dur": 4,
+   "frames": 120,
+   "from": 1800
+  },
+  {
+   "id": "t3",
+   "section": "end",
+   "start": 64,
+   "dur": 6,
+   "frames": 180,
+   "from": 1920
+  }
+ ]
+}

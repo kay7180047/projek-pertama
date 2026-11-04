@@ -1,0 +1,25 @@
+{
+  "name": "video-pickleball-70s",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "clips": "node scripts/prep-clips.mjs",
+    "music": "node scripts/make-audio.mjs",
+    "mix": "node scripts/mix-audio.mjs",
+    "studio": "remotion studio",
+    "render:preview": "remotion render src/index.ts Pickleball out/preview.mp4 --browser-executable=/opt/pw-browsers/chromium --crf=20 --concurrency=4",
+    "preview": "npm run clips && npm run music && npm run mix && npm run render:preview"
+  },
+  "dependencies": {
+    "@fontsource/barlow-condensed": "5.1.0",
+    "@fontsource/inter": "5.1.0",
+    "@remotion/cli": "4.0.250",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.250"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "typescript": "5.5.4"
+  }
+}
