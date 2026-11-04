@@ -1,0 +1,145 @@
+{
+ "fps": 30,
+ "duration": 2100,
+ "bpm": 120,
+ "scene": {
+  "logos": 0,
+  "hook": 4,
+  "jab": 8,
+  "info": 10,
+  "apa": 16,
+  "teams": 20,
+  "teamLen": 4,
+  "grid": 60,
+  "cta": 64,
+  "end": 70
+ },
+ "k": {
+  "mbpk": 0.0,
+  "kesumba": 2.0,
+  "ten": 4.15,
+  "satu": 5.4,
+  "piala": 6.6,
+  "jab": 8.0,
+  "agensi": 8.25,
+  "glc": 8.5,
+  "siapa": 9.0,
+  "mp": 10.0,
+  "kej": 10.5,
+  "date": 11.2,
+  "time": 12.0,
+  "venue": 12.8,
+  "rasmi": 14.0,
+  "vip": 14.9,
+  "apa": 16.0,
+  "diag": 17.2,
+  "gridHead": 60.0,
+  "gridStart": 60.5,
+  "gridStep": 0.17,
+  "cta": 64.0,
+  "ctaDate": 64.8,
+  "ctaVenue": 65.5,
+  "ctaSupport": 66.6,
+  "spons": 67.6
+ },
+ "teams": [
+  {
+   "file": "logos/01-mbk-pickle-flux.jpg",
+   "name": "MBK PICKLE FLUX",
+   "sub": "Speed. Spin. Dominate.",
+   "accent": "#C6FF1A",
+   "w": 1254,
+   "h": 1254
+  },
+  {
+   "file": "logos/02-supa-warriors.jpg",
+   "name": "SUPA WARRIORS",
+   "sub": "Pickleball Club · SUK Pahang",
+   "accent": "#D8C24A",
+   "w": 640,
+   "h": 641
+  },
+  {
+   "file": "logos/03-iium-kuantan-picklers.jpg",
+   "name": "IIUM KUANTAN PICKLERS",
+   "sub": "",
+   "accent": "#1BB5AA",
+   "w": 500,
+   "h": 500
+  },
+  {
+   "file": "logos/04-picklenp.jpg",
+   "name": "PICKLENP",
+   "sub": "Team PKNP",
+   "accent": "#18B4E0",
+   "w": 1254,
+   "h": 1254
+  },
+  {
+   "file": "logos/05-pahang-elephant-warrior.jpg",
+   "name": "ELEPHANT WARRIOR",
+   "sub": "Pahang",
+   "accent": "#FFC20E",
+   "w": 1280,
+   "h": 1199
+  },
+  {
+   "file": "logos/06-pasfa.jpg",
+   "name": "PASFA",
+   "sub": "Pertubuhan Peladang Negeri Pahang",
+   "accent": "#2BC25C",
+   "w": 462,
+   "h": 199
+  },
+  {
+   "file": "logos/07-waterblast.jpg",
+   "name": "WATERBLAST",
+   "sub": "Pickleball Club",
+   "accent": "#35AEFF",
+   "w": 1280,
+   "h": 1276
+  },
+  {
+   "file": "logos/08-pnpp.jpg",
+   "name": "PNPP",
+   "sub": "Pendidikan Negeri Pahang Pickleball",
+   "accent": "#FFD21F",
+   "w": 920,
+   "h": 1080
+  },
+  {
+   "file": "logos/09-im-thunderbolts.jpg",
+   "name": "IM THUNDERBOLTS",
+   "sub": "Pickleball",
+   "accent": "#FFB400",
+   "w": 1280,
+   "h": 1280
+  },
+  {
+   "file": "logos/10-pkpp.jpg",
+   "name": "PKPP",
+   "sub": "Pickleball Club",
+   "accent": "#3DBB5B",
+   "w": 640,
+   "h": 640
+  }
+ ],
+ "wipes": [
+  4,
+  8,
+  10,
+  16,
+  20,
+  24,
+  28,
+  32,
+  36,
+  40,
+  44,
+  48,
+  52,
+  56,
+  60,
+  64
+ ]
+}
