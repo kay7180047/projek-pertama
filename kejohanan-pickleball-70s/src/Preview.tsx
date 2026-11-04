@@ -284,7 +284,7 @@ const Apa: React.FC = () => {
     <AbsoluteFill>
       <div style={{position: 'absolute', top: 260, width: '100%', textAlign: 'center'}}>
         <In t0={K.apa}><div style={{...H, fontSize: 130, color: C.white}}>APA ITU</div></In>
-        <In t0={K.apa + 0.15} from={0.6}><div style={{...H, fontSize: 250, color: C.lime, textShadow: '0 0 60px rgba(198,255,26,.4)'}}>PICKLEBALL?</div></In>
+        <In t0={K.apa + 0.15} from={0.6}><div style={{...H, fontSize: 200, color: C.lime, textShadow: '0 0 60px rgba(198,255,26,.4)'}}>PICKLEBALL?</div></In>
       </div>
       <Gate a={K.diag} b={20}>
         <div style={{position: 'absolute', left: 0, top: 760, width: 1080, height: 700}}>
@@ -304,7 +304,7 @@ const Apa: React.FC = () => {
       <div style={{position: 'absolute', top: 1470, width: '100%', textAlign: 'center'}}>
         <In t0={K.diag + 0.3}>
           <div style={{...H, fontSize: 108, color: C.gold}}>SUKAN RAKET</div>
-          <div style={{...B, fontWeight: 700, fontSize: 48, color: C.white, marginTop: 10}}>Dimainkan dengan dayung dan bola plastik berlubang</div>
+          <div style={{...B, fontWeight: 700, fontSize: 42, color: C.white, marginTop: 10, maxWidth: 900, marginLeft: 'auto', marginRight: 'auto'}}>Dimainkan dengan dayung dan bola plastik berlubang</div>
         </In>
       </div>
     </AbsoluteFill>
