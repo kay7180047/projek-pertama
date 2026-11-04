@@ -91,7 +91,6 @@ boom(K.ten, 0.9); boom(K.satu, 0.8); pop(K.piala, 0.4, 650); pop(K.piala + 0.35,
 for (const b of [5, 6, 7]) tock(b, 0.28);
 // Jabatan / agensi / GLC
 for (const [i, k] of [K.jab, K.agensi, K.glc].entries()) { whoosh(k + 0.1, 0.3, 0.22, i % 2 === 0); pop(k + 0.1, 0.3, 500 + i * 160); }
-pop(K.siapa, 0.4, 600); whoosh(K.siapa + 0.1, 0.4, 0.3); pop(K.siapa + 0.18, 0.35, 450);
 // Info
 pop(K.mp + 0.1, 0.3, 500); pop(K.kej, 0.3, 800);
 for (const k of [K.date, K.time, K.venue]) { whoosh(k + 0.15, 0.3, 0.2); pop(k + 0.2, 0.3, 700); tick(k + 0.2, 0.15); }

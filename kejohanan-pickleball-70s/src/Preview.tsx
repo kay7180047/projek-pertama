@@ -216,28 +216,15 @@ const Hook: React.FC = () => {
 };
 
 // ---------- 8-10s: jabatan / agensi / GLC ----------
-const Jab: React.FC = () => {
-  const f = useCurrentFrame();
-  const t = f / FPS;
-  const o = interpolate(f, [K.siapa * FPS - 6, K.siapa * FPS], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return (
-    <AbsoluteFill>
-      {t < K.siapa && (
-        <div style={{position: 'absolute', top: 430, width: '100%', textAlign: 'center', opacity: o}}>
-          <In t0={K.jab} dx={-500} dy={0}><div style={{...H, fontSize: 300, color: C.white}}>JABATAN</div></In>
-          <In t0={K.agensi} dx={500} dy={0}><div style={{...H, fontSize: 300, color: C.gold}}>AGENSI</div></In>
-          <In t0={K.glc} dx={-500} dy={0}><div style={{...H, fontSize: 300, color: C.lime}}>GLC</div></In>
-        </div>
-      )}
-      {t >= K.siapa && (
-        <div style={{position: 'absolute', top: 520, width: '100%', textAlign: 'center'}}>
-          <In t0={K.siapa} from={0.6}><div style={{...H, fontSize: 200, color: C.white}}>SIAPA JULANG</div></In>
-          <In t0={K.siapa + 0.18} from={0.5}><div style={{...H, fontSize: 380, color: C.gold, textShadow: '0 0 70px rgba(255,200,61,.5)'}}>PIALA?</div></In>
-        </div>
-      )}
-    </AbsoluteFill>
-  );
-};
+const Jab: React.FC = () => (
+  <AbsoluteFill>
+    <div style={{position: 'absolute', top: 560, width: '100%', textAlign: 'center'}}>
+      <In t0={K.jab} dx={-500} dy={0}><div style={{...H, fontSize: 300, color: C.white}}>JABATAN</div></In>
+      <In t0={K.agensi} dx={500} dy={0}><div style={{...H, fontSize: 300, color: C.gold}}>AGENSI</div></In>
+      <In t0={K.glc} dx={-500} dy={0}><div style={{...H, fontSize: 300, color: C.lime}}>GLC</div></In>
+    </div>
+  </AbsoluteFill>
+);
 
 const Card: React.FC<{t0: number; label: string; value: string; size?: number; accent: string}> = ({t0, label, value, size = 88, accent}) => (
   <In t0={t0} dx={-300} dy={0}>
@@ -342,9 +329,6 @@ const TeamScene: React.FC<{i: number}> = ({i}) => {
       <div style={{position: 'absolute', left: 540 - 800, top: 770 - 800, width: 1600, height: 1600, opacity: 0.55 * Math.min(1, p), background: `radial-gradient(circle, ${tm.accent}66 0%, transparent 55%)`}} />
       <div style={{position: 'absolute', left: 540 - 800, top: 770 - 800, width: 1600, height: 1600, opacity: 0.35 * Math.min(1, p), transform: `rotate(${rays}deg)`,
         background: `repeating-conic-gradient(from 0deg, ${tm.accent}55 0deg 8deg, transparent 8deg 24deg)`, WebkitMaskImage: 'radial-gradient(circle, #000 0%, transparent 55%)', maskImage: 'radial-gradient(circle, #000 0%, transparent 55%)'}} />
-      <In t0={t0 + 0.2} dy={-30} style={{position: 'absolute', top: 215, width: '100%', textAlign: 'center'}}>
-        <span style={{...H, fontSize: 52, letterSpacing: '0.3em', color: tm.accent}}>PASUKAN {String(i + 1).padStart(2, '0')} / 10</span>
-      </In>
       <div style={{position: 'absolute', left: 540 - w / 2, top: 770 - h / 2 + float, width: w, height: h, opacity: Math.min(1, p * 2),
         transform: `translateX(${(1 - p) * 1100}px) rotate(${(1 - p) * 10}deg) scale(${zoom * (0.85 + 0.15 * Math.min(1.05, p))})`}}>
         <div style={{width: '100%', height: '100%', borderRadius: 38, overflow: 'hidden', background: LBG[i], border: `6px solid ${tm.accent}`, boxShadow: `0 0 70px ${tm.accent}99, 0 30px 80px rgba(0,0,0,.6)`, boxSizing: 'border-box'}}>
