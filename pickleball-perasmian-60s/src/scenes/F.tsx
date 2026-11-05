@@ -3,7 +3,7 @@ import {AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig} from 're
 import {Bg, Card, H, P} from '../components';
 import {C, useF, beat, pop, rise, slam} from '../theme';
 
-const sp = [['tpx', 330], ['kospek', 400], ['yap', 400], ['alliance', 400]] as const;
+const sp = [['tpx', '#010715'], ['kospek', '#FFFFFF'], ['yap', '#010715'], ['alliance', '#FFFFFF']] as const;
 
 export const SceneF: React.FC = () => {
   const f = useF();
@@ -17,12 +17,12 @@ export const SceneF: React.FC = () => {
         <H size={120} color={C.ball}>PENAJA</H>
       </div>
       <div style={{position: 'absolute', left: 60, right: 60, top: 470, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 26}}>
-        {sp.map(([id, w], i) => {
+        {sp.map(([id, bg], i) => {
           const p = pop(f, fps, beat('F.s0') + i * beat('F.step'));
           return (
-            <Card key={id} style={{height: 210, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: p.opacity, transform: `scale(${p.scale})`, borderRadius: 30, background: id === 'tpx' ? '#000' : '#fff'}}>
-              <Img src={staticFile(`assets/sponsors/${id}.png`)} style={{width: id === 'tpx' ? 190 : 390}} />
-            </Card>
+            <div key={id} style={{height: 230, borderRadius: 30, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', opacity: p.opacity, transform: `scale(${p.scale})`, boxShadow: '0 14px 40px rgba(5,10,40,.45)'}}>
+              <Img src={staticFile(`assets/sponsors-hd/${id}.jpg`)} style={{maxWidth: 380, maxHeight: 190, objectFit: 'contain'}} />
+            </div>
           );
         })}
       </div>

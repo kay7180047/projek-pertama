@@ -11,7 +11,7 @@ const Pin = () => (
 );
 
 // Susunan tema (liputan hari pertama): suasana -> pegawai & peserta -> sesi bergambar -> penganjur
-const cuts = {c1: [360, 435], c2: [435, 584], c3: [584, 650], c4: [650, 780]};
+const cuts = {c1: [480, 555], c2: [555, 704], c3: [704, 770], c4: [770, 900]};
 const inCut = (f: number, k: keyof typeof cuts) => f >= cuts[k][0] && f < cuts[k][1];
 const flash = (f: number, at: number) => interpolate(f, [at, at + 7], [0.45, 0], clamp);
 
@@ -23,18 +23,15 @@ export const SceneC: React.FC = () => {
   const by = rise(f, beat('C.by'), 30);
   const name = slam(f, beat('C.name'), 9);
   const venue = pop(f, fps, beat('C.venue'));
-  const org = rise(f, beat('C.org'), 30);
-  const l1 = pop(f, fps, beat('C.logo1'));
-  const l2 = pop(f, fps, beat('C.logo2'));
-  const cutStart = [360, 435, 584, 650].find((_, i, a) => f >= a[i] && (i === a.length - 1 || f < a[i + 1])) ?? 360;
+  const cutStart = [480, 555, 704, 770].find((_, i, a) => f >= a[i] && (i === a.length - 1 || f < a[i + 1])) ?? 360;
   return (
     <AbsoluteFill>
       <Bg scene="C" />
-      <Cut from={360} dur={75}><Clip src="footage/f2.mp4" volume={0.4} zoom={[1.0, 1.08]} dur={75} pos="50% 70%" /></Cut>
-      <Cut from={435} dur={149}><Clip src="footage/f1.mp4" volume={1.5} zoom={[1.0, 1.05]} dur={149} pos="30% 50%" /></Cut>
-      {inCut(f, 'c3') && <Photo src="photos/p6.jpg" mode="card" local={f - 584} w={940} y={370} ratio={4 / 3} dur={66} />}
-      <Cut from={650} dur={130}><Clip src="footage/f7.mp4" volume={0.5} zoom={[1.0, 1.06]} dur={130} pos="50% 50%" /></Cut>
-      <Scrim top={inCut(f, 'c1') || inCut(f, 'c2') || inCut(f, 'c4') ? 0.9 : 0.55} bottom={inCut(f, 'c1') ? 0.4 : 0} />
+      <Cut from={480} dur={75}><Clip src="footage/f2.mp4" volume={0.4} zoom={[1.0, 1.08]} dur={75} pos="50% 70%" /></Cut>
+      <Cut from={555} dur={149}><Clip src="footage/f1.mp4" volume={1.5} zoom={[1.0, 1.05]} dur={149} pos="30% 50%" /></Cut>
+      {inCut(f, 'c3') && <Photo src="photos/p6.jpg" mode="card" local={f - 704} w={940} y={370} ratio={4 / 3} dur={66} />}
+      <Cut from={770} dur={130}><Clip src="footage/f7.mp4" volume={0.5} zoom={[1.0, 1.06]} dur={130} pos="50% 50%" /></Cut>
+      <Scrim top={inCut(f, 'c1') || inCut(f, 'c2') ? 0.9 : 0.55} bottom={inCut(f, 'c1') ? 0.4 : 0} />
 
       {/* C1: suasana + tarikh */}
       {inCut(f, 'c1') && (<>
@@ -65,30 +62,6 @@ export const SceneC: React.FC = () => {
           </Card>
         </div>
       )}
-      {/* C4: anjuran di atas barisan peserta */}
-      {f >= cuts.c4[0] && (<>
-        <div style={{position: 'absolute', left: 70, top: 95, opacity: org.opacity, transform: `translateY(${org.y}px)`}}>
-          <P size={40} color={C.teal} weight={800} style={{letterSpacing: 6, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>ANJURAN</P>
-        </div>
-        <div style={{position: 'absolute', left: 70, right: 70, top: 150, height: 270, display: 'flex', gap: 22, perspective: 1000}}>
-          {[
-            {src: 'assets/logo-mbk.jpg', bg: '#FFFFFF', h: 230, at: beat('C.logo1')},
-            {src: 'assets/logo-kesumba.jpg', bg: '#F7F7F7', h: 215, at: beat('C.logo2')},
-            {src: 'assets/logo-biro.jpg', bg: '#FFFFFF', h: 235, at: beat('C.logo3')},
-          ].map((l) => {
-            const e = interpolate(f - l.at, [0, 26], [0, 1], {...clamp, easing: easeOut});
-            const rot = 720 * (1 - e);
-            return (
-              <div key={l.src} style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: l.bg, borderRadius: 28, boxShadow: '0 14px 40px rgba(5,10,40,.5)', opacity: interpolate(f - l.at, [0, 4], [0, 1], clamp), transform: `rotateY(${rot}deg) scale(${0.25 + 0.75 * e})`}}>
-                <Img src={staticFile(l.src)} style={{height: l.h, maxWidth: 270, objectFit: 'contain'}} />
-              </div>
-            );
-          })}
-        </div>
-        <div style={{position: 'absolute', left: 70, right: 70, top: 440, opacity: interpolate(f - beat('C.logo3'), [10, 22], [0, 1], clamp)}}>
-          <P size={34} color="#fff" weight={800} style={{textAlign: 'right', letterSpacing: 1, textShadow: '0 3px 10px rgba(0,0,0,.7)'}}>Biro Sukan dan Rekreasi KESUMBA</P>
-        </div>
-      </>)}
       <AbsoluteFill style={{background: '#fff', opacity: flash(f, cutStart), pointerEvents: 'none'}} />
     </AbsoluteFill>
   );

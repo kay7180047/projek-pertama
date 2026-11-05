@@ -12,7 +12,7 @@ export const SceneB: React.FC = () => {
   return (
     <AbsoluteFill>
       <Bg scene="B" />
-      <Cut from={180} dur={180}><Clip src="footage/f4.mp4" startFrom={0} volume={0} zoom={[1.0, 1.1]} dur={180} pos="50% 55%" /></Cut>
+      <Cut from={300} dur={180}><Clip src="footage/f4.mp4" startFrom={0} volume={0} zoom={[1.0, 1.1]} dur={180} pos="50% 55%" /></Cut>
       <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(14,24,76,.9) 0%, rgba(14,24,76,.7) 45%, rgba(14,24,76,.15) 70%, rgba(14,24,76,.0) 100%)'}} />
       <div style={{position: 'absolute', left: 70, right: 70, top: 260, opacity: l1dim}}>
         <div style={{display: 'flex', flexWrap: 'wrap', gap: '0 26px'}}>

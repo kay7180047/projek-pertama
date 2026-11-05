@@ -11,8 +11,9 @@ import {SceneE} from './scenes/E';
 import {SceneF} from './scenes/F';
 import {SceneG} from './scenes/G';
 import {SceneH} from './scenes/H';
+import {SceneI} from './scenes/I';
 
-const map: Record<string, React.FC> = {A: SceneA, B: SceneB, C: SceneC, D: SceneD, E: SceneE, F: SceneF, G: SceneG, H: SceneH};
+const map: Record<string, React.FC> = {A: SceneA, B: SceneB, C: SceneC, D: SceneD, E: SceneE, F: SceneF, G: SceneG, H: SceneH, I: SceneI};
 
 const Video: React.FC = () => (
   <AbsoluteFill style={{background: '#121F55'}}>
@@ -25,7 +26,7 @@ const Video: React.FC = () => (
       );
     })}
     <Wipes />
-    <Audio src={staticFile('audio/soundtrack.wav')} volume={(f) => interpolate(f, [423, 435, 582, 597], [1, 0.1, 0.1, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+    <Audio src={staticFile('audio/soundtrack.wav')} volume={(f) => interpolate(f, [543, 555, 702, 717], [1, 0.1, 0.1, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
   </AbsoluteFill>
 );
 
