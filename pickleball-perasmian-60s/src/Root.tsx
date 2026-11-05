@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Composition, Sequence, staticFile} from 'remotion';
+import {AbsoluteFill, Audio, interpolate, Composition, Sequence, staticFile} from 'remotion';
 import T from './timeline.json';
 import {Wipes} from './components';
 import {SceneStart} from './theme';
@@ -10,8 +10,9 @@ import {SceneD} from './scenes/D';
 import {SceneE} from './scenes/E';
 import {SceneF} from './scenes/F';
 import {SceneG} from './scenes/G';
+import {SceneH} from './scenes/H';
 
-const map: Record<string, React.FC> = {A: SceneA, B: SceneB, C: SceneC, D: SceneD, E: SceneE, F: SceneF, G: SceneG};
+const map: Record<string, React.FC> = {A: SceneA, B: SceneB, C: SceneC, D: SceneD, E: SceneE, F: SceneF, G: SceneG, H: SceneH};
 
 const Video: React.FC = () => (
   <AbsoluteFill style={{background: '#121F55'}}>
@@ -24,7 +25,7 @@ const Video: React.FC = () => (
       );
     })}
     <Wipes />
-    <Audio src={staticFile('audio/soundtrack.wav')} />
+    <Audio src={staticFile('audio/soundtrack.wav')} volume={(f) => interpolate(f, [440, 452, 597, 612], [1, 0.1, 0.1, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
   </AbsoluteFill>
 );
 

@@ -1,29 +1,226 @@
 {
-  "fps": 30, "width": 1080, "height": 1920, "duration": 1800,
-  "scenes": {"A":[0,180],"B":[180,360],"C":[360,780],"D":[780,1140],"E":[1140,1560],"F":[1560,1680],"G":[1680,1800]},
-  "wipes": [180,360,780,1140,1560,1680],
-  "beats": {
-    "A.n1":0,"A.n2":30,"A.n3":60,"A.title":90,
-    "B.l1":195,"B.l2":285,
-    "B.h1":195,"B.h2":225,"B.h3":255,"B.h4":285,"B.h5":315,"B.h6":345,
-    "C.date":360,"C.label":372,"C.by":450,"C.name":468,"C.venue":570,"C.org":660,"C.logo1":672,"C.logo2":696,
-    "D.head":792,"D.r1":822,"D.r2":888,"D.r3":954,"D.r4":1038,
-    "E.head":1146,"E.c0":1176,"E.step":24,"E.end":1440,
-    "F.head":1566,"F.s0":1578,"F.step":10,"F.coop":1632,
-    "G.w1":1686,"G.w2":1704,"G.w3":1722,"G.info":1740,"G.logos":1758
-  },
-  "sfx": [
-    {"b":"A.n1","t":"impact"},{"b":"A.n2","t":"impact"},{"b":"A.n3","t":"impact"},
-    {"b":"A.title","t":"whoosh"},{"f":96,"t":"impact"},
-    {"b":"B.h1","t":"pock"},{"b":"B.h2","t":"pock"},{"b":"B.h3","t":"pock"},{"b":"B.h4","t":"pock"},{"b":"B.h5","t":"pock"},{"b":"B.h6","t":"pock"},
-    {"f":165,"t":"riser"},
-    {"b":"C.date","t":"impact"},{"b":"C.label","t":"pop"},{"b":"C.by","t":"pop"},{"b":"C.name","t":"impact"},
-    {"b":"C.venue","t":"pop"},{"b":"C.org","t":"pop"},{"b":"C.logo1","t":"pop"},{"b":"C.logo2","t":"pop"},
-    {"b":"D.head","t":"pop"},{"b":"D.r1","t":"click"},{"b":"D.r2","t":"click"},{"b":"D.r3","t":"click"},{"b":"D.r4","t":"click"},
-    {"b":"E.head","t":"pop"},
-    {"b":"E.end","t":"impact"},
-    {"b":"F.head","t":"pop"},{"b":"F.coop","t":"pop"},
-    {"f":1670,"t":"riser"},
-    {"b":"G.w1","t":"impact"},{"b":"G.w2","t":"pop"},{"b":"G.w3","t":"pop"},{"b":"G.info","t":"pop"},{"b":"G.logos","t":"pop"}
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "duration": 1800,
+ "scenes": {
+  "A": [
+   0,
+   180
+  ],
+  "B": [
+   180,
+   360
+  ],
+  "C": [
+   360,
+   780
+  ],
+  "D": [
+   780,
+   1020
+  ],
+  "E": [
+   1020,
+   1320
+  ],
+  "H": [
+   1320,
+   1560
+  ],
+  "F": [
+   1560,
+   1680
+  ],
+  "G": [
+   1680,
+   1800
   ]
+ },
+ "wipes": [
+  180,
+  360,
+  780,
+  1020,
+  1320,
+  1560,
+  1680
+ ],
+ "beats": {
+  "A.n1": 0,
+  "A.n2": 30,
+  "A.n3": 60,
+  "A.title": 90,
+  "B.l1": 195,
+  "B.l2": 285,
+  "F.head": 1566,
+  "F.s0": 1578,
+  "F.step": 10,
+  "F.coop": 1632,
+  "G.w1": 1686,
+  "G.w2": 1704,
+  "G.w3": 1722,
+  "G.info": 1740,
+  "G.logos": 1758,
+  "C.label": 372,
+  "C.date": 360,
+  "C.by": 462,
+  "C.name": 480,
+  "C.venue": 609,
+  "C.org": 693,
+  "C.logo1": 705,
+  "C.logo2": 729,
+  "D.head": 792,
+  "D.r1": 816,
+  "D.r2": 852,
+  "D.r3": 888,
+  "D.r4": 954,
+  "E.head": 1026,
+  "E.c0": 1050,
+  "E.step": 18,
+  "E.end": 1260,
+  "H.head": 1326
+ },
+ "sfx": [
+  {
+   "b": "A.n1",
+   "t": "impact"
+  },
+  {
+   "b": "A.n2",
+   "t": "impact"
+  },
+  {
+   "b": "A.n3",
+   "t": "impact"
+  },
+  {
+   "b": "A.title",
+   "t": "whoosh"
+  },
+  {
+   "f": 96,
+   "t": "impact"
+  },
+  {
+   "f": 165,
+   "t": "riser"
+  },
+  {
+   "b": "B.l1",
+   "t": "pop"
+  },
+  {
+   "b": "B.l2",
+   "t": "pop"
+  },
+  {
+   "b": "C.date",
+   "t": "impact"
+  },
+  {
+   "b": "C.label",
+   "t": "pop"
+  },
+  {
+   "f": 603,
+   "t": "click"
+  },
+  {
+   "b": "C.venue",
+   "t": "pop"
+  },
+  {
+   "b": "C.org",
+   "t": "pop"
+  },
+  {
+   "b": "C.logo1",
+   "t": "pop"
+  },
+  {
+   "b": "C.logo2",
+   "t": "pop"
+  },
+  {
+   "f": 735,
+   "t": "click"
+  },
+  {
+   "b": "D.head",
+   "t": "pop"
+  },
+  {
+   "b": "D.r1",
+   "t": "click"
+  },
+  {
+   "b": "D.r2",
+   "t": "click"
+  },
+  {
+   "b": "D.r3",
+   "t": "click"
+  },
+  {
+   "b": "D.r4",
+   "t": "click"
+  },
+  {
+   "b": "E.head",
+   "t": "pop"
+  },
+  {
+   "b": "E.end",
+   "t": "impact"
+  },
+  {
+   "b": "H.head",
+   "t": "pop"
+  },
+  {
+   "f": 1380,
+   "t": "click"
+  },
+  {
+   "f": 1440,
+   "t": "click"
+  },
+  {
+   "f": 1500,
+   "t": "click"
+  },
+  {
+   "b": "F.head",
+   "t": "pop"
+  },
+  {
+   "b": "F.coop",
+   "t": "pop"
+  },
+  {
+   "f": 1665,
+   "t": "riser"
+  },
+  {
+   "b": "G.w1",
+   "t": "impact"
+  },
+  {
+   "b": "G.w2",
+   "t": "pop"
+  },
+  {
+   "b": "G.w3",
+   "t": "pop"
+  },
+  {
+   "b": "G.info",
+   "t": "pop"
+  },
+  {
+   "b": "G.logos",
+   "t": "pop"
+  }
+ ]
 }

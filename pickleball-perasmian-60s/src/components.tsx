@@ -99,3 +99,62 @@ export const H: React.FC<{size: number; color?: string; style?: React.CSSPropert
 export const P: React.FC<{size: number; color?: string; weight?: number; style?: React.CSSProperties; children: React.ReactNode}> = ({size, color = C.ice, weight = 600, style, children}) => (
   <div style={{fontFamily: FONT, fontWeight: weight, fontSize: size, lineHeight: 1.15, color, ...style}}>{children}</div>
 );
+
+// ---------- Gambar sebenar: latar kabur + kad tajam, Ken Burns perlahan ----------
+export const Photo: React.FC<{src: string; mode: 'cover' | 'card'; local: number; w?: number; y?: number; ratio?: number; zoomFrom?: number; zoomTo?: number; dur?: number; pos?: string}> = ({src, mode, local, w = 940, y = 370, ratio = 4 / 3, zoomFrom = 1.0, zoomTo = 1.07, dur = 100, pos = '50% 50%'}) => {
+  const z = zoomFrom + (zoomTo - zoomFrom) * Math.min(1, Math.max(0, local / dur));
+  const url = staticFile(src);
+  if (mode === 'cover') {
+    return (<AbsoluteFill style={{overflow: 'hidden'}}><Img src={url} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos, transform: `scale(${z})`}} /></AbsoluteFill>);
+  }
+  return (
+    <AbsoluteFill style={{overflow: 'hidden'}}>
+      <Img src={url} style={{position: 'absolute', inset: -60, width: 1200, height: 2040, objectFit: 'cover', filter: 'blur(38px) brightness(.45) saturate(1.2)'}} />
+      <div style={{position: 'absolute', left: (1080 - w) / 2, top: y, width: w, height: w * ratio, borderRadius: 28, overflow: 'hidden', boxShadow: '0 22px 60px rgba(0,0,0,.55)', border: '8px solid #fff', boxSizing: 'content-box'}}>
+        <Img src={url} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${z})`, transformOrigin: '50% 40%'}} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+export const Scrim: React.FC<{top?: number; bottom?: number}> = ({top = 0, bottom = 0}) => (
+  <AbsoluteFill>
+    {top > 0 && <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 620, background: `linear-gradient(180deg, rgba(10,18,60,${top}) 0%, rgba(10,18,60,${top * 0.7}) 55%, rgba(10,18,60,0) 100%)`}} />}
+    {bottom > 0 && <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: 560, background: `linear-gradient(0deg, rgba(10,18,60,${bottom}) 0%, rgba(10,18,60,0) 100%)`}} />}
+  </AbsoluteFill>
+);
+
+// ---------- Rakaman sebenar ----------
+import {Sequence, useVideoConfig as _uvc} from 'remotion';
+import {SceneStart} from './theme';
+
+// Cut: potongan yang bermula pada frame mutlak `from`; media dalamnya mula dari 0.
+export const Cut: React.FC<{from: number; dur: number; children: React.ReactNode}> = ({from, dur, children}) => {
+  const base = React.useContext(SceneStart);
+  return (
+    <Sequence from={from - base} durationInFrames={dur} layout="none">
+      <SceneStart.Provider value={from}>{children}</SceneStart.Provider>
+    </Sequence>
+  );
+};
+
+// Clip: video penuh (cover) atau kad (landscape) dengan latar kabur dari klip yang sama.
+export const Clip: React.FC<{src: string; startFrom?: number; volume?: number; mode?: 'cover' | 'card'; zoom?: [number, number]; dur?: number; pos?: string; w?: number; y?: number}> = ({src, startFrom = 0, volume = 0, mode = 'cover', zoom = [1.0, 1.06], dur = 60, pos = '50% 50%', w = 1080, y = 560}) => {
+  const f = useCurrentFrame();
+  const z = zoom[0] + (zoom[1] - zoom[0]) * Math.min(1, f / dur);
+  const url = staticFile(src);
+  if (mode === 'cover') {
+    return (
+      <AbsoluteFill style={{overflow: 'hidden'}}>
+        <OffthreadVideo src={url} startFrom={startFrom} volume={volume} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos, transform: `scale(${z})`}} />
+      </AbsoluteFill>
+    );
+  }
+  return (
+    <AbsoluteFill style={{overflow: 'hidden'}}>
+      <OffthreadVideo src={url} startFrom={startFrom} volume={0} muted style={{position: 'absolute', inset: -80, width: 1240, height: 2080, objectFit: 'cover', filter: 'blur(40px) brightness(.45) saturate(1.2)'}} />
+      <div style={{position: 'absolute', left: (1080 - w) / 2, top: y, width: w, height: w * 604 / 1080, overflow: 'hidden', boxShadow: '0 22px 60px rgba(0,0,0,.55)'}}>
+        <OffthreadVideo src={url} startFrom={startFrom} volume={volume} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${z})`}} />
+      </div>
+    </AbsoluteFill>
+  );
+};

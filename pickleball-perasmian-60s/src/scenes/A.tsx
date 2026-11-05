@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Ball, Bg, H, P} from '../components';
+import {Ball, Bg, Clip, Cut, H, P, Scrim} from '../components';
 import {C, useF, beat, clamp, easeInOut, easeOut, pop, slam} from '../theme';
 
 const rows = [
@@ -23,6 +23,8 @@ export const SceneA: React.FC = () => {
   return (
     <AbsoluteFill>
       <Bg scene="A" />
+      <Cut from={0} dur={180}><Clip src="footage/f3.mp4" startFrom={0} volume={0.35} zoom={[1.12, 1.0]} dur={180} pos="50% 60%" /></Cut>
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(14,24,76,.82) 0%, rgba(14,24,76,.55) 45%, rgba(14,24,76,.25) 100%)'}} />
       <div style={{position: 'absolute', left: 80, top: 250, transformOrigin: '0 0', transform: `translateY(${ty}px) scale(${scale})`}}>
         {rows.map((r) => {
           const s = slam(f, beat(r.k));
