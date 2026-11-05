@@ -54,12 +54,12 @@ const beatS = 0.5, bar = 4 * beatS, chords = [[57, 60, 64], [53, 57, 60], [48, 5
 const roots = [33, 29, 36, 31];
 for (let b = 0; b < 30; b++) {
   const t0 = b * bar, c = chords[b % 4], root = roots[b % 4];
-  const sec = b < 3 ? 'A' : b < 6 ? 'B' : b < 13 ? 'C' : b < 17 ? 'D' : b < 22 ? 'E' : b < 26 ? 'H' : b < 28 ? 'F' : 'G';
-  const eDrop = b === 21;              // selepas "Siapa akan menjulang" (bar 24 mula pada 48s)
+  const sec = b < 3 ? 'A' : b < 6 ? 'B' : b < 13 ? 'C' : b < 17 ? 'D' : b < 21 ? 'E' : b < 26 ? 'H' : b < 28 ? 'F' : 'G';
+  const eDrop = b === 20;              // selepas "Siapa akan menjulang" (bar 24 mula pada 48s)
   const full = ['C', 'D', 'E', 'H'].includes(sec) || sec === 'A' && b >= 1;
   mix(t0, pad(c.concat([c[0] + 12]), bar + 0.15), sec === 'B' ? 0.10 : 0.075, -0.15);
   // kick
-  const kickOn = (sec === 'A') || (['C', 'D', 'E', 'H', 'G'].includes(sec) && !(b === 21)) || (sec === 'F' && b === 27);
+  const kickOn = (sec === 'A') || (['C', 'D', 'E', 'H', 'G'].includes(sec) && !(b === 20)) || (sec === 'F' && b === 27);
   if (kickOn) for (let k = 0; k < 4; k++) { if (sec === 'G' && b === 29 && k > 0) break; mix(t0 + k * beatS, kick(), 0.55); }
   if (sec === 'B' && b === 5) mix(t0, kick(), 0.5);
   // clap / snare 2 & 4
@@ -67,11 +67,11 @@ for (let b = 0; b < 30; b++) {
   // hats 8ths
   if (full || sec === 'F') for (let k = 0; k < 8; k++) mix(t0 + k * beatS / 2, hat(k % 4 === 3), k % 2 ? 0.09 : 0.06, 0.25);
   // bass
-  if ((sec === 'A' && b >= 1) || ['C', 'D', 'E', 'H', 'G'].includes(sec)) for (let k = 0; k < 8; k++) { if (sec === 'G' && b === 29 && k > 0) break; if (b === 21) break; mix(t0 + k * beatS / 2, bass(root + (k % 4 === 3 ? 12 : 0), beatS / 2 * 0.9), 0.3); }
+  if ((sec === 'A' && b >= 1) || ['C', 'D', 'E', 'H', 'G'].includes(sec)) for (let k = 0; k < 8; k++) { if (sec === 'G' && b === 29 && k > 0) break; if (b === 20) break; mix(t0 + k * beatS / 2, bass(root + (k % 4 === 3 ? 12 : 0), beatS / 2 * 0.9), 0.3); }
   // arpeggio
   const arpPat = [0, 1, 2, 1, 0, 2, 1, 2];
   if (sec === 'B') for (let k = 0; k < 4; k++) mix(t0 + k * beatS, pluck(c[arpPat[k] % 3] + 12, 0.5), 0.1, k % 2 ? 0.4 : -0.4);
-  if (['C', 'D', 'E', 'H', 'G'].includes(sec) || sec === 'A' && b === 2) for (let k = 0; k < 8; k++) { if (b === 21 && k > 0) break; mix(t0 + k * beatS / 2, pluck(c[arpPat[k] % 3] + (sec === 'E' || sec === 'H' || sec === 'G' ? 24 : 12)), sec === 'D' ? 0.085 : 0.11, k % 2 ? 0.35 : -0.35); }
+  if (['C', 'D', 'E', 'H', 'G'].includes(sec) || sec === 'A' && b === 2) for (let k = 0; k < 8; k++) { if (b === 20 && k > 0) break; mix(t0 + k * beatS / 2, pluck(c[arpPat[k] % 3] + (sec === 'E' || sec === 'H' || sec === 'G' ? 24 : 12)), sec === 'D' ? 0.085 : 0.11, k % 2 ? 0.35 : -0.35); }
   // lead tambahan babak E & G
   if ((sec === 'E' || sec === 'H') && !eDrop) mix(t0, pluck(c[2] + 24, 0.9), 0.08, 0.5), mix(t0 + 4 * beatS / 2 * 1.5, pluck(c[1] + 24, 0.5), 0.07, -0.5);
   // build snare roll bar sebelum babak F / G

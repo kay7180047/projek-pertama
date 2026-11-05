@@ -11,7 +11,7 @@ const Pin = () => (
 );
 
 // Susunan tema (liputan hari pertama): suasana -> pegawai & peserta -> sesi bergambar -> penganjur
-const cuts = {c1: [360, 450], c2: [450, 599], c3: [599, 693], c4: [693, 735], c5: [735, 780], c6: [780, 780]};
+const cuts = {c1: [360, 435], c2: [435, 584], c3: [584, 650], c4: [650, 780]};
 const inCut = (f: number, k: keyof typeof cuts) => f >= cuts[k][0] && f < cuts[k][1];
 const flash = (f: number, at: number) => interpolate(f, [at, at + 7], [0.45, 0], clamp);
 
@@ -26,16 +26,15 @@ export const SceneC: React.FC = () => {
   const org = rise(f, beat('C.org'), 30);
   const l1 = pop(f, fps, beat('C.logo1'));
   const l2 = pop(f, fps, beat('C.logo2'));
-  const cutStart = [360, 450, 599, 693, 735].find((_, i, a) => f >= a[i] && (i === a.length - 1 || f < a[i + 1])) ?? 360;
+  const cutStart = [360, 435, 584, 650].find((_, i, a) => f >= a[i] && (i === a.length - 1 || f < a[i + 1])) ?? 360;
   return (
     <AbsoluteFill>
       <Bg scene="C" />
-      <Cut from={360} dur={90}><Clip src="footage/f2.mp4" volume={0.4} zoom={[1.0, 1.08]} dur={90} pos="50% 70%" /></Cut>
-      <Cut from={450} dur={149}><Clip src="footage/f1.mp4" volume={1.5} zoom={[1.0, 1.05]} dur={149} pos="30% 50%" /></Cut>
-      {inCut(f, 'c3') && <Photo src="photos/p6.jpg" mode="card" local={f - 599} w={940} y={370} ratio={4 / 3} dur={94} />}
-      {inCut(f, 'c4') && <Photo src="photos/p2.jpg" mode="card" local={f - 693} w={1000} y={640} ratio={924 / 2000} dur={42} zoomTo={1.1} />}
-      {inCut(f, 'c5') && <Photo src="photos/p3.jpg" mode="card" local={f - 735} w={1000} y={640} ratio={924 / 2000} dur={45} zoomTo={1.1} />}
-      <Scrim top={inCut(f, 'c1') || inCut(f, 'c2') ? 0.9 : 0.55} bottom={inCut(f, 'c1') ? 0.4 : 0} />
+      <Cut from={360} dur={75}><Clip src="footage/f2.mp4" volume={0.4} zoom={[1.0, 1.08]} dur={75} pos="50% 70%" /></Cut>
+      <Cut from={435} dur={149}><Clip src="footage/f1.mp4" volume={1.5} zoom={[1.0, 1.05]} dur={149} pos="30% 50%" /></Cut>
+      {inCut(f, 'c3') && <Photo src="photos/p6.jpg" mode="card" local={f - 584} w={940} y={370} ratio={4 / 3} dur={66} />}
+      <Cut from={650} dur={130}><Clip src="footage/f7.mp4" volume={0.5} zoom={[1.0, 1.06]} dur={130} pos="50% 50%" /></Cut>
+      <Scrim top={inCut(f, 'c1') || inCut(f, 'c2') || inCut(f, 'c4') ? 0.9 : 0.55} bottom={inCut(f, 'c1') ? 0.4 : 0} />
 
       {/* C1: suasana + tarikh */}
       {inCut(f, 'c1') && (<>
@@ -66,18 +65,17 @@ export const SceneC: React.FC = () => {
           </Card>
         </div>
       )}
-      {/* C4-6: sesi bergambar + anjuran */}
+      {/* C4: anjuran di atas barisan peserta */}
       {f >= cuts.c4[0] && (<>
-        <div style={{position: 'absolute', left: 70, top: 300, opacity: org.opacity, transform: `translateY(${org.y}px)`}}>
-          <H size={90} color="#fff">SESI <span style={{color: C.ball}}>BERGAMBAR</span></H>
-          <P size={42} color={C.teal} weight={800} style={{letterSpacing: 6, marginTop: 130}}>ANJURAN</P>
+        <div style={{position: 'absolute', left: 70, top: 95, opacity: org.opacity, transform: `translateY(${org.y}px)`}}>
+          <P size={40} color={C.teal} weight={800} style={{letterSpacing: 6, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>ANJURAN</P>
         </div>
-        <div style={{position: 'absolute', left: 70, right: 70, top: 1230, height: 330, display: 'flex', gap: 30}}>
-          <Card style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: l1.opacity, transform: `scale(${l1.scale})`}}>
-            <Img src={staticFile('assets/logo-mbk.jpg')} style={{height: 290, mixBlendMode: 'multiply'}} />
+        <div style={{position: 'absolute', left: 70, right: 70, top: 160, height: 250, display: 'flex', gap: 30}}>
+          <Card style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: l1.opacity, transform: `scale(${l1.scale})`, borderRadius: 28}}>
+            <Img src={staticFile('assets/logo-mbk.jpg')} style={{height: 220, mixBlendMode: 'multiply'}} />
           </Card>
-          <Card style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: l2.opacity, transform: `scale(${l2.scale})`}}>
-            <Img src={staticFile('assets/logo-kesumba.jpg')} style={{height: 290, mixBlendMode: 'multiply'}} />
+          <Card style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: l2.opacity, transform: `scale(${l2.scale})`, borderRadius: 28}}>
+            <Img src={staticFile('assets/logo-kesumba.jpg')} style={{height: 220, mixBlendMode: 'multiply'}} />
           </Card>
         </div>
       </>)}

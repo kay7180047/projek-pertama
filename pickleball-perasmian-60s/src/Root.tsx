@@ -25,7 +25,7 @@ const Video: React.FC = () => (
       );
     })}
     <Wipes />
-    <Audio src={staticFile('audio/soundtrack.wav')} volume={(f) => interpolate(f, [440, 452, 597, 612], [1, 0.1, 0.1, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+    <Audio src={staticFile('audio/soundtrack.wav')} volume={(f) => interpolate(f, [423, 435, 582, 597], [1, 0.1, 0.1, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
   </AbsoluteFill>
 );
 
