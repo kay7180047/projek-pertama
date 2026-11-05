@@ -34,7 +34,7 @@ export const SceneG: React.FC = () => {
         <Card style={{padding: '30px 40px', borderLeft: `16px solid ${C.red}`, borderRadius: 30}}>
           <H size={54} color={C.blue} style={{fontStyle: 'normal'}}>RABU &amp; KHAMIS</H>
           <P size={42} color="#33406F" weight={800} style={{marginTop: 10}}>The Pickle Exchange</P>
-          <P size={42} color="#33406F" weight={700} style={{marginTop: 6}}>4 Nov – 16 Dis 2026</P>
+          <P size={42} color="#33406F" weight={700} style={{marginTop: 6}}>4 Nov – 9 Dis 2026</P>
         </Card>
       </div>
       <AbsoluteFill style={{background: '#fff', opacity: flash}} />

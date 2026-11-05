@@ -1,7 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, staticFile, useVideoConfig} from 'remotion';
 import {Bg, Card, Clip, Cut, H, P, Photo, Scrim} from '../components';
-import {C, beat, clamp, pop, rise, slam, useF} from '../theme';
+import {C, beat, clamp, easeOut, pop, rise, slam, useF} from '../theme';
 
 const Pin = () => (
   <svg width={56} height={70} viewBox="0 0 64 80">
@@ -70,13 +70,23 @@ export const SceneC: React.FC = () => {
         <div style={{position: 'absolute', left: 70, top: 95, opacity: org.opacity, transform: `translateY(${org.y}px)`}}>
           <P size={40} color={C.teal} weight={800} style={{letterSpacing: 6, textShadow: '0 3px 10px rgba(0,0,0,.6)'}}>ANJURAN</P>
         </div>
-        <div style={{position: 'absolute', left: 70, right: 70, top: 160, height: 250, display: 'flex', gap: 30}}>
-          <Card style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: l1.opacity, transform: `scale(${l1.scale})`, borderRadius: 28}}>
-            <Img src={staticFile('assets/logo-mbk.jpg')} style={{height: 220, mixBlendMode: 'multiply'}} />
-          </Card>
-          <Card style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: l2.opacity, transform: `scale(${l2.scale})`, borderRadius: 28}}>
-            <Img src={staticFile('assets/logo-kesumba.jpg')} style={{height: 220, mixBlendMode: 'multiply'}} />
-          </Card>
+        <div style={{position: 'absolute', left: 70, right: 70, top: 150, height: 270, display: 'flex', gap: 22, perspective: 1000}}>
+          {[
+            {src: 'assets/logo-mbk.jpg', bg: '#FFFFFF', h: 230, at: beat('C.logo1')},
+            {src: 'assets/logo-kesumba.jpg', bg: '#F7F7F7', h: 215, at: beat('C.logo2')},
+            {src: 'assets/logo-biro.jpg', bg: '#FFFFFF', h: 235, at: beat('C.logo3')},
+          ].map((l) => {
+            const e = interpolate(f - l.at, [0, 26], [0, 1], {...clamp, easing: easeOut});
+            const rot = 720 * (1 - e);
+            return (
+              <div key={l.src} style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: l.bg, borderRadius: 28, boxShadow: '0 14px 40px rgba(5,10,40,.5)', opacity: interpolate(f - l.at, [0, 4], [0, 1], clamp), transform: `rotateY(${rot}deg) scale(${0.25 + 0.75 * e})`}}>
+                <Img src={staticFile(l.src)} style={{height: l.h, maxWidth: 270, objectFit: 'contain'}} />
+              </div>
+            );
+          })}
+        </div>
+        <div style={{position: 'absolute', left: 70, right: 70, top: 440, opacity: interpolate(f - beat('C.logo3'), [10, 22], [0, 1], clamp)}}>
+          <P size={34} color="#fff" weight={800} style={{textAlign: 'right', letterSpacing: 1, textShadow: '0 3px 10px rgba(0,0,0,.7)'}}>Biro Sukan dan Rekreasi KESUMBA</P>
         </div>
       </>)}
       <AbsoluteFill style={{background: '#fff', opacity: flash(f, cutStart), pointerEvents: 'none'}} />

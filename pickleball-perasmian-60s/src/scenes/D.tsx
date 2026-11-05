@@ -7,7 +7,7 @@ const rows = [
   {k: 'D.r1', t: 'BERPASUKAN', s: 'Antara agensi', icon: 'team'},
   {k: 'D.r2', t: '5 ACARA', s: 'Bagi setiap pasukan', icon: 'five'},
   {k: 'D.r3', t: 'RABU & KHAMIS', s: 'Hari pertandingan', icon: 'cal'},
-  {k: 'D.r4', t: '4 NOV – 16 DIS 2026', s: 'Tarikh kejohanan', icon: 'range'},
+  {k: 'D.r4', t: '4 NOV – 9 DIS 2026', s: 'Tarikh kejohanan', icon: 'range'},
 ];
 
 const Icon: React.FC<{k: string}> = ({k}) => {
@@ -22,15 +22,15 @@ const Icon: React.FC<{k: string}> = ({k}) => {
   );
 };
 
-// hari Rabu & Khamis, 4 Nov – 16 Dis 2026 (16 Dis = Rabu terakhir)
-const weeks = ['4 NOV', '11', '18', '25', '2 DIS', '9', '16 DIS'];
+// hari Rabu & Khamis, 4 Nov – 9 Dis 2026 (9 Dis = Rabu terakhir)
+const weeks = ['4 NOV', '11', '18', '25', '2 DIS', '9 DIS'];
 
 export const SceneD: React.FC = () => {
   const f = useF();
   const {fps} = useVideoConfig();
   const head = rise(f, beat('D.head'), 30);
   const active = rows.reduce((a, r, i) => (f >= beat(r.k) ? i : a), -1);
-  const lit = interpolate(f, [beat('D.r3'), beat('D.r3') + 70], [0, 13], clamp); // bilangan titik menyala
+  const lit = interpolate(f, [beat('D.r3'), beat('D.r3') + 70], [0, 11], clamp); // bilangan titik menyala
   const bar = interpolate(f, [beat('D.r4'), beat('D.r4') + 50], [0, 1], {...clamp, easing: easeInOut});
   return (
     <AbsoluteFill>
@@ -62,7 +62,7 @@ export const SceneD: React.FC = () => {
               <div style={{display: 'flex', gap: 14, justifyContent: 'center', height: 56}}>
                 {[0, 1].map((d) => {
                   const idx = wi * 2 + d;
-                  if (wi === 6 && d === 1) return <div key={d} style={{width: 44}} />;
+                  if (wi === 5 && d === 1) return <div key={d} style={{width: 44}} />;
                   const on = lit > idx;
                   const ptop = Math.min(1, Math.max(0, lit - idx));
                   return <div key={d} style={{width: 44, height: 44, borderRadius: 22, background: on ? C.teal : 'rgba(255,255,255,.18)', transform: `scale(${0.7 + 0.3 * ptop})`, border: on ? `4px solid #fff` : 'none'}} />;

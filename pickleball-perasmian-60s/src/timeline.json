@@ -79,7 +79,8 @@
   "E.c0": 1050,
   "E.step": 14,
   "E.end": 1200,
-  "H.head": 1266
+  "H.head": 1266,
+  "C.logo3": 716
  },
  "sfx": [
   {
@@ -225,6 +226,22 @@
   {
    "f": 1500,
    "t": "click"
+  },
+  {
+   "b": "C.logo3",
+   "t": "pop"
+  },
+  {
+   "b": "C.logo1",
+   "t": "whoosh"
+  },
+  {
+   "b": "C.logo2",
+   "t": "whoosh"
+  },
+  {
+   "b": "C.logo3",
+   "t": "whoosh"
   }
  ]
 }
