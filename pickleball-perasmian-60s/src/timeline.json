@@ -84,9 +84,9 @@
   "H.head": 1386,
   "I.head": 2,
   "I.l1": 8,
-  "C.org": 776,
-  "C.logo1": 788,
-  "C.logo2": 812
+  "I.l2": 38,
+  "I.u": 62,
+  "I.l3": 74
  },
  "sfx": [
   {
@@ -230,32 +230,32 @@
    "t": "pop"
   },
   {
-   "f": 104,
-   "t": "riser"
+   "b": "I.l2",
+   "t": "whoosh"
   },
   {
-   "f": 38,
+   "b": "I.l2",
+   "t": "pop"
+  },
+  {
+   "b": "I.u",
+   "t": "pop"
+  },
+  {
+   "b": "I.l3",
+   "t": "whoosh"
+  },
+  {
+   "b": "I.l3",
+   "t": "pop"
+  },
+  {
+   "f": 100,
    "t": "impact"
   },
   {
-   "b": "C.org",
-   "t": "pop"
-  },
-  {
-   "b": "C.logo1",
-   "t": "whoosh"
-  },
-  {
-   "b": "C.logo1",
-   "t": "pop"
-  },
-  {
-   "b": "C.logo2",
-   "t": "whoosh"
-  },
-  {
-   "b": "C.logo2",
-   "t": "pop"
+   "f": 104,
+   "t": "riser"
   }
  ]
 }
