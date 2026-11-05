@@ -5,7 +5,7 @@ import {C, useF, beat, clamp, pop, rise, slam} from '../theme';
 import T from '../timeline.json';
 
 const teams = [
-  ['supa', 'SUPA WARRIORS'], ['mbk', 'MBK PICKLE FLUX'], ['elephant', 'ELEPHANT WARRIOR'], ['im', 'IM THUNDERBOLTS'],
+  ['mbk', 'MBK PICKLE FLUX'], ['supa', 'SUPA WARRIORS'], ['elephant', 'ELEPHANT WARRIOR'], ['im', 'IM THUNDERBOLTS'],
   ['picklenp', 'PICKLENP PKNP'], ['pasfa', 'PASFA'], ['pnpp', 'PNPP PICKLEBALL'], ['picklepp', 'PICKLEPP'],
   ['iium', 'IIUM KUANTAN'], ['waterblast', 'WATERBLAST'],
 ];

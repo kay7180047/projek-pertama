@@ -3,7 +3,7 @@ import {AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoCon
 import {Ball, Bg, Card, H, P} from '../components';
 import {C, useF, beat, clamp, pop, rise, slam} from '../theme';
 
-const teamIds = ['supa', 'mbk', 'elephant', 'im', 'picklenp', 'pasfa', 'pnpp', 'picklepp', 'iium', 'waterblast'];
+const teamIds = ['mbk', 'supa', 'elephant', 'im', 'picklenp', 'pasfa', 'pnpp', 'picklepp', 'iium', 'waterblast'];
 
 export const SceneG: React.FC = () => {
   const f = useF();
