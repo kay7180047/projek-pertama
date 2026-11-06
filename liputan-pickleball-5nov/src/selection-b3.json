@@ -30,6 +30,10 @@
   "chapter": "PERLAWANAN"
  },
  {
+  "kind": "video",
+  "clip": "p3a"
+ },
+ {
   "src": "DSC09606.jpg",
   "layout": "cover",
   "fx": 0.618,
@@ -90,6 +94,11 @@
   "chapter": "PERLAWANAN"
  },
  {
+  "kind": "split",
+  "top": "p3b",
+  "bottom": "p3c"
+ },
+ {
   "src": "DSC09683.jpg",
   "layout": "cover",
   "fx": 0.443,
@@ -142,6 +151,10 @@
   "layout": "cover",
   "fx": 0.682,
   "chapter": "PERLAWANAN"
+ },
+ {
+  "kind": "video",
+  "clip": "p3d"
  },
  {
   "src": "DSC09816.jpg",

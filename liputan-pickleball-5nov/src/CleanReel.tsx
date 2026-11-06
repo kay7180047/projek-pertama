@@ -1,10 +1,11 @@
 import React from 'react';
-import {AbsoluteFill, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, Img, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {Slide, Item, LIME, NAVY, FONT} from './Reel';
 
 // Versi bersih: gambar terpilih + tajuk atas. Tiada muzik, label, kaunter atau kad.
 // Intro: logo MBK Pickle Flux berpusing (3D) pada latar hitam, kemudian pudar ke gambar pertama.
 export const CLEAN_DUR = 90; // 3s setiap gambar
+export const VID_DUR = 120; // selitan video 4s
 export const LOGO_HOLD = 54; // logo penuh sehingga frame ini
 export const LOGO_FADE = 12; // pudar ke gambar pertama
 export const INTRO = LOGO_HOLD; // gambar pertama bermula di sini (di bawah penutup logo)
@@ -31,6 +32,48 @@ const LogoCover: React.FC = () => {
   );
 };
 
+export type Interlude = {kind: 'video'; clip: string} | {kind: 'split'; top: string; bottom: string};
+export type Entry = Item | Interlude;
+const isInterlude = (e: Entry): e is Interlude => (e as Interlude).kind !== undefined;
+export const durOf = (e: Entry) => (isInterlude(e) ? VID_DUR : CLEAN_DUR);
+export const totalOf = (items: Entry[]) => items.reduce((a, e) => a + durOf(e), 0);
+
+const Flash: React.FC<{peak?: number}> = ({peak = 0.6}) => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill style={{background: 'white', opacity: interpolate(f, [0, 6], [peak, 0], {extrapolateRight: 'clamp'}), pointerEvents: 'none'}} />;
+};
+
+const VideoSlide: React.FC<{clip: string}> = ({clip}) => {
+  const f = useCurrentFrame();
+  const z = interpolate(f, [0, VID_DUR], [1, 1.07]);
+  return (
+    <AbsoluteFill style={{background: '#000', overflow: 'hidden'}}>
+      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 1920, objectFit: 'cover', transform: `scale(${z})`}} />
+      <Flash />
+    </AbsoluteFill>
+  );
+};
+
+const SplitSlide: React.FC<{top: string; bottom: string}> = ({top, bottom}) => {
+  const f = useCurrentFrame();
+  const t = Easing.out(Easing.cubic)(Math.min(1, f / 16));
+  const z = interpolate(f, [0, VID_DUR], [1, 1.08]);
+  const H = 958;
+  const box = (clip: string, y: number, from: number, zz: number) => (
+    <div style={{position: 'absolute', left: 0, top: y, width: 1080, height: H, overflow: 'hidden', transform: `translateX(${(1 - t) * from}px)`}}>
+      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 1920, objectFit: 'cover', marginTop: -(1920 - H) * 0.5, transform: `scale(${zz})`, transformOrigin: '50% 50%'}} />
+    </div>
+  );
+  return (
+    <AbsoluteFill style={{background: '#000'}}>
+      {box(top, 0, -1080, z)}
+      {box(bottom, 962, 1080, 2 - z)}
+      <div style={{position: 'absolute', left: 0, right: 0, top: 958, height: 4, background: LIME, opacity: t}} />
+      <Flash peak={0.5} />
+    </AbsoluteFill>
+  );
+};
+
 const BG_END = '#F7F7F7';
 const EndCard: React.FC = () => {
   const f = useCurrentFrame(); // 0 = mula pudar ke putih
@@ -53,17 +96,27 @@ const EndCard: React.FC = () => {
   );
 };
 
-export const CleanReel: React.FC<{items: Item[]}> = ({items}) => {
+export const CleanReel: React.FC<{items: Entry[]}> = ({items}) => {
   const f = useCurrentFrame();
-  const endStart = INTRO + items.length * CLEAN_DUR - END_FADE;
+  const endStart = INTRO + totalOf(items) - END_FADE;
+  let off = 0;
+  let pk = 0;
   const titleIn = interpolate(f, [LOGO_HOLD, LOGO_HOLD + LOGO_FADE], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) * interpolate(f, [endStart, endStart + END_FADE], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <AbsoluteFill style={{background: NAVY, fontFamily: FONT, color: 'white'}}>
-      {items.map((it, k) => (
-        <Sequence key={it.src} from={INTRO + k * CLEAN_DUR} durationInFrames={CLEAN_DUR} name={`${k + 1} ${it.src}`}>
-          <Slide it={it} k={k} dur={CLEAN_DUR} photoDir="photos-hd" />
-        </Sequence>
-      ))}
+      {items.map((it, k) => {
+        const from = INTRO + off;
+        const d = durOf(it);
+        off += d;
+        let body: React.ReactNode;
+        if (isInterlude(it)) body = it.kind === 'video' ? <VideoSlide clip={it.clip} /> : <SplitSlide top={it.top} bottom={it.bottom} />;
+        else body = <Slide it={it} k={pk++} dur={d} photoDir="photos-hd" />;
+        return (
+          <Sequence key={k} from={from} durationInFrames={d} name={isInterlude(it) ? `Video ${k + 1}` : `${k + 1} ${(it as Item).src}`}>
+            {body}
+          </Sequence>
+        );
+      })}
       <div style={{opacity: titleIn}}>
         <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: 300, background: 'linear-gradient(rgba(4,10,35,0.85), rgba(4,10,35,0))'}} />
         <div style={{position: 'absolute', left: 56, top: 84, display: 'flex', alignItems: 'center', gap: 20}}>
