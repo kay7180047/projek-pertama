@@ -1,14 +1,11 @@
 import React from 'react';
 import {AbsoluteFill, Sequence} from 'remotion';
 import {Slide, Item, LIME, NAVY, FONT} from './Reel';
-import selection from './selection-b1.json';
 
 // Versi bersih Bahagian 1: gambar terpilih sahaja + tajuk atas. Tiada muzik, label, kaunter atau kad.
 export const CLEAN_DUR = 90; // 3s setiap gambar
-export const CLEAN_N = (selection as Item[]).length;
 
-export const CleanReel: React.FC = () => {
-  const items = selection as Item[];
+export const CleanReel: React.FC<{items: Item[]}> = ({items}) => {
   return (
     <AbsoluteFill style={{background: NAVY, fontFamily: FONT, color: 'white'}}>
       {items.map((it, k) => (

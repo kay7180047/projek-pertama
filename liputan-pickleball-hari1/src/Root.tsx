@@ -1,7 +1,9 @@
 import React from 'react';
 import {Composition} from 'remotion';
 import {Reel, FPS, BAR, N} from './Reel';
-import {CleanReel, CLEAN_DUR, CLEAN_N} from './CleanReel';
+import {CleanReel, CLEAN_DUR} from './CleanReel';
+import b1 from './selection-b1.json';
+import b2 from './selection-b2.json';
 
 export const Root: React.FC = () => (
   <>
@@ -17,6 +19,7 @@ export const Root: React.FC = () => (
         defaultProps={{part: p}}
       />
     ))}
-    <Composition id="Bahagian1Bersih" component={CleanReel} durationInFrames={CLEAN_DUR * CLEAN_N} fps={FPS} width={1080} height={1920} />
+    <Composition id="Bahagian1Bersih" component={CleanReel} durationInFrames={CLEAN_DUR * b1.length} fps={FPS} width={1080} height={1920} defaultProps={{items: b1 as any}} />
+    <Composition id="Bahagian2Bersih" component={CleanReel} durationInFrames={CLEAN_DUR * b2.length} fps={FPS} width={1080} height={1920} defaultProps={{items: b2 as any}} />
   </>
 );
