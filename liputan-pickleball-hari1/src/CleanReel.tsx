@@ -61,7 +61,7 @@ export const CleanReel: React.FC<{items: Item[]}> = ({items}) => {
     <AbsoluteFill style={{background: NAVY, fontFamily: FONT, color: 'white'}}>
       {items.map((it, k) => (
         <Sequence key={it.src} from={INTRO + k * CLEAN_DUR} durationInFrames={CLEAN_DUR} name={`${k + 1} ${it.src}`}>
-          <Slide it={it} k={k} dur={CLEAN_DUR} />
+          <Slide it={it} k={k} dur={CLEAN_DUR} photoDir="photos-hd" />
         </Sequence>
       ))}
       <div style={{opacity: titleIn}}>

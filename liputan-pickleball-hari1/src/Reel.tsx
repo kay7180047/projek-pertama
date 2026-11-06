@@ -15,12 +15,12 @@ export type Item = {src: string; layout: 'cover' | 'contain'; fx: number; chapte
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-export const Slide: React.FC<{it: Item; k: number; dur?: number}> = ({it, k, dur = BAR}) => {
+export const Slide: React.FC<{it: Item; k: number; dur?: number; photoDir?: string}> = ({it, k, dur = BAR, photoDir = 'photos'}) => {
   const f = useCurrentFrame();
   const p = f / dur;
   const punch = interpolate(f, [0, 9], [1.08, 1], {extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
   const dir = k % 2 === 0 ? 1 : -1;
-  const url = staticFile(`photos/${it.src}`);
+  const url = staticFile(`${photoDir}/${it.src}`);
   if (it.layout === 'contain') {
     const kb = 1 + 0.055 * p;
     return (
