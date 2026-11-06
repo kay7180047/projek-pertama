@@ -85,7 +85,7 @@ const Hud: React.FC<{items: Item[]; part: number}> = ({items, part}) => {
       {ef > 0 && (
         <div style={{position: 'absolute', left: 56, top: 1262, opacity: endIn, transform: `translateY(${(1 - endIn) * 50}px)`}}>
           <div style={{fontSize: 34, fontWeight: 800, letterSpacing: 8, color: LIME}}>{part < 3 ? `BAHAGIAN ${part}/3 TAMAT` : 'LIPUTAN HARI 1'}</div>
-          <div style={{fontSize: 150, fontWeight: 900, lineHeight: 0.95, letterSpacing: -4}}>{part < 3 ? <>BERSAMBUNG <span style={{color: LIME}}>→</span></> : 'TAMAT'}</div>
+          <div style={{fontSize: 104, fontWeight: 900, lineHeight: 1, letterSpacing: -2}}>{part < 3 ? <>BERSAMBUNG <span style={{color: LIME}}>→</span></> : 'TAMAT'}</div>
           <div style={{fontSize: 36, fontWeight: 700, letterSpacing: 3, marginTop: 14}}>{part < 3 ? `BAHAGIAN ${part + 1}/3` : '4 NOV 2026'}</div>
         </div>
       )}
