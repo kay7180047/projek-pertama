@@ -6,18 +6,18 @@ import selection from './selection.json';
 export const FPS = 30;
 export const BAR = 72;
 export const N = 75; // 75 x 2.4s = 180s
-const LIME = '#D7F23A';
-const NAVY = '#07143A';
+export const LIME = '#D7F23A';
+export const NAVY = '#07143A';
 const ASPECT = 1.5011; // semua gambar 3:2 (Nikon Z8)
-const FONT = "'Inter', 'Inter Display', sans-serif";
+export const FONT = "'Inter', 'Inter Display', sans-serif";
 
-type Item = {src: string; layout: 'cover' | 'contain'; fx: number; chapter: string};
+export type Item = {src: string; layout: 'cover' | 'contain'; fx: number; chapter: string};
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Slide: React.FC<{it: Item; k: number}> = ({it, k}) => {
+export const Slide: React.FC<{it: Item; k: number; dur?: number}> = ({it, k, dur = BAR}) => {
   const f = useCurrentFrame();
-  const p = f / BAR;
+  const p = f / dur;
   const punch = interpolate(f, [0, 9], [1.08, 1], {extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
   const dir = k % 2 === 0 ? 1 : -1;
   const url = staticFile(`photos/${it.src}`);

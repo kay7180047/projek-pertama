@@ -1,6 +1,7 @@
 import React from 'react';
 import {Composition} from 'remotion';
 import {Reel, FPS, BAR, N} from './Reel';
+import {CleanReel, CLEAN_DUR, CLEAN_N} from './CleanReel';
 
 export const Root: React.FC = () => (
   <>
@@ -16,5 +17,6 @@ export const Root: React.FC = () => (
         defaultProps={{part: p}}
       />
     ))}
+    <Composition id="Bahagian1Bersih" component={CleanReel} durationInFrames={CLEAN_DUR * CLEAN_N} fps={FPS} width={1080} height={1920} />
   </>
 );
