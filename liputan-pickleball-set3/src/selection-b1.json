@@ -1,0 +1,140 @@
+[
+ {
+  "src": "DSC00001.jpg",
+  "layout": "cover",
+  "fx": 0.457,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00020.jpg",
+  "layout": "cover",
+  "fx": 0.36,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00022.jpg",
+  "layout": "cover",
+  "fx": 0.505,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00048.jpg",
+  "layout": "cover",
+  "fx": 0.561,
+  "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "p1a"
+ },
+ {
+  "src": "DSC00060.jpg",
+  "layout": "cover",
+  "fx": 0.565,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00070.jpg",
+  "layout": "cover",
+  "fx": 0.464,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00078.jpg",
+  "layout": "cover",
+  "fx": 0.404,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00083.jpg",
+  "layout": "cover",
+  "fx": 0.576,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00089.jpg",
+  "layout": "contain",
+  "fx": 0.359,
+  "chapter": ""
+ },
+ {
+  "kind": "split",
+  "top": "p1b",
+  "bottom": "p1c"
+ },
+ {
+  "src": "DSC00098.jpg",
+  "layout": "cover",
+  "fx": 0.62,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00108.jpg",
+  "layout": "cover",
+  "fx": 0.318,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00121.jpg",
+  "layout": "cover",
+  "fx": 0.372,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00135.jpg",
+  "layout": "cover",
+  "fx": 0.481,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00141.jpg",
+  "layout": "cover",
+  "fx": 0.611,
+  "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "p1d"
+ },
+ {
+  "src": "DSC00146.jpg",
+  "layout": "cover",
+  "fx": 0.654,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00161.jpg",
+  "layout": "cover",
+  "fx": 0.334,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00165.jpg",
+  "layout": "cover",
+  "fx": 0.482,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00214.jpg",
+  "layout": "cover",
+  "fx": 0.092,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00223.jpg",
+  "layout": "cover",
+  "fx": 0.497,
+  "chapter": ""
+ },
+ {
+  "kind": "split",
+  "top": "p1e",
+  "bottom": "p1f"
+ },
+ {
+  "src": "DSC00230.jpg",
+  "layout": "cover",
+  "fx": 0.529,
+  "chapter": ""
+ }
+]

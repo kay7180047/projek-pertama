@@ -1,0 +1,152 @@
+[
+ {
+  "src": "DSC00584.jpg",
+  "layout": "cover",
+  "fx": 0.534,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00592.jpg",
+  "layout": "cover",
+  "fx": 0.584,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00596.jpg",
+  "layout": "cover",
+  "fx": 0.462,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00638.jpg",
+  "layout": "cover",
+  "fx": 0.572,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00686.jpg",
+  "layout": "cover",
+  "fx": 0.456,
+  "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "p3a"
+ },
+ {
+  "src": "DSC00710.jpg",
+  "layout": "cover",
+  "fx": 0.528,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00722.jpg",
+  "layout": "cover",
+  "fx": 0.881,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00731.jpg",
+  "layout": "cover",
+  "fx": 0.667,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00741.jpg",
+  "layout": "contain",
+  "fx": 0.471,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00754.jpg",
+  "layout": "cover",
+  "fx": 0.657,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00806.jpg",
+  "layout": "cover",
+  "fx": 0.563,
+  "chapter": ""
+ },
+ {
+  "kind": "split",
+  "top": "p3b",
+  "bottom": "p3c"
+ },
+ {
+  "src": "DSC00831.jpg",
+  "layout": "cover",
+  "fx": 0.521,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00858.jpg",
+  "layout": "cover",
+  "fx": 0.804,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00862.jpg",
+  "layout": "cover",
+  "fx": 0.396,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00869.jpg",
+  "layout": "cover",
+  "fx": 0.485,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00874.jpg",
+  "layout": "cover",
+  "fx": 0.504,
+  "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "p3d"
+ },
+ {
+  "src": "DSC00878.jpg",
+  "layout": "contain",
+  "fx": 0.443,
+  "chapter": ""
+ },
+ {
+  "src": "DSC00880.jpg",
+  "layout": "contain",
+  "fx": 0.596,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09940.jpg",
+  "layout": "cover",
+  "fx": 0.51,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09947.jpg",
+  "layout": "cover",
+  "fx": 0.198,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09968.jpg",
+  "layout": "cover",
+  "fx": 0.743,
+  "chapter": ""
+ },
+ {
+  "kind": "split",
+  "top": "p3e",
+  "bottom": "p3f"
+ },
+ {
+  "src": "DSC09984.jpg",
+  "layout": "cover",
+  "fx": 0.167,
+  "chapter": ""
+ }
+]

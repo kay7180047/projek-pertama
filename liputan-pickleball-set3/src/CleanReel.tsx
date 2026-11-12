@@ -5,7 +5,7 @@ import {Slide, Item, LIME, NAVY, FONT} from './Reel';
 // Versi bersih: gambar terpilih + tajuk atas. Tiada muzik, label, kaunter atau kad.
 // Intro: logo MBK Pickle Flux berpusing (3D) pada latar hitam, kemudian pudar ke gambar pertama.
 export const CLEAN_DUR = 90; // 3s setiap gambar
-export const VID_DUR = 120; // selitan video 4s
+export const VID_DUR = 150; // selitan video 5s
 export const LOGO_HOLD = 54; // logo penuh sehingga frame ini
 export const LOGO_FADE = 12; // pudar ke gambar pertama
 export const INTRO = LOGO_HOLD; // gambar pertama bermula di sini (di bawah penutup logo)
