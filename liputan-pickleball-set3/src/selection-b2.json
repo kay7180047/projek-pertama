@@ -18,14 +18,14 @@
   "chapter": ""
  },
  {
+  "kind": "video",
+  "clip": "p2a"
+ },
+ {
   "src": "DSC00267.jpg",
   "layout": "cover",
   "fx": 0.837,
   "chapter": ""
- },
- {
-  "kind": "video",
-  "clip": "p2a"
  },
  {
   "src": "DSC00274.jpg",
@@ -38,6 +38,10 @@
   "layout": "cover",
   "fx": 0.237,
   "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "q2a"
  },
  {
   "src": "DSC00326.jpg",
@@ -81,6 +85,10 @@
   "chapter": ""
  },
  {
+  "kind": "video",
+  "clip": "p2d"
+ },
+ {
   "src": "DSC00452.jpg",
   "layout": "cover",
   "fx": 0.442,
@@ -93,14 +101,15 @@
   "chapter": ""
  },
  {
-  "kind": "video",
-  "clip": "p2d"
- },
- {
   "src": "DSC00464.jpg",
   "layout": "cover",
   "fx": 0.403,
   "chapter": ""
+ },
+ {
+  "kind": "split",
+  "top": "q2b",
+  "bottom": "q2c"
  },
  {
   "src": "DSC00474.jpg",
@@ -121,15 +130,15 @@
   "chapter": ""
  },
  {
+  "kind": "split",
+  "top": "p2e",
+  "bottom": "p2f"
+ },
+ {
   "src": "DSC00537.jpg",
   "layout": "cover",
   "fx": 0.427,
   "chapter": ""
- },
- {
-  "kind": "split",
-  "top": "p2e",
-  "bottom": "p2f"
  },
  {
   "src": "DSC00550.jpg",
