@@ -61,7 +61,7 @@ const SplitSlide: React.FC<{top: string; bottom: string}> = ({top, bottom}) => {
   const H = 958;
   const box = (clip: string, y: number, from: number, zz: number) => (
     <div style={{position: 'absolute', left: 0, top: y, width: 1080, height: H, overflow: 'hidden', transform: `translateX(${(1 - t) * from}px)`}}>
-      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 1920, objectFit: 'cover', marginTop: -(1920 - H) * 0.5, transform: `scale(${zz})`, transformOrigin: '50% 50%'}} />
+      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 1920, objectFit: 'cover', marginTop: -(1920 - H) * (clip.startsWith('q') ? 0.08 : 0.5), transform: `scale(${zz})`, transformOrigin: '50% 50%'}} />
     </div>
   );
   return (
