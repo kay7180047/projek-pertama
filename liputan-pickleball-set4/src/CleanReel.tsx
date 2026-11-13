@@ -32,7 +32,7 @@ const LogoCover: React.FC = () => {
   );
 };
 
-export type Interlude = {kind: 'video'; clip: string} | {kind: 'split'; top: string; bottom: string};
+export type Interlude = {kind: 'wide'; clip: string} | {kind: 'stack'; top: string; bottom: string};
 export type Entry = Item | Interlude;
 const isInterlude = (e: Entry): e is Interlude => (e as Interlude).kind !== undefined;
 export const durOf = (e: Entry) => (isInterlude(e) ? VID_DUR : CLEAN_DUR);
@@ -43,37 +43,45 @@ const Flash: React.FC<{peak?: number}> = ({peak = 0.6}) => {
   return <AbsoluteFill style={{background: 'white', opacity: interpolate(f, [0, 6], [peak, 0], {extrapolateRight: 'clamp'}), pointerEvents: 'none'}} />;
 };
 
-const VideoSlide: React.FC<{clip: string}> = ({clip}) => {
+// Klip kamera landskap 16:9: dipaparkan dalam jalur lebar penuh (tiada pemotongan), latar = klip sama dikaburkan.
+const BlurBg: React.FC<{clip: string}> = ({clip}) => (
+  <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{position: 'absolute', left: -240, top: -60, width: 1560, height: 2040, objectFit: 'cover', filter: 'blur(40px) brightness(0.5) saturate(1.3)'}} />
+);
+
+const WideSlide: React.FC<{clip: string}> = ({clip}) => {
   const f = useCurrentFrame();
-  const z = interpolate(f, [0, VID_DUR], [1, 1.07]);
+  const t = Easing.out(Easing.cubic)(Math.min(1, f / 14));
+  const z = interpolate(f, [0, VID_DUR], [1, 1.05]);
   return (
-    <AbsoluteFill style={{background: '#000', overflow: 'hidden'}}>
-      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 1920, objectFit: 'cover', transform: `scale(${z})`}} />
+    <AbsoluteFill style={{background: NAVY, overflow: 'hidden'}}>
+      <BlurBg clip={clip} />
+      <div style={{position: 'absolute', left: 0, top: 656, width: 1080, height: 608, overflow: 'hidden', transform: `scale(${(0.92 + 0.08 * t) * z})`, opacity: t, boxShadow: '0 30px 90px rgba(0,0,0,0.6)'}}>
+        <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 608}} />
+      </div>
+      <div style={{position: 'absolute', left: 0, top: 650, width: 1080 * t, height: 4, background: LIME}} />
+      <div style={{position: 'absolute', right: 0, top: 1264, width: 1080 * t, height: 4, background: LIME}} />
       <Flash />
     </AbsoluteFill>
   );
 };
 
-// Dua klip menegak bersebelahan (diptik) dalam nisbah penuh 9:16 supaya seluruh bingkai kelihatan; latar = klip kiri dikaburkan.
-const SplitSlide: React.FC<{top: string; bottom: string}> = ({top, bottom}) => {
+const StackSlide: React.FC<{top: string; bottom: string}> = ({top, bottom}) => {
   const f = useCurrentFrame();
   const t = Easing.out(Easing.cubic)(Math.min(1, f / 16));
   const t2 = Easing.out(Easing.cubic)(Math.min(1, Math.max(0, (f - 8) / 16)));
-  const zl = interpolate(f, [0, VID_DUR], [1, 1.05]);
-  const zr = interpolate(f, [0, VID_DUR], [1.05, 1]);
-  const box = (clip: string, left: number, dx: number, p: number, z: number) => (
-    <div style={{position: 'absolute', left, top: 430, width: 540, height: 960, overflow: 'hidden', transform: `translateX(${(1 - p) * dx}px)`, boxShadow: '0 20px 70px rgba(0,0,0,0.55)'}}>
-      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 540, height: 960, objectFit: 'cover', transform: `scale(${z})`}} />
+  const box = (clip: string, y: number, dx: number, p: number) => (
+    <div style={{position: 'absolute', left: 0, top: y, width: 1080, height: 608, overflow: 'hidden', transform: `translateX(${(1 - p) * dx}px)`, boxShadow: '0 20px 70px rgba(0,0,0,0.55)'}}>
+      <OffthreadVideo src={staticFile(`clips/${clip}.mp4`)} muted style={{width: 1080, height: 608}} />
     </div>
   );
   return (
     <AbsoluteFill style={{background: NAVY, overflow: 'hidden'}}>
-      <OffthreadVideo src={staticFile(`clips/${top}.mp4`)} muted style={{position: 'absolute', left: -120, top: -60, width: 1320, height: 2040, objectFit: 'cover', filter: 'blur(40px) brightness(0.45) saturate(1.3)'}} />
-      {box(top, 0, -540, t, zl)}
-      {box(bottom, 540, 540, t2, zr)}
-      <div style={{position: 'absolute', left: 538, top: 430, width: 4, height: 960 * Math.min(t, t2), background: LIME}} />
-      <div style={{position: 'absolute', left: 0, top: 426, width: 1080 * t, height: 4, background: LIME}} />
-      <div style={{position: 'absolute', left: 1080 - 1080 * t2, top: 1390, width: 1080 * t2, height: 4, background: LIME}} />
+      <BlurBg clip={top} />
+      <AbsoluteFill style={{background: 'rgba(4,10,35,0.35)'}} />
+      {box(top, 330, -1080, t)}
+      {box(bottom, 982, 1080, t2)}
+      <div style={{position: 'absolute', left: 0, top: 938, width: 1080 * t, height: 4, background: LIME}} />
+      <div style={{position: 'absolute', right: 0, top: 1590, width: 1080 * t2, height: 4, background: LIME}} />
       <Flash peak={0.5} />
     </AbsoluteFill>
   );
@@ -114,7 +122,7 @@ export const CleanReel: React.FC<{items: Entry[]}> = ({items}) => {
         const d = durOf(it);
         off += d;
         let body: React.ReactNode;
-        if (isInterlude(it)) body = it.kind === 'video' ? <VideoSlide clip={it.clip} /> : <SplitSlide top={it.top} bottom={it.bottom} />;
+        if (isInterlude(it)) body = it.kind === 'wide' ? <WideSlide clip={it.clip} /> : <StackSlide top={it.top} bottom={it.bottom} />;
         else body = <Slide it={it} k={pk++} dur={d} photoDir="photos-hd" />;
         return (
           <Sequence key={k} from={from} durationInFrames={d} name={isInterlude(it) ? `Video ${k + 1}` : `${k + 1} ${(it as Item).src}`}>

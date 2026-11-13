@@ -1,0 +1,152 @@
+[
+ {
+  "src": "DSC01981.jpg",
+  "layout": "cover",
+  "fx": 0.48,
+  "chapter": ""
+ },
+ {
+  "src": "DSC01991.jpg",
+  "layout": "contain",
+  "fx": 0.584,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02003.jpg",
+  "layout": "cover",
+  "fx": 0.584,
+  "chapter": ""
+ },
+ {
+  "kind": "wide",
+  "clip": "w3a"
+ },
+ {
+  "src": "DSC02013.jpg",
+  "layout": "cover",
+  "fx": 0.377,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02020.jpg",
+  "layout": "contain",
+  "fx": 0.572,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02021.jpg",
+  "layout": "contain",
+  "fx": 0.698,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02048.jpg",
+  "layout": "cover",
+  "fx": 0.497,
+  "chapter": ""
+ },
+ {
+  "kind": "stack",
+  "top": "w3c",
+  "bottom": "w3d"
+ },
+ {
+  "src": "DSC02053.jpg",
+  "layout": "cover",
+  "fx": 0.584,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02062.jpg",
+  "layout": "cover",
+  "fx": 0.513,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02069.jpg",
+  "layout": "cover",
+  "fx": 0.801,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02082.jpg",
+  "layout": "cover",
+  "fx": 0.522,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02106.jpg",
+  "layout": "contain",
+  "fx": 0.575,
+  "chapter": ""
+ },
+ {
+  "kind": "wide",
+  "clip": "w3b"
+ },
+ {
+  "src": "DSC02110.jpg",
+  "layout": "cover",
+  "fx": 0.454,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02115.jpg",
+  "layout": "cover",
+  "fx": 0.569,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02123.jpg",
+  "layout": "cover",
+  "fx": 0.562,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02149.jpg",
+  "layout": "contain",
+  "fx": 0.448,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02187.jpg",
+  "layout": "contain",
+  "fx": 0.455,
+  "chapter": ""
+ },
+ {
+  "kind": "stack",
+  "top": "w3e",
+  "bottom": "w3f"
+ },
+ {
+  "src": "DSC02203.jpg",
+  "layout": "contain",
+  "fx": 0.455,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02222.jpg",
+  "layout": "contain",
+  "fx": 0.626,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02250.jpg",
+  "layout": "cover",
+  "fx": 0.568,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02264.jpg",
+  "layout": "cover",
+  "fx": 0.505,
+  "chapter": ""
+ },
+ {
+  "src": "DSC02275.jpg",
+  "layout": "contain",
+  "fx": 0.329,
+  "chapter": ""
+ }
+]
