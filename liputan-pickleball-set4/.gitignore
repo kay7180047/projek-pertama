@@ -1,0 +1,16 @@
+node_modules
+out/*.mp4
+out/stills
+out/render*.log
+public/photos-hd
+public/clips
+out/*.mp4
+public/clips
+out/render*.log
+public/clips
+out/render*.log
+out/*.mp4
+out/stills
+public/clips
+out/render*.log
+out/stills
