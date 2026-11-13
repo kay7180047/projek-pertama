@@ -1,0 +1,87 @@
+[
+ {
+  "src": "DSC09477.jpg",
+  "layout": "cover",
+  "fx": 0.569,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09499.jpg",
+  "layout": "cover",
+  "fx": 0.504,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09558.jpg",
+  "layout": "cover",
+  "fx": 0.596,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09615.jpg",
+  "layout": "cover",
+  "fx": 0.627,
+  "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "p3a"
+ },
+ {
+  "src": "DSC09633.jpg",
+  "layout": "cover",
+  "fx": 0.762,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09641.jpg",
+  "layout": "cover",
+  "fx": 0.856,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09650.jpg",
+  "layout": "cover",
+  "fx": 0.557,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09683.jpg",
+  "layout": "cover",
+  "fx": 0.443,
+  "chapter": ""
+ },
+ {
+  "kind": "split",
+  "top": "p3b",
+  "bottom": "p3c"
+ },
+ {
+  "src": "DSC09708.jpg",
+  "layout": "cover",
+  "fx": 0.566,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09715.jpg",
+  "layout": "contain",
+  "fx": 0.513,
+  "chapter": ""
+ },
+ {
+  "src": "DSC09741.jpg",
+  "layout": "cover",
+  "fx": 0.588,
+  "chapter": ""
+ },
+ {
+  "kind": "video",
+  "clip": "p3d"
+ },
+ {
+  "src": "DSC09850.jpg",
+  "layout": "cover",
+  "fx": 0.485,
+  "chapter": ""
+ }
+]
