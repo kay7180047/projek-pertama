@@ -80,10 +80,10 @@ const StackSlide: React.FC<{top: string; bottom: string}> = ({top, bottom}) => {
     <AbsoluteFill style={{background: NAVY, overflow: 'hidden'}}>
       <BlurBg clip={top} />
       <AbsoluteFill style={{background: 'rgba(4,10,35,0.35)'}} />
-      {box(top, 330, -1080, t)}
-      {box(bottom, 982, 1080, t2)}
-      <div style={{position: 'absolute', left: 0, top: 938, width: 1080 * t, height: 4, background: LIME}} />
-      <div style={{position: 'absolute', right: 0, top: 1590, width: 1080 * t2, height: 4, background: LIME}} />
+      {box(top, 290, -1080, t)}
+      {box(bottom, 942, 1080, t2)}
+      <div style={{position: 'absolute', left: 0, top: 898, width: 1080 * t, height: 4, background: LIME}} />
+      <div style={{position: 'absolute', right: 0, top: 1550, width: 1080 * t2, height: 4, background: LIME}} />
       <Flash peak={0.5} />
     </AbsoluteFill>
   );
